@@ -1,0 +1,12 @@
+software,phần mềm
+engineer,kỹ sư
+hardware,phần cứng
+computer,máy tính
+architecture,kiến trúc
+information,thông tin
+hello,xin chào
+bye,tạm biệt
+hi,chào
+handsome,đẹp trai
+handsome,đẹp trai
+you,bạn
