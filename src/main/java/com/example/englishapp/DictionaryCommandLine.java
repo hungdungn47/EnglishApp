@@ -19,37 +19,69 @@ public class DictionaryCommandLine {
         DictionaryManagement.delete_word();
         showAllWords();
     }
+    public static void dictionaryExportToFile(){
+
+    }
     public static void dictionaryAdvanced() throws FileNotFoundException {
         System.out.println("Welcome to My Application!");
-        System.out.println("0. Exit");
-        System.out.println("1. Show all words");
-        System.out.println("2. Add word");
-        System.out.println("3. Remove word");
-        System.out.println("4. Look up");
+        System.out.println("[0] Exit");
+        System.out.println("[1] Add word");
+        System.out.println("[2] Remove word");
+        System.out.println("[3] Update / Sửa từ");
+        System.out.println("[4] Display / Show all words");
+        System.out.println("[5] Lookup");
+        System.out.println("[6] Search");
+        System.out.println("[7] Game");
+        System.out.println("[8] Import from file");
+        System.out.println("[9] Export to file");
 
         Scanner in = new Scanner(System.in);
-        while(true) {
+        boolean check = true;
+        while(true){
+            System.out.println("Chọn chức năng: ");
             int request = in.nextInt();
-            switch (request) {
-                case 0:
-                    return;
-                case 1:
-                    showAllWords();
-                    break;
-                case 2:
-                    DictionaryManagement.insertFromCommandline();
-                    break;
-                case 3:
-                    DictionaryManagement.delete_word();
-                    break;
-                case 4:
-                    DictionaryManagement.dictionaryLookup();
-                    break;
+            if(request == 0){
+                return;
             }
+            else if(request == 1){
+                DictionaryManagement.insertFromCommandline();
+                check = true;
+            }
+            //bug
+            else if(request == 2){
+                DictionaryManagement.delete_word();
+            }
+            //bug1
+
+            else if(request == 3){
+                DictionaryManagement.update_word();
+            }
+            else if(request == 4){
+                if(check){
+                    DictionaryManagement.insertFromFile();
+                }
+                showAllWords();
+            }
+            else if(request == 5){
+                if(check){
+                    DictionaryManagement.insertFromFile();
+                }
+                DictionaryManagement.dictionaryLookup();
+            }
+            else if(request == 6){
+                if(check){
+                    DictionaryManagement.insertFromFile();
+                }
+                DictionaryManagement.dictionarySearcher();
+            }
+            else {
+                System.out.println("Action not supported");
+            }
+            check = false;
         }
     }
     public static void main(String[] args) throws FileNotFoundException {
-        DictionaryManagement.insertFromFile();
         dictionaryAdvanced();
+        System.out.println("Bye");
     }
 }

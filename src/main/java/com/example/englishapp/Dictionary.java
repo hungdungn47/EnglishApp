@@ -15,5 +15,26 @@ public class Dictionary {
                 dic.remove(i);
             }
         }
+
+    }
+    public void test_update(){
+        Word word = new Word("a", "a");
+        dic.set(1, word);
+    }
+    public void update_word_target(String first, String last){
+        for (int i = 0; i < dic.size(); i++) {
+            if (dic.get(i).getWord_target().equals(first)) {
+                Word word = new Word(last, dic.get(i).getWord_explain());
+                dic.set(i, word);
+            }
+        }
+    }
+    public void update_word_explain(String first, String last){
+        for (int i = 0; i < dic.size(); i++) {
+            if (dic.get(i).getWord_explain().equals(first)) {
+                Word word = new Word(dic.get(i).getWord_target(), last);
+                dic.set(i, word);
+            }
+        }
     }
 }
