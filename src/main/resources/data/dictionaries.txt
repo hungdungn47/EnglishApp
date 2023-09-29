@@ -10,3 +10,4 @@ hi,chào
 handsome,đẹp trai
 handsome,đẹp trai
 you,bạn
+program,chuong trinh

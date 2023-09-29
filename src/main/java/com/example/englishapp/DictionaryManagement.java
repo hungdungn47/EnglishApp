@@ -30,7 +30,8 @@ public class DictionaryManagement {
             dictionary.add_word(target, explain);
             FileWriter fw = null;
             try {
-                fw = new FileWriter("D:\\Coding\\Java\\OOP\\EnglishApp\\src\\main\\java\\com\\example\\englishapp\\data\\dictionaries.txt", true);
+                fw = new FileWriter("src/main/resources/data/dictionaries.txt", true);
+                // đường dẫn tương đối để lưu file
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,5 +59,38 @@ public class DictionaryManagement {
         Scanner in = new Scanner(System.in);
         String temp = in.nextLine();
         dictionary.delete_word(temp);
+    }
+    public static void update_word(){
+        System.out.println("Bạn muốn sửa gì: ");
+        System.out.println("[t] word_target");
+        System.out.println("[e] word_explain");
+
+        Scanner in = new Scanner(System.in);
+        String choose = in.nextLine();
+
+        System.out.println("Nhập từ bạn muốn sửa: ");
+        String first = in.nextLine();
+        System.out.println("Bạn muốn sửa thành: ");
+        String last = in.nextLine();
+        dictionary.test_update();
+        if(choose.equals("t")){
+            dictionary.update_word_target(first, last);
+        }
+        else if(choose.equals("e")){
+            dictionary.update_word_explain(first, last);
+        }
+        else {
+            return;
+        }
+    }
+    public static void dictionarySearcher(){
+        System.out.println("Nhập từ bạn muốn tra: ");
+        Scanner in = new Scanner(System.in);
+        String word_search = in.nextLine();
+        for(Word word : Dictionary.dic){
+            if(word.getWord_target().startsWith(word_search)){
+                System.out.println(word.getWord_target());
+            }
+        }
     }
 }
