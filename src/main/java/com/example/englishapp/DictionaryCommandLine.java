@@ -4,10 +4,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class DictionaryCommandLine {
+    /**
+     * Display all words in dictionary on console
+     */
     public static void showAllWords() {
         int counter = 1;
         System.out.printf("%-3s|   %-10s|   %s\n", "No","English", "Vietnamese");
-        for(Word word : Dictionary.dic) {
+        for(Word word : Dictionary.data) {
             System.out.printf("%-3s|   %-10s|   %s", Integer.toString(counter), word.getWord_target(),word.getWord_explain());
             System.out.println();
             counter++;
@@ -22,6 +25,11 @@ public class DictionaryCommandLine {
     public static void dictionaryExportToFile(){
 
     }
+
+    /**
+     * Display a menu for user
+     * @throws FileNotFoundException when cannot find data file
+     */
     public static void dictionaryAdvanced() throws FileNotFoundException {
         System.out.println("Welcome to My Application!");
         System.out.println("[0] Exit");

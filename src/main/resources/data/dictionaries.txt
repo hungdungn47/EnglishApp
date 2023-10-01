@@ -6,8 +6,6 @@ architecture,kiến trúc
 information,thông tin
 hello,xin chào
 bye,tạm biệt
-hi,chào
-handsome,đẹp trai
 handsome,đẹp trai
 you,bạn
-program,chuong trinh
+program,chương trình
