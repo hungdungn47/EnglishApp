@@ -1,4 +1,3 @@
-software,phần mềm
 engineer,kỹ sư
 hardware,phần cứng
 computer,máy tính
@@ -9,3 +8,5 @@ bye,tạm biệt
 handsome,đẹp trai
 you,bạn
 program,chương trình
+software,phần mềm
+bioinformatics,tin sinh học
