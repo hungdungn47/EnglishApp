@@ -3,7 +3,13 @@ package com.example.englishapp;
 import java.io.*;
 import java.util.Scanner;
 public class DictionaryManagement {
+    // Init a new dictionary
     public static Dictionary dictionary = new Dictionary();
+
+    /**
+     * import data from text file.
+     * @throws FileNotFoundException when cannot find the file
+     */
     public static void insertFromFile() throws FileNotFoundException {
         File file = new File("src/main/resources/data/dictionaries.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -18,6 +24,10 @@ public class DictionaryManagement {
             dictionary.add_word(row[0], row[1]);
         }
     }
+
+    /**
+     * import data from command line / user input.
+     */
     public static void insertFromCommandline() {
         Scanner in = new Scanner(System.in);
         System.out.println("How many words do you want to add ?");
@@ -44,22 +54,34 @@ public class DictionaryManagement {
             n--;
         }
     }
+
+    /**
+     * Look up word
+     */
     public static void dictionaryLookup() {
         System.out.println("Muốn dịch từ gì: ");
         Scanner in = new Scanner(System.in);
         String temp = in.nextLine();
-        for(Word word : dictionary.dic){
+        for(Word word : Dictionary.data){
             if(word.getWord_target().equals(temp)){
                 System.out.println(word.getWord_explain());
             }
         }
     }
+
+    /**
+     * delete a word
+     */
     public static void delete_word(){
         System.out.println("Muốn xóa từ gì: ");
         Scanner in = new Scanner(System.in);
         String temp = in.nextLine();
         dictionary.delete_word(temp);
     }
+
+    /**
+     * change a word in dictionary
+     */
     public static void update_word(){
         System.out.println("Bạn muốn sửa gì: ");
         System.out.println("[t] word_target");
@@ -83,11 +105,15 @@ public class DictionaryManagement {
             return;
         }
     }
+
+    /**
+     * search hint
+     */
     public static void dictionarySearcher(){
         System.out.println("Nhập từ bạn muốn tra: ");
         Scanner in = new Scanner(System.in);
         String word_search = in.nextLine();
-        for(Word word : Dictionary.dic){
+        for(Word word : Dictionary.data){
             if(word.getWord_target().startsWith(word_search)){
                 System.out.println(word.getWord_target());
             }
