@@ -1,6 +1,8 @@
 package com.example.englishapp;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class DictionaryManagement {
     // Init a new dictionary
@@ -54,6 +56,22 @@ public class DictionaryManagement {
             n--;
         }
     }
+    public static void addWord(String target, String explain) {
+        dictionary.add_word(target, explain);
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/dictionaries.txt", true);
+            // đường dẫn tương đối để lưu file
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            fw.write(target + "," + explain + "\n");
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Look up word
@@ -77,6 +95,25 @@ public class DictionaryManagement {
         Scanner in = new Scanner(System.in);
         String temp = in.nextLine();
         dictionary.delete_word(temp);
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/dictionaries.txt");
+            // đường dẫn tương đối để lưu file
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for(Word word : Dictionary.data){
+            try {
+                fw.write( word.getWord_target()+ "," + word.getWord_explain() + "\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -118,5 +155,14 @@ public class DictionaryManagement {
                 System.out.println(word.getWord_target());
             }
         }
+    }
+    public static List<String> searchHint(String word_search) {
+        List<String> res = new ArrayList<>();
+        for(Word word : Dictionary.data){
+            if(word.getWord_target().startsWith(word_search)){
+                res.add(word.getWord_target());
+            }
+        }
+        return res;
     }
 }
