@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -55,7 +56,9 @@ public class HelloController implements Initializable {
         word_definition_label.setText(Dictionary.get_definition(target));
     }
     public void add_word(ActionEvent event) {
-        DictionaryManagement.addWord(add_word_target_textField.getText(), add_word_explain_textField.getText());
-        word_list_listView.getItems().add(add_word_target_textField.getText());
+        if(!Objects.equals(add_word_target_textField.getText(), "") && !Objects.equals(add_word_explain_textField.getText(), "")) {
+            DictionaryManagement.addWord(add_word_target_textField.getText(), add_word_explain_textField.getText());
+            word_list_listView.getItems().add(add_word_target_textField.getText());
+        }
     }
 }
