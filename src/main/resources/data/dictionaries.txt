@@ -10,3 +10,4 @@ you,bạn
 program,chương trình
 software,phần mềm
 bioinformatics,tin sinh học
+security,bảo vệ

@@ -29,7 +29,11 @@ public class Dictionary {
         for(Word word : data) {
             if(word.getWord_target().equals(target)) return word.getWord_explain();
         }
-        return "Not in dictionary";
+        try {
+            return Translator.translate("en", "vi", target);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
