@@ -1,4 +1,3 @@
-hello,xin chào
 dictionary,từ điển
 application,ứng dụng
 handsome,đẹp trai

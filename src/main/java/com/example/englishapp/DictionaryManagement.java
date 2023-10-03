@@ -90,10 +90,10 @@ public class DictionaryManagement {
     /**
      * delete a word
      */
-    public static void delete_word(){
-        System.out.println("Muốn xóa từ gì: ");
-        Scanner in = new Scanner(System.in);
-        String temp = in.nextLine();
+    public static void delete_word(String temp){
+//        System.out.println("Muốn xóa từ gì: ");
+//        Scanner in = new Scanner(System.in);
+//        String temp = in.nextLine();
         dictionary.delete_word(temp);
         FileWriter fw = null;
         try {
@@ -142,7 +142,7 @@ public class DictionaryManagement {
             String last = in.nextLine();
             dictionary.update_word_explain(first, last);
         }
-        
+
         DictionaryCommandLine.dictionaryExportToFile();
     }
 
