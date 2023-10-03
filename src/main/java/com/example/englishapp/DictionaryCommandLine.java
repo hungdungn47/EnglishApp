@@ -21,7 +21,7 @@ public class DictionaryCommandLine {
     public static void dictionaryBasic() throws FileNotFoundException {
         DictionaryManagement.insertFromFile();
         DictionaryManagement.insertFromCommandline();
-        DictionaryManagement.delete_word();
+//        DictionaryManagement.delete_word("dfasd");
         showAllWords();
     }
     public static void dictionaryExportToFile(){
@@ -74,7 +74,9 @@ public class DictionaryCommandLine {
                 DictionaryManagement.insertFromCommandline();
             }
             else if(request == 2){
-                DictionaryManagement.delete_word();
+                System.out.println("Muốn xóa từ gì: ");
+                String temp = in.nextLine();
+                DictionaryManagement.delete_word(temp);
             }
             else if(request == 3){
                 DictionaryManagement.update_word();

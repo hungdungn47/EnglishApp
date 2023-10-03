@@ -20,5 +20,7 @@
       <TextField fx:id="add_word_target_textField" layoutX="239.0" layoutY="81.0" prefHeight="25.0" prefWidth="128.0" promptText="Word target" />
       <TextField fx:id="add_word_explain_textField" layoutX="385.0" layoutY="81.0" prefHeight="25.0" prefWidth="128.0" promptText="Word explain" />
       <Button layoutX="523.0" layoutY="81.0" mnemonicParsing="false" onAction="#add_word" text="Add" />
+      <TextField fx:id="word_delete_textField" layoutX="239.0" layoutY="134.0" prefHeight="50.0" prefWidth="210.0" promptText="Word delete" />
+      <Button layoutX="472.0" layoutY="147.0" mnemonicParsing="false" onAction="#delete_word" text="Delete" />
    </children>
 </AnchorPane>

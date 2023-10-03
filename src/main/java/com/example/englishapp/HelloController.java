@@ -28,6 +28,8 @@ public class HelloController implements Initializable {
     private TextField add_word_target_textField;
     @FXML
     private TextField add_word_explain_textField;
+    @FXML
+    private TextField word_delete_textField;
     private String selectedWord;
 
     @Override
@@ -60,5 +62,11 @@ public class HelloController implements Initializable {
             DictionaryManagement.addWord(add_word_target_textField.getText(), add_word_explain_textField.getText());
             word_list_listView.getItems().add(add_word_target_textField.getText());
         }
+    }
+    public void delete_word(ActionEvent event){
+        String word_delete = word_delete_textField.getText();
+        DictionaryManagement.delete_word(word_delete);
+        word_list_listView.getItems().clear();
+        word_list_listView.getItems().addAll(Dictionary.get_target_list());
     }
 }
