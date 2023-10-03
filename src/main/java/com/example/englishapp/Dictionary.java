@@ -57,11 +57,6 @@ public class Dictionary {
         }
 
     }
-    public void test_update(){
-        Word word = new Word("a", "a");
-        data.set(1, word);
-    }
-
     /**
      * Update English meaning of a word
      * @param first old word
@@ -70,8 +65,7 @@ public class Dictionary {
     public void update_word_target(String first, String last){
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_target().equals(first)) {
-                Word word = new Word(last, data.get(i).getWord_explain());
-                data.set(i, word);
+                data.set(i, new Word(last, data.get(i).getWord_explain()));
             }
         }
     }
@@ -84,8 +78,7 @@ public class Dictionary {
     public void update_word_explain(String first, String last){
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_explain().equals(first)) {
-                Word word = new Word(data.get(i).getWord_target(), last);
-                data.set(i, word);
+                data.set(i, new Word(data.get(i).getWord_target(), last));
             }
         }
     }

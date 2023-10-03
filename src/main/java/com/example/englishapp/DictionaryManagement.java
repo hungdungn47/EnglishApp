@@ -121,26 +121,29 @@ public class DictionaryManagement {
      */
     public static void update_word(){
         System.out.println("Bạn muốn sửa gì: ");
-        System.out.println("[t] word_target");
-        System.out.println("[e] word_explain");
+        System.out.println("[1] word_target");
+        System.out.println("[2] word_explain");
 
         Scanner in = new Scanner(System.in);
-        String choose = in.nextLine();
+        int choose = in.nextInt();
 
-        System.out.println("Nhập từ bạn muốn sửa: ");
-        String first = in.nextLine();
-        System.out.println("Bạn muốn sửa thành: ");
-        String last = in.nextLine();
-        dictionary.test_update();
-        if(choose.equals("t")){
+        in.nextLine();
+        if(choose == 1) {
+            System.out.println("Nhập từ bạn muốn sửa: ");
+            String first = in.nextLine();
+            System.out.println("Bạn muốn sửa thành: ");
+            String last = in.nextLine();
             dictionary.update_word_target(first, last);
         }
-        else if(choose.equals("e")){
+        else{
+            System.out.println("Nhập từ bạn muốn sửa: ");
+            String first = in.nextLine();
+            System.out.println("Bạn muốn sửa thành: ");
+            String last = in.nextLine();
             dictionary.update_word_explain(first, last);
         }
-        else {
-            return;
-        }
+        
+        DictionaryCommandLine.dictionaryExportToFile();
     }
 
     /**

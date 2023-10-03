@@ -1,13 +1,5 @@
-engineer,kỹ sư
-hardware,phần cứng
-computer,máy tính
-architecture,kiến trúc
-information,thông tin
 hello,xin chào
-bye,tạm biệt
+dictionary,từ điển
+application,ứng dụng
 handsome,đẹp trai
-you,bạn
-program,chương trình
-software,phần mềm
-bioinformatics,tin sinh học
-security,bảo vệ
+computer,máy tính

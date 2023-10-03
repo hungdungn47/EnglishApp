@@ -1,6 +1,8 @@
 package com.example.englishapp;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class DictionaryCommandLine {
@@ -23,7 +25,25 @@ public class DictionaryCommandLine {
         showAllWords();
     }
     public static void dictionaryExportToFile(){
-
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/dictionaries.txt");
+            // đường dẫn tương đối để lưu file
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for(Word word : Dictionary.data){
+            try {
+                fw.write( word.getWord_target()+ "," + word.getWord_explain() + "\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -44,7 +64,6 @@ public class DictionaryCommandLine {
         System.out.println("[9] Export to file");
 
         Scanner in = new Scanner(System.in);
-        boolean check = true;
         while(true){
             System.out.println("Chọn chức năng: ");
             int request = in.nextInt();
@@ -53,42 +72,29 @@ public class DictionaryCommandLine {
             }
             else if(request == 1){
                 DictionaryManagement.insertFromCommandline();
-                check = true;
             }
-            //bug
             else if(request == 2){
                 DictionaryManagement.delete_word();
             }
-            //bug1
-
             else if(request == 3){
                 DictionaryManagement.update_word();
             }
             else if(request == 4){
-                if(check){
-                    DictionaryManagement.insertFromFile();
-                }
                 showAllWords();
             }
             else if(request == 5){
-                if(check){
-                    DictionaryManagement.insertFromFile();
-                }
                 DictionaryManagement.dictionaryLookup();
             }
             else if(request == 6){
-                if(check){
-                    DictionaryManagement.insertFromFile();
-                }
                 DictionaryManagement.dictionarySearcher();
             }
             else {
                 System.out.println("Action not supported");
             }
-            check = false;
         }
     }
     public static void main(String[] args) throws FileNotFoundException {
+        DictionaryManagement.insertFromFile();
         dictionaryAdvanced();
         System.out.println("Bye");
     }
