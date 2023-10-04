@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextAlignment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,13 +31,20 @@ public class HelloController implements Initializable {
     private TextField add_word_explain_textField;
     @FXML
     private TextField word_delete_textField;
+
     private String selectedWord;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //wrapping the label
+        word_definition_label.setWrapText(true);
+        //Setting the alignment to the label
+        word_definition_label.setTextAlignment(TextAlignment.JUSTIFY);
         try {
             DictionaryManagement.insertFromFile();
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
