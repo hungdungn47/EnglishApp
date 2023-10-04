@@ -11,7 +11,9 @@ import org.json.simple.parser.JSONParser;
 
 public class Api {
     public static void main(String[] args) {
-        String word = "handsome";
+
+    }
+    public static String translate(String word) {
         try {
             URL url = new URL("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -42,11 +44,12 @@ public class Api {
                     JSONArray defs = (JSONArray) meaning.get("definitions");
                     JSONObject def = (JSONObject) defs.get(0);
                     String definition = (String) def.get("definition");
-                    System.out.println("Definition " + i + ": " + definition);
+                    return definition;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

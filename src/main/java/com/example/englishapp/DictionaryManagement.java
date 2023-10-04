@@ -13,7 +13,7 @@ public class DictionaryManagement {
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("src/main/resources/data/dictionaries.txt");
+        File file = new File("src/main/resources/data/words_alpha.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         while(true) {
@@ -22,8 +22,8 @@ public class DictionaryManagement {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String[] row = line.split(",");
-            dictionary.add_word(row[0], row[1]);
+            //String[] row = line.split(",");
+            dictionary.add_word(line, null);
         }
     }
 
