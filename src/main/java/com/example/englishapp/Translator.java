@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class Translator {
 
@@ -18,7 +19,7 @@ public class Translator {
     public static String translate(String langFrom, String langTo, String text) throws IOException {
         // INSERT YOU URL HERE
         String urlStr = "https://script.google.com/macros/s/AKfycbyQTcBPiRiydbvvtIhsxT_j9u9UbE9nr1z03-WDTnoviPcX0sGHvMbnXwvGpGm0E_GakA/exec" +
-                "?q=" + URLEncoder.encode(text, "UTF-8") +
+                "?q=" + URLEncoder.encode(text, StandardCharsets.UTF_8) +
                 "&target=" + langTo +
                 "&source=" + langFrom;
         URL url = new URL(urlStr);

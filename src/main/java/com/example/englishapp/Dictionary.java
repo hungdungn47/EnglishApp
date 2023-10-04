@@ -26,14 +26,11 @@ public class Dictionary {
      * @return definition of target
      */
     public static String get_definition(String target) {
-        for(Word word : data) {
-            if(word.getWord_target().equals(target)) return word.getWord_explain();
-        }
-        try {
-            return Translator.translate("en", "vi", target);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        for(Word word : data) {
+//            if(word.getWord_target().equals(target)) return word.getWord_explain();
+//        }
+        System.out.println(Api.translate(target));
+        return Api.translate(target);
     }
 
     /**
