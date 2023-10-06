@@ -74,14 +74,11 @@ public class DictionaryManagement {
     /**
      * Look up word
      */
-    public static void dictionaryLookup() {
-        System.out.println("Muốn dịch từ gì: ");
-        Scanner in = new Scanner(System.in);
-        String temp = in.nextLine();
-        for(Word word : Dictionary.data){
-            if(word.getWord_target().equals(temp)){
-                System.out.println(word.getWord_explain());
-            }
+    public static String dictionaryLookup(String target) {
+        try {
+            return GoogleTranslatorAPI.translate("en", "vi", target);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -89,9 +86,6 @@ public class DictionaryManagement {
      * delete a word
      */
     public static void delete_word(String target){
-//        System.out.println("Muốn xóa từ gì: ");
-//        Scanner in = new Scanner(System.in);
-//        String temp = in.nextLine();
         for(int i = 0; i < Dictionary.data.size(); i++){
             if(Dictionary.data.get(i).getWord_target().equals(target)){
                 Dictionary.data.remove(i);

@@ -85,7 +85,9 @@ public class DictionaryCommandLine {
                 showAllWords();
             }
             else if(request == 5){
-                DictionaryManagement.dictionaryLookup();
+                System.out.println("Enter the word you wanna look up:");
+                String target = in.nextLine();
+                DictionaryManagement.dictionaryLookup(target);
             }
             else if(request == 6){
                 DictionaryManagement.dictionarySearcher();
