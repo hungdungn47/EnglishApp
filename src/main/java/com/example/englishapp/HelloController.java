@@ -1,4 +1,5 @@
 package com.example.englishapp;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -49,7 +50,7 @@ public class HelloController implements Initializable {
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            word_definition_label.setText(Dictionary.get_definition(selectedWord));
+            word_definition_label.setText(DictionaryManagement.dictionaryLookup(selectedWord));
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -59,15 +60,17 @@ public class HelloController implements Initializable {
 
     public void translate(ActionEvent event) {
         String target = search_box.getText();
-        word_definition_label.setText(Dictionary.get_definition(target));
+        word_definition_label.setText(DictionaryManagement.dictionaryLookup(target));
     }
+
     public void add_word(ActionEvent event) {
-        if(!Objects.equals(add_word_target_textField.getText(), "") && !Objects.equals(add_word_explain_textField.getText(), "")) {
+        if (!Objects.equals(add_word_target_textField.getText(), "") && !Objects.equals(add_word_explain_textField.getText(), "")) {
             DictionaryManagement.addWord(add_word_target_textField.getText(), add_word_explain_textField.getText());
             word_list_listView.getItems().add(add_word_target_textField.getText());
         }
     }
-    public void delete_word(ActionEvent event){
+
+    public void delete_word(ActionEvent event) {
         String word_delete = word_delete_textField.getText();
         DictionaryManagement.delete_word(word_delete);
         word_list_listView.getItems().clear();

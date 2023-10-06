@@ -6,39 +6,28 @@ import java.util.List;
 import java.util.Vector;
 
 public class Dictionary {
-    public static Vector<Word> data = new Vector<Word>(10);
+    public static Vector<Word> data = new Vector<Word>(1000);
 
     /**
      * get all the word in English as a List of string.
+     *
      * @return list of all English word
      */
     public static List<String> get_target_list() {
         List<String> res = new ArrayList<>();
-        for(Word word : data) {
+        for (Word word : data) {
             res.add(word.getWord_target());
         }
         return res;
     }
 
     /**
-     * get definition (meaning) of an English word
-     * @param target the word that need to get definition of
-     * @return definition of target
-     */
-    public static String get_definition(String target) {
-        try {
-            return GoogleTranslatorAPI.translate("en", "vi", target);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * Update English meaning of a word
+     *
      * @param first old word
-     * @param last new word
+     * @param last  new word
      */
-    public void update_word_target(String first, String last){
+    public void update_word_target(String first, String last) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_target().equals(first)) {
                 data.set(i, new Word(last, data.get(i).getWord_explain()));
@@ -48,10 +37,11 @@ public class Dictionary {
 
     /**
      * Update Vietnamese meaning of a word
+     *
      * @param first old word
-     * @param last new word
+     * @param last  new word
      */
-    public void update_word_explain(String first, String last){
+    public void update_word_explain(String first, String last) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_explain().equals(first)) {
                 data.set(i, new Word(data.get(i).getWord_target(), last));
