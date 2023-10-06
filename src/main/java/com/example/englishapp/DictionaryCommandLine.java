@@ -24,10 +24,10 @@ public class DictionaryCommandLine {
 //        DictionaryManagement.delete_word("dfasd");
         showAllWords();
     }
-    public static void dictionaryExportToFile(){
+    public static void dictionaryExportToFile(boolean append){
         FileWriter fw = null;
         try {
-            fw = new FileWriter("src/main/resources/data/dictionaries.txt");
+            fw = new FileWriter("src/main/resources/data/dictionaries.txt", append);
             // đường dẫn tương đối để lưu file
         } catch (IOException e) {
             throw new RuntimeException(e);
