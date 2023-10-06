@@ -13,7 +13,7 @@ public class DictionaryManagement {
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("src/main/resources/data/dictionaries.txt");
+        File file = new File("src/main/resources/data/words_alpha.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         while(true) {
@@ -23,7 +23,7 @@ public class DictionaryManagement {
                 throw new RuntimeException(e);
             }
             String[] row = line.split(" ");
-            dictionary.add_word(row[0], null);
+            Dictionary.data.add(new Word(row[0], null));
         }
     }
     public static void readDataFromHtml() throws IOException {
@@ -34,7 +34,7 @@ public class DictionaryManagement {
             String[] parts = line.split("<html>");
             String word = parts[0];
             String definition = "<html>" + parts[1];
-            dictionary.add_word(word, definition);
+            Dictionary.data.add(new Word(word, definition));
         }
     }
 
@@ -45,16 +45,15 @@ public class DictionaryManagement {
         Scanner in = new Scanner(System.in);
         System.out.println("How many words do you want to add ?");
         int n = in.nextInt();
-        String store_cache_junk = in.nextLine();
+        in.nextLine();
         while(n > 0) {
             System.out.println("Please enter word, then enter meaning");
             String target = in.nextLine();
             String explain = in.nextLine();
-            dictionary.add_word(target, explain);
+            Dictionary.data.add(new Word(target, explain));
             FileWriter fw = null;
             try {
                 fw = new FileWriter("src/main/resources/data/dictionaries.txt", true);
-                // đường dẫn tương đối để lưu file
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -68,20 +67,8 @@ public class DictionaryManagement {
         }
     }
     public static void addWord(String target, String explain) {
-        dictionary.add_word(target, explain);
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter("src/main/resources/data/dictionaries.txt", true);
-            // đường dẫn tương đối để lưu file
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            fw.write(target + "," + explain + "\n");
-            fw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Dictionary.data.add(new Word(target, explain));
+        DictionaryCommandLine.dictionaryExportToFile(true);
     }
 
     /**
@@ -101,30 +88,16 @@ public class DictionaryManagement {
     /**
      * delete a word
      */
-    public static void delete_word(String temp){
+    public static void delete_word(String target){
 //        System.out.println("Muốn xóa từ gì: ");
 //        Scanner in = new Scanner(System.in);
 //        String temp = in.nextLine();
-        dictionary.delete_word(temp);
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter("src/main/resources/data/dictionaries.txt");
-            // đường dẫn tương đối để lưu file
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        for(Word word : Dictionary.data){
-            try {
-                fw.write( word.getWord_target()+ "," + word.getWord_explain() + "\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        for(int i = 0; i < Dictionary.data.size(); i++){
+            if(Dictionary.data.get(i).getWord_target().equals(target)){
+                Dictionary.data.remove(i);
             }
         }
-        try {
-            fw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        DictionaryCommandLine.dictionaryExportToFile(false);
     }
 
     /**
@@ -154,11 +127,11 @@ public class DictionaryManagement {
             dictionary.update_word_explain(first, last);
         }
 
-        DictionaryCommandLine.dictionaryExportToFile();
+        DictionaryCommandLine.dictionaryExportToFile(false);
     }
 
     /**
-     * search hint
+     * search hint.
      */
     public static void dictionarySearcher(){
         System.out.println("Nhập từ bạn muốn tra: ");
@@ -170,6 +143,12 @@ public class DictionaryManagement {
             }
         }
     }
+
+    /**
+     * return list of hint words when searching.
+     * @param word_search searching string
+     * @return list
+     */
     public static List<String> searchHint(String word_search) {
         List<String> res = new ArrayList<>();
         for(Word word : Dictionary.data){

@@ -36,24 +36,20 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //wrapping the label
+        // wrapping the label
         word_definition_label.setWrapText(true);
-        //Setting the alignment to the label
-        word_definition_label.setTextAlignment(TextAlignment.JUSTIFY);
+
+        // import data
         try {
-            DictionaryManagement.insertFromFile();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            DictionaryManagement.readDataFromHtml();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
-        word_list_listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-                word_definition_label.setText(Dictionary.get_definition(selectedWord));
-            }
+        word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
+            word_definition_label.setText(Dictionary.get_definition(selectedWord));
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();

@@ -26,34 +26,13 @@ public class Dictionary {
      * @return definition of target
      */
     public static String get_definition(String target) {
-//        for(Word word : data) {
-//            if(word.getWord_target().equals(target)) return word.getWord_explain();
-//        }
-        System.out.println(Api.translate(target));
-        return Api.translate(target);
-    }
-
-    /**
-     * Add new word into dictionary data
-     * @param target English word
-     * @param explain Vietnamese meaning
-     */
-    public void add_word(String target, String explain) {
-        data.add(new Word(target, explain));
-    }
-
-    /**
-     * Delete a word from data.
-     * @param target word to be deleted
-     */
-    public void delete_word(String target) {
-        for(int i = 0; i < data.size(); i++){
-            if(data.get(i).getWord_target().equals(target)){
-                data.remove(i);
-            }
+        try {
+            return GoogleTranslatorAPI.translate("en", "vi", target);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
     }
+
     /**
      * Update English meaning of a word
      * @param first old word

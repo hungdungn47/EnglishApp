@@ -1,15 +1,12 @@
 package com.example.englishapp;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Scanner;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
-public class Api {
+public class DictionaryAPI {
     public static void main(String[] args) {
 
     }

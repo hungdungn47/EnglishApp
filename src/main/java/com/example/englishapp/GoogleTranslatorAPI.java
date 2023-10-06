@@ -8,7 +8,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-public class Translator {
+public class GoogleTranslatorAPI {
 
     public static void main(String[] args) throws IOException {
         String text = "Hello world!";
