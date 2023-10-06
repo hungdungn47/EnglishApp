@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Signup">
+   <children>
+      <TextField fx:id="usernameField" layoutX="238.0" layoutY="112.0" />
+      <TextField fx:id="passwordField" layoutX="238.0" layoutY="168.0" />
+      <TextField fx:id="confirmPasswordField" layoutX="238.0" layoutY="228.0" />
+      <Label layoutX="132.0" layoutY="116.0" text="Username">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="172.0" text="Password">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="79.0" layoutY="230.0" text="Confirm password">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="261.0" layoutY="302.0" mnemonicParsing="false" onAction="#signup" text="Sign up" />
+      <Label fx:id="wrongConfirm" layoutX="238.0" layoutY="200.0" prefHeight="17.0" prefWidth="245.0" />
+   </children>
+</AnchorPane>
