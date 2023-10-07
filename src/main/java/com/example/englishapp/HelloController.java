@@ -76,4 +76,8 @@ public class HelloController implements Initializable {
         word_list_listView.getItems().clear();
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
     }
+    public void play_game(ActionEvent event) throws IOException {
+        HelloApplication app = new HelloApplication();
+        app.changeScene("game.fxml");
+    }
 }

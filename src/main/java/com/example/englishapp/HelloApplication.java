@@ -9,13 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+
 public class HelloApplication extends Application {
     private static Stage myStage;
     @Override
     public void start(Stage stage) throws IOException {
         myStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");
         stage.setScene(scene);
         stage.show();

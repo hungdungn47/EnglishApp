@@ -6,6 +6,7 @@ module com.example.englishapp {
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
     requires json.simple;
+    requires java.desktop;
 
     opens com.example.englishapp to javafx.fxml;
     exports com.example.englishapp;
