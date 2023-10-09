@@ -11,9 +11,14 @@ import java.util.Objects;
 
 
 public class HelloApplication extends Application {
-    private static Stage myStage;
+    public static Stage myStage;
     @Override
     public void start(Stage stage) throws IOException {
+        try {
+            DictionaryManagement.readDataFromHtml();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         myStage = stage;
         Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader);

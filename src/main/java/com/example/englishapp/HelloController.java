@@ -26,26 +26,12 @@ public class HelloController implements Initializable {
     private Label word_definition_label;
     @FXML
     private ListView<String> word_list_listView;
-    @FXML
-    private TextField add_word_target_textField;
-    @FXML
-    private TextField add_word_explain_textField;
-    @FXML
-    private TextField word_delete_textField;
-
     private String selectedWord;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // wrapping the label
         word_definition_label.setWrapText(true);
-
-        // import data
-        try {
-            DictionaryManagement.readDataFromHtml();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -57,24 +43,14 @@ public class HelloController implements Initializable {
             word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue));
         });
     }
-
     public void translate(ActionEvent event) {
         String target = search_box.getText();
         word_definition_label.setText(DictionaryManagement.dictionaryLookup(target));
     }
 
-    public void add_word(ActionEvent event) {
-        if (!Objects.equals(add_word_target_textField.getText(), "") && !Objects.equals(add_word_explain_textField.getText(), "")) {
-            DictionaryManagement.addWord(add_word_target_textField.getText(), add_word_explain_textField.getText());
-            word_list_listView.getItems().add(add_word_target_textField.getText());
-        }
-    }
-
-    public void delete_word(ActionEvent event) {
-        String word_delete = word_delete_textField.getText();
-        DictionaryManagement.delete_word(word_delete);
-        word_list_listView.getItems().clear();
-        word_list_listView.getItems().addAll(Dictionary.get_target_list());
+    public void add_delete (ActionEvent event) throws IOException {
+        HelloApplication app = new HelloApplication();
+        app.changeScene("addordelete.fxml");
     }
     public void play_game(ActionEvent event) throws IOException {
         HelloApplication app = new HelloApplication();
