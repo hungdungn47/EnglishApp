@@ -32,10 +32,10 @@ import java.util.List;
 
 public class Game {
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = WIDTH;
-    private static final int ROWS = 20;
-    private static final int COLUMNS = ROWS;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 400;
+    private static final int ROWS = 30;
+    private static final int COLUMNS = 20;
     private static final int SQUARE_SIZE = WIDTH / ROWS;
     private static final String[] foods_image = new String[]{new File("src/main/resources/data/food.png").toURI().toString()};
     private static final int RIGHT = 0;
@@ -55,8 +55,7 @@ public class Game {
     private Stage primaryStage;
 
     public void button_to_gameplay(ActionEvent event) throws IOException {
-        Stage primaryStage = (Stage) game_button.getScene().getWindow();
-        primaryStage.setTitle("Snake");
+        Stage primaryStage = HelloApplication.myStage;
         Group root = new Group();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
@@ -93,12 +92,18 @@ public class Game {
         }
         snakehead = snakebody.get(0);
         generate_food();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(130), e-> run_game(gc)));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(130), e-> {
+            try {
+                run_game(gc);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-    private void run_game(GraphicsContext gc) {
-        if (gameOver) {
+    private void run_game(GraphicsContext gc) throws IOException {
+        if(gameOver){
             return;
         }
         drawBackground(gc);
@@ -139,6 +144,7 @@ public class Game {
             }
         }
         gameover();
+        Ifgameover();
         eat();
     }
 
@@ -174,9 +180,9 @@ public class Game {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 if ((i + j) % 2 == 0) {
-                    gc.setFill(Color.BLUE);
+                    gc.setFill(Color.BLACK);
                 } else {
-                    gc.setFill(Color.RED);
+                    gc.setFill(Color.WHITE);
                 }
                 gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
