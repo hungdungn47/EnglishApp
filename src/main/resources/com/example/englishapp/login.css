@@ -1,3 +1,6 @@
-.root {
-    -fx-background-color: #B0D9B1;
+#loginButton {
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-color: #9400FF;
 }
