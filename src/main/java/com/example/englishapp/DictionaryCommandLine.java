@@ -21,14 +21,12 @@ public class DictionaryCommandLine {
     public static void dictionaryBasic() throws FileNotFoundException {
         DictionaryManagement.insertFromFile();
         DictionaryManagement.insertFromCommandline();
-//        DictionaryManagement.delete_word("dfasd");
         showAllWords();
     }
     public static void dictionaryExportToFile(boolean append){
         FileWriter fw = null;
         try {
             fw = new FileWriter("src/main/resources/data/dictionaries.txt", append);
-            // đường dẫn tương đối để lưu file
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
