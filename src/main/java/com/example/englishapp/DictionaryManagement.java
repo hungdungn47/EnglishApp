@@ -12,18 +12,27 @@ public class DictionaryManagement {
      * import data from text file.
      * @throws FileNotFoundException when cannot find the file
      */
-    public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("src/main/resources/data/words_alpha.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
+    public static void insertFromFile() throws IOException {
+//        File file = new File("src/main/resources/data/english-vietnamese.txt");
+//        BufferedReader br = new BufferedReader(new FileReader(file));
+//        String line;
+//        while(true) {
+//            try {
+//                if ((line = br.readLine()) == null) break;
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            String[] row = line.split(" ");
+//            Dictionary.data.add(new Word(row[0], null));
+//        }
+        FileReader file = new FileReader("src/main/resources/data/english-vietnamese.txt");
+        BufferedReader br = new BufferedReader(file);
         String line;
-        while(true) {
-            try {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String[] row = line.split(" ");
-            Dictionary.data.add(new Word(row[0], null));
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split("<html>");
+            String word = parts[0];
+            String definition = "<html>" + parts[1];
+            Dictionary.data.add(new Word(word, definition));
         }
     }
     public static void readDataFromHtml() throws IOException {
@@ -80,6 +89,9 @@ public class DictionaryManagement {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static Word lookUpWithDictionaryAPI(String target) {
+        return DictionaryAPI.translate(target);
     }
 
     /**

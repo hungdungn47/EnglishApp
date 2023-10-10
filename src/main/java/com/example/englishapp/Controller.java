@@ -16,22 +16,36 @@ public class Controller implements Initializable {
     @FXML
     private TextField search_box;
     @FXML
-    private Button translate_button;
+    private Label phonetic;
     @FXML
-    private Label word_definition_label;
+    private Label part_of_speech;
+    @FXML
+    private Label definition;
+    @FXML
+    private Label example;
     @FXML
     private ListView<String> word_list_listView;
     private String selectedWord;
+    private void updateLabels(Word result) {
+        phonetic.setText(result.phonetic);
+        part_of_speech.setText("(" + result.partOfSpeech + ")");
+        definition.setText("Definition: " + result.definitions.get(0).get("definition"));
+        if(result.definitions.get(0).get("example") != null) {
+            example.setText("Example: " + result.definitions.get(0).get("example"));
+        } else {
+            example.setText("");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // wrapping the label
-        word_definition_label.setWrapText(true);
+
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            word_definition_label.setText(DictionaryManagement.dictionaryLookup(selectedWord));
+            Word result = DictionaryManagement.lookUpWithDictionaryAPI(selectedWord);
+            updateLabels(result);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -40,7 +54,8 @@ public class Controller implements Initializable {
     }
     public void translate(ActionEvent event) {
         String target = search_box.getText();
-        word_definition_label.setText(DictionaryManagement.dictionaryLookup(target));
+        Word result = DictionaryManagement.lookUpWithDictionaryAPI(target);
+        updateLabels(result);
     }
 
     public void add_delete (ActionEvent event) throws IOException {
