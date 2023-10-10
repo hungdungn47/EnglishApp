@@ -3,13 +3,10 @@ package com.example.englishapp;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.event.ActionEvent;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
@@ -18,15 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.awt.*;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +49,7 @@ public class Game {
     private Stage primaryStage;
 
     public void button_to_gameplay(ActionEvent event) throws IOException {
-        Stage primaryStage = HelloApplication.myStage;
+        Stage primaryStage = Application.myStage;
         Group root = new Group();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
@@ -198,7 +192,7 @@ public class Game {
     }
     private void Ifgameover() throws IOException{
         if(gameOver){
-            HelloApplication app = new HelloApplication();
+            Application app = new Application();
             app.changeScene("hello-view.fxml");
         }
     }

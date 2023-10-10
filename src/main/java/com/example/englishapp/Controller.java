@@ -1,7 +1,5 @@
 package com.example.englishapp;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,15 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.TextAlignment;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class Controller implements Initializable {
     @FXML
     private TextField search_box;
     @FXML
@@ -49,11 +44,11 @@ public class HelloController implements Initializable {
     }
 
     public void add_delete (ActionEvent event) throws IOException {
-        HelloApplication app = new HelloApplication();
+        Application app = new Application();
         app.changeScene("addordelete.fxml");
     }
     public void play_game(ActionEvent event) throws IOException {
-        HelloApplication app = new HelloApplication();
+        Application app = new Application();
         app.changeScene("game.fxml");
     }
 }

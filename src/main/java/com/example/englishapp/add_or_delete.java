@@ -24,7 +24,7 @@ public class add_or_delete {
         DictionaryManagement.delete_word(word_delete);
     }
     public void return_back(ActionEvent event) throws IOException {
-        HelloApplication app = new HelloApplication();
+        Application app = new Application();
         app.changeScene("hello-view.fxml");
 
     }
