@@ -1,6 +1,8 @@
 #loginButton {
+    -fx-font-size: 16px;
     -fx-background-radius: 15;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-background-color: #9400FF;
+    -fx-background-color: #5f28c0;
+    -fx-padding: 10;
 }
+.

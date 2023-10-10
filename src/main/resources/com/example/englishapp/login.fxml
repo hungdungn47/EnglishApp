@@ -51,7 +51,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="279.0">
                <children>
-                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="221.0" style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-background-color: #5f28c0; -fx-padding: 10;" text="Login" textFill="WHITE">
+                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="221.0" text="Login" textFill="WHITE">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -65,7 +65,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#signup" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-font-style: underline;" stylesheets="@login.css" text="Sign up" textFill="#5f28c0" />
+                  <Button mnemonicParsing="false" onAction="#signup" style="-fx-background-color: transparent; -fx-font-weight: bold;" stylesheets="@login.css" text="Sign up" textFill="#5f28c0" />
                </children>
                <opaqueInsets>
                   <Insets />
