@@ -31,12 +31,12 @@ public class Login implements Initializable {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         if(!passwordsMap.containsKey(username)) {
-            wrongPasswordLabel.setText("This username has not been signed up");
+            wrongPasswordLabel.setText("No such username!");
         } else {
             if(passwordsMap.get(username).equals(password)) {
                 app.changeScene("hello-view.fxml");
             } else {
-                wrongPasswordLabel.setText("Wrong password. Please try again");
+                wrongPasswordLabel.setText("Wrong password!");
             }
         }
     }
