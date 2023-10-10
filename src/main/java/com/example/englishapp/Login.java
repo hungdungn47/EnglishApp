@@ -1,10 +1,8 @@
 package com.example.englishapp;
 
-import com.almasb.fxgl.entity.action.Action;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.AccessibleAction;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -27,7 +25,7 @@ public class Login implements Initializable {
     @FXML
     private Label wrongPasswordLabel;
     public void login(ActionEvent event) throws IOException {
-        HelloApplication app = new HelloApplication();
+        Application app = new Application();
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         if(!passwordsMap.containsKey(username)) {
@@ -42,7 +40,7 @@ public class Login implements Initializable {
     }
 
     public void signup(ActionEvent event) throws IOException {
-        HelloApplication app = new HelloApplication();
+        Application app = new Application();
         app.changeScene("signup.fxml");
     }
     @Override

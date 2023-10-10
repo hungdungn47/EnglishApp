@@ -44,7 +44,7 @@ public class Signup {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            HelloApplication app = new HelloApplication();
+            Application app = new Application();
             app.changeScene("login.fxml");
         }
     }
