@@ -18,7 +18,7 @@ public class DictionaryCommandLine {
             counter++;
         }
     }
-    public static void dictionaryBasic() throws FileNotFoundException {
+    public static void dictionaryBasic() throws IOException {
         DictionaryManagement.insertFromFile();
         DictionaryManagement.insertFromCommandline();
         showAllWords();
@@ -95,7 +95,7 @@ public class DictionaryCommandLine {
             }
         }
     }
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         DictionaryManagement.insertFromFile();
         dictionaryAdvanced();
         System.out.println("Bye");
