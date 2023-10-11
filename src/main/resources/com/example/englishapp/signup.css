@@ -1,0 +1,15 @@
+.root {
+    -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
+}
+TextField {
+    -fx-background-radius: 15;
+}
+Label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+VBox {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 20;
+}

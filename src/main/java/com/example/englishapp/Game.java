@@ -26,8 +26,8 @@ import java.util.List;
 
 public class Game {
 
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private static final int ROWS = 30;
     private static final int COLUMNS = 20;
     private static final int SQUARE_SIZE = WIDTH / ROWS;

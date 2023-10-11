@@ -6,8 +6,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
       <ListView fx:id="word_list_listView" layoutX="7.0" layoutY="48.0" prefHeight="345.0" prefWidth="195.0" />
       <TextField fx:id="search_box" layoutX="7.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" promptText="Search" />
@@ -16,7 +17,10 @@
       <Button layoutX="288.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
       <VBox layoutX="212.0" layoutY="48.0" prefHeight="345.0" prefWidth="377.0">
          <children>
-            <Label fx:id="definition" prefHeight="82.0" prefWidth="378.0" style="-fx-wrap-text: true;"/>
+            <Label fx:id="definition" prefHeight="82.0" prefWidth="378.0" style="-fx-wrap-text: true;">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
       </VBox>
    </children>
