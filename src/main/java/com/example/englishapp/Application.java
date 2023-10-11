@@ -14,7 +14,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            DictionaryManagement.readDataFromHtml();
+            DictionaryManagement.insertFromFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

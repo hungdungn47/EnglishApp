@@ -16,10 +16,7 @@
       <Button layoutX="288.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
       <VBox layoutX="212.0" layoutY="48.0" prefHeight="345.0" prefWidth="377.0">
          <children>
-            <Label fx:id="phonetic" prefHeight="68.0" prefWidth="380.0" text="Phonetic" />
-            <Label fx:id="part_of_speech" prefHeight="74.0" prefWidth="378.0" style="-fx-wrap-text: true;" text="Part of speech" />
-            <Label fx:id="definition" prefHeight="82.0" prefWidth="378.0" style="-fx-wrap-text: true;" text="Definition" />
-            <Label fx:id="example" prefHeight="76.0" prefWidth="377.0" style="-fx-wrap-text: true;" text="Example" />
+            <Label fx:id="definition" prefHeight="82.0" prefWidth="378.0" style="-fx-wrap-text: true;"/>
          </children>
       </VBox>
    </children>

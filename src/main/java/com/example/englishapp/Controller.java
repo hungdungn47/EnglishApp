@@ -44,8 +44,9 @@ public class Controller implements Initializable {
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            Word result = DictionaryManagement.lookUpWithDictionaryAPI(selectedWord);
-            updateLabels(result);
+            String result = DictionaryManagement.dictionaryLookup(selectedWord);
+            definition.setText(result);
+            //updateLabels(result);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -54,8 +55,9 @@ public class Controller implements Initializable {
     }
     public void translate(ActionEvent event) {
         String target = search_box.getText();
-        Word result = DictionaryManagement.lookUpWithDictionaryAPI(target);
-        updateLabels(result);
+        String result = DictionaryManagement.dictionaryLookup(target);
+        definition.setText(result);
+        //updateLabels(result);
     }
 
     public void add_delete (ActionEvent event) throws IOException {

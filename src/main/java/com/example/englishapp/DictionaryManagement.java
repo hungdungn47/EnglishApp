@@ -13,27 +13,42 @@ public class DictionaryManagement {
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws IOException {
-//        File file = new File("src/main/resources/data/english-vietnamese.txt");
-//        BufferedReader br = new BufferedReader(new FileReader(file));
-//        String line;
-//        while(true) {
-//            try {
-//                if ((line = br.readLine()) == null) break;
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            String[] row = line.split(" ");
-//            Dictionary.data.add(new Word(row[0], null));
-//        }
-        FileReader file = new FileReader("src/main/resources/data/english-vietnamese.txt");
-        BufferedReader br = new BufferedReader(file);
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split("<html>");
-            String word = parts[0];
-            String definition = "<html>" + parts[1];
+        Scanner sc = new Scanner(new File("src/main/resources/data/english-vietnamese.txt"));
+        sc.useDelimiter("@");
+        sc.next();
+        while (sc.hasNext()) {
+            String line = sc.next();
+            int delimiter_pos = line.length() - 1;
+            boolean found_delimiter = false;
+            for(int i = 0; i < line.length(); i++) {
+                if(line.charAt(i) == '/') {
+                    delimiter_pos = i;
+                    found_delimiter = true;
+                    break;
+                }
+            }
+            if(!found_delimiter) {
+                for(int i = 0; i < line.length(); i++) {
+                    if(line.charAt(i) == '*') {
+                        delimiter_pos = i;
+                        found_delimiter = true;
+                        break;
+                    }
+                }
+            }
+            if(!found_delimiter) {
+                for(int i = 0; i < line.length(); i++) {
+                    if(line.charAt(i) == '-') {
+                        delimiter_pos = i;
+                        break;
+                    }
+                }
+            }
+            String word = line.substring(0, delimiter_pos);
+            String definition = line.substring(delimiter_pos);
             Dictionary.data.add(new Word(word, definition));
         }
+        sc.close();
     }
     public static void readDataFromHtml() throws IOException {
         FileReader file = new FileReader("src/main/resources/data/E_V.txt");
@@ -84,6 +99,11 @@ public class DictionaryManagement {
      * Look up word
      */
     public static String dictionaryLookup(String target) {
+        for(Word word : Dictionary.data) {
+            if(target.equals(word.getWord_target())) {
+                return word.getWord_explain();
+            }
+        }
         try {
             return GoogleTranslatorAPI.translate("en", "vi", target);
         } catch (IOException e) {
