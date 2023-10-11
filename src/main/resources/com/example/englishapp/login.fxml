@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Login">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Login">
    <children>
-      <VBox layoutX="160.0" layoutY="24.0" prefHeight="350.0" prefWidth="299.0" style="-fx-background-color: white; -fx-alignment: Center; -fx-background-radius: 30; -fx-padding: 10;">
+      <VBox layoutX="201.0" layoutY="76.0" prefHeight="449.0" prefWidth="398.0" style="-fx-background-color: white; -fx-alignment: Center; -fx-background-radius: 30; -fx-padding: 10;">
          <children>
             <Label text="WELCOME" textFill="#272154">
                <font>
@@ -25,9 +25,9 @@
                   <Label fx:id="wrongPasswordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="221.0" style="-fx-wrap-text: true;" textFill="#ff5c5c" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="203.0">
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="378.0">
                <children>
-                  <TextField fx:id="usernameTextField" prefHeight="37.0" prefWidth="221.0" promptText="Type your username" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <TextField fx:id="usernameTextField" prefHeight="47.0" prefWidth="285.0" promptText="Type your username" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -37,9 +37,9 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="73.0" prefWidth="279.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="378.0">
                <children>
-                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="37.0" prefWidth="221.0" promptText="Type your password" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="47.0" prefWidth="284.0" promptText="Type your password" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -49,19 +49,22 @@
                   </PasswordField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="279.0">
+            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="378.0">
                <children>
-                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="221.0" text="Login" textFill="WHITE" />
+                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="285.0" text="Login" textFill="WHITE" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="259.0">
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="74.0" prefWidth="378.0">
                <children>
                   <Label text="Do not have an account?" textFill="#40513b">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#signup" style="-fx-background-color: transparent; -fx-font-weight: bold;" stylesheets="@login.css" text="Sign up" textFill="#5f28c0" />
+                  <Button mnemonicParsing="false" onAction="#signup" style="-fx-background-color: transparent; -fx-font-weight: bold;" stylesheets="@login.css" text="Sign up" textFill="#5f28c0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
                </children>
                <opaqueInsets>
                   <Insets />

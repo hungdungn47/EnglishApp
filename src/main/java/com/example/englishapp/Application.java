@@ -18,12 +18,13 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        myStage = stage;
         Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        myStage = stage;
     }
 
     public void changeScene(String fxml) throws IOException {
