@@ -98,16 +98,24 @@ public class DictionaryManagement {
     /**
      * Look up word
      */
-    public static String dictionaryLookup(String target) {
-        for(Word word : Dictionary.data) {
-            if(target.equals(word.getWord_target())) {
-                return word.getWord_explain();
+    public static String dictionaryLookup(String target, int language_option) {
+        if(language_option == 0) {
+            for(Word word : Dictionary.data) {
+                if(target.equals(word.getWord_target())) {
+                    return word.getWord_explain();
+                }
             }
-        }
-        try {
-            return GoogleTranslatorAPI.translate("en", "vi", target);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            try {
+                return GoogleTranslatorAPI.translate("en", "vi", target);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                return GoogleTranslatorAPI.translate("vi", "en", target);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public static Word lookUpWithDictionaryAPI(String target) {

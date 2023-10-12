@@ -193,7 +193,7 @@ public class Game {
     private void Ifgameover() throws IOException{
         if(gameOver){
             Application app = new Application();
-            app.changeScene("hello-view.fxml");
+            app.changeScene("main-screen.fxml");
         }
     }
     private void eat(){

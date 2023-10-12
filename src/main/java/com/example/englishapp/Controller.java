@@ -3,11 +3,9 @@ package com.example.englishapp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,7 +23,12 @@ public class Controller implements Initializable {
     private Label example;
     @FXML
     private ListView<String> word_list_listView;
+    @FXML
+    private ToggleButton change_language_button;
     private String selectedWord;
+    private int language_options;
+    // 0: anh - viet
+    // 1: viet - anh
     private void updateLabels(Word result) {
         phonetic.setText(result.phonetic);
         part_of_speech.setText("(" + result.partOfSpeech + ")");
@@ -39,12 +42,13 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        language_options = 0;
 
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            String result = DictionaryManagement.dictionaryLookup(selectedWord);
+            String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
             definition.setText(result);
             //updateLabels(result);
         });
@@ -55,7 +59,7 @@ public class Controller implements Initializable {
     }
     public void translate(ActionEvent event) {
         String target = search_box.getText();
-        String result = DictionaryManagement.dictionaryLookup(target);
+        String result = DictionaryManagement.dictionaryLookup(target, language_options);
         definition.setText(result);
         //updateLabels(result);
     }
@@ -67,5 +71,14 @@ public class Controller implements Initializable {
     public void play_game(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
+    }
+    public void changeLanguage(ActionEvent event) {
+
+        language_options = 1 - language_options;
+        if(language_options == 1) {
+            change_language_button.setText("Vietnamese - English");
+        } else {
+            change_language_button.setText("English - Vietnamese");
+        }
     }
 }
