@@ -26,7 +26,6 @@ public class Application extends javafx.application.Application {
         stage.show();
         myStage = stage;
     }
-
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         myStage.getScene().setRoot(pane);

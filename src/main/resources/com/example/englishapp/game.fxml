@@ -11,5 +11,6 @@
             <Font size="25.0" />
          </font>
       </Button>
+      <Button layoutX="321.0" layoutY="428.0" mnemonicParsing="false" onAction="#back_to_main" text="Trở về màn hình chính" />
    </children>
 </AnchorPane>
