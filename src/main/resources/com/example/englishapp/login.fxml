@@ -17,7 +17,7 @@
          <children>
             <Label text="WELCOME" textFill="#272154">
                <font>
-                  <Font name="Tahoma" size="30.0" />
+                  <Font name="Franklin Gothic Medium Cond" size="50.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="237.0">
@@ -27,25 +27,31 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="378.0">
                <children>
-                  <TextField fx:id="usernameTextField" prefHeight="47.0" prefWidth="285.0" promptText="Type your username" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <TextField fx:id="usernameTextField" prefHeight="47.0" prefWidth="285.0" promptText="Username" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <effect>
                         <DropShadow />
                      </effect>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="378.0">
                <children>
-                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="47.0" prefWidth="284.0" promptText="Type your password" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="47.0" prefWidth="284.0" promptText="Password" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <effect>
                         <DropShadow />
                      </effect>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </PasswordField>
                </children>
             </HBox>

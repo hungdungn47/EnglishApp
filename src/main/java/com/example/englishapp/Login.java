@@ -32,7 +32,7 @@ public class Login implements Initializable {
             wrongPasswordLabel.setText("No such username!");
         } else {
             if(passwordsMap.get(username).equals(password)) {
-                app.changeScene("hello-view.fxml");
+                app.changeScene("main-screen.fxml");
             } else {
                 wrongPasswordLabel.setText("Wrong password!");
             }
