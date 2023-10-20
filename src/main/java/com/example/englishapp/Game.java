@@ -360,10 +360,7 @@ public class Game {
     private void eat() {
         if (snakehead.getX() == x_foodcoor && snakehead.getY() == y_foodcoor) {
             snakebody.add(new Point(-1, -1));
-            score++;
-            if(score == 5){
-                wingame = true;
-            }
+            score += 10;
             if (word_hidden.equals(word_origin)) {
                 int index = (int) (Math.random() * list_words_to_complete.size());
                 Set<String> set = list_words_to_complete.keySet();
