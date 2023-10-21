@@ -10,59 +10,86 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@signup.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Signup">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Signup">
    <children>
-      <Label fx:id="wrongConfirm" layoutX="238.0" layoutY="200.0" prefHeight="17.0" prefWidth="245.0" />
-      <VBox alignment="CENTER" layoutX="213.0" layoutY="82.0" prefHeight="433.0" prefWidth="387.0">
+      <VBox alignment="CENTER" layoutX="170.0" layoutY="93.0" prefHeight="414.0" prefWidth="459.0">
          <children>
-            <Label alignment="TOP_CENTER" prefHeight="99.0" prefWidth="334.0" text="SIGN UP">
+            <Label alignment="TOP_CENTER" prefHeight="38.0" prefWidth="166.0" text="SIGN UP" textAlignment="JUSTIFY" textFill="#430c59">
+
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <font>
-                  <Font name="Franklin Gothic Medium Cond" size="45.0" />
+                  <Font name="Tahoma" size="30.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="105.0" prefWidth="334.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="86.0" prefWidth="442.0">
+
                <children>
                   <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="296.0" promptText="Username" style="-fx-padding: 15;">
                      <font>
                         <Font size="14.0" />
                      </font>
+
+                  </Label>
+                  <TextField fx:id="usernameField" prefHeight="39.0" prefWidth="210.0">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
                      <effect>
                         <DropShadow />
-                     </effect></TextField>
+                     </effect>
+                  </TextField>
                </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="105.0" prefWidth="334.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="442.0">
+
                <children>
                   <TextField fx:id="passwordField" prefHeight="49.0" prefWidth="293.0" promptText="Password" style="-fx-padding: 15;">
                      <font>
                         <Font size="14.0" />
                      </font>
+                  </Label>
+                  <TextField fx:id="passwordField" prefHeight="39.0" prefWidth="210.0">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
                      <effect>
                         <DropShadow />
-                     </effect></TextField>
+                     </effect>
+                  </TextField>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="103.0" prefWidth="347.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="442.0">
+               <children>
+                  <Label fx:id="wrongConfirm" alignment="CENTER" prefHeight="11.0" prefWidth="358.0" textFill="#e40f0f" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="442.0">
+
                <children>
                   <TextField fx:id="confirmPasswordField" prefHeight="46.0" prefWidth="290.0" promptText="Confirm password" style="-fx-padding: 15;">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="confirmPasswordField" prefHeight="39.0" prefWidth="210.0">
                      <effect>
                         <DropShadow />
-                     </effect></TextField>
+                     </effect>
+                  </TextField>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#signup" prefHeight="45.0" prefWidth="286.0" text="Sign up" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
+            <Button mnemonicParsing="false" onAction="#signup" prefHeight="42.0" prefWidth="126.0" text="Sign up" textFill="#ac1111">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </Button>
          </children>
          <effect>

@@ -1,0 +1,12 @@
+VBox{
+    -fx-background-color: #e6e6ff;
+    -fx-padding: 20;
+    -fx-background-radius: 20;
+}
+Button{
+    -fx-background-color: #422a7e;
+}
+Button:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-padding: 10;
+}
