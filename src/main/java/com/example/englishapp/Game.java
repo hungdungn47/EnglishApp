@@ -67,7 +67,7 @@ public class Game {
 
     public void back_to_main(ActionEvent event) throws IOException {
         Application app = new Application();
-        app.changeScene("hello-view.fxml");
+        app.changeScene("main-screen.fxml");
     }
 
     public void button_to_gameplay(ActionEvent event) throws IOException {

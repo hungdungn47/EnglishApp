@@ -61,6 +61,7 @@ public class Controller implements Initializable {
         String target = search_box.getText();
         String result = DictionaryManagement.dictionaryLookup(target, language_options);
         definition.setText(result);
+
         //updateLabels(result);
     }
 
