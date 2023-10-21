@@ -15,6 +15,7 @@
       <VBox alignment="CENTER" layoutX="170.0" layoutY="93.0" prefHeight="414.0" prefWidth="459.0">
          <children>
             <Label alignment="TOP_CENTER" prefHeight="38.0" prefWidth="166.0" text="SIGN UP" textAlignment="JUSTIFY" textFill="#430c59">
+
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -26,11 +27,13 @@
                </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="86.0" prefWidth="442.0">
+
                <children>
-                  <Label text="Username">
+                  <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="296.0" promptText="Username" style="-fx-padding: 15;">
                      <font>
-                        <Font size="15.0" />
+                        <Font size="14.0" />
                      </font>
+
                   </Label>
                   <TextField fx:id="usernameField" prefHeight="39.0" prefWidth="210.0">
                      <HBox.margin>
@@ -43,10 +46,11 @@
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="442.0">
+
                <children>
-                  <Label text="Password">
+                  <TextField fx:id="passwordField" prefHeight="49.0" prefWidth="293.0" promptText="Password" style="-fx-padding: 15;">
                      <font>
-                        <Font size="15.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
                   <TextField fx:id="passwordField" prefHeight="39.0" prefWidth="210.0">
@@ -65,10 +69,11 @@
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="442.0">
+
                <children>
-                  <Label text="Confirm password">
+                  <TextField fx:id="confirmPasswordField" prefHeight="46.0" prefWidth="290.0" promptText="Confirm password" style="-fx-padding: 15;">
                      <font>
-                        <Font size="15.0" />
+                        <Font size="14.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -87,6 +92,9 @@
                </VBox.margin>
             </Button>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </VBox>
    </children>
 </AnchorPane>
