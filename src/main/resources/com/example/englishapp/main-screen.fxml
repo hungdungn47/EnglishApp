@@ -25,5 +25,6 @@
          </children>
       </VBox>
       <ToggleButton fx:id="change_language_button" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
+      <Button layoutX="264.0" layoutY="65.0" mnemonicParsing="false" onAction="#pronounce" text="Pronounce" />
    </children>
 </AnchorPane>

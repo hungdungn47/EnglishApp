@@ -105,11 +105,11 @@ public class DictionaryManagement {
                     return word.getWord_explain();
                 }
             }
-            try {
-                return GoogleTranslatorAPI.translate("en", "vi", target);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                return GoogleTranslatorAPI.translate("en", "vi", target);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
         } else {
             try {
                 return GoogleTranslatorAPI.translate("vi", "en", target);
@@ -117,6 +117,7 @@ public class DictionaryManagement {
                 throw new RuntimeException(e);
             }
         }
+        return "not in dictionary";
     }
     public static Word lookUpWithDictionaryAPI(String target) {
         return DictionaryAPI.translate(target);
