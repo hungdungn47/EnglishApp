@@ -15,6 +15,11 @@ VBox {
     -fx-font-weight: lighter;
     -fx-font-style: italic;
 }
+#wrongUsername{
+    -fx-text-fill: red;
+    -fx-font-weight: lighter;
+    -fx-font-style: italic;
+}
 Button{
     -fx-text-fill: white;
     -fx-font-weight: bold;
