@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Login">
    <children>
-      <VBox layoutX="201.0" layoutY="76.0" prefHeight="449.0" prefWidth="398.0" style="-fx-background-color: white; -fx-alignment: Center; -fx-background-radius: 30; -fx-padding: 10;">
+      <VBox layoutX="200.0" layoutY="80.0" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: white; -fx-alignment: Center; -fx-background-radius: 30; -fx-padding: 10;">
          <children>
             <Label text="WELCOME" textFill="#272154">
                <font>
@@ -27,7 +27,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="378.0">
                <children>
-                  <TextField fx:id="usernameTextField" prefHeight="47.0" prefWidth="285.0" promptText="Username" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <TextField fx:id="usernameTextField" prefHeight="50.0" prefWidth="250.0" promptText="Username" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -42,7 +42,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="378.0">
                <children>
-                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="47.0" prefWidth="284.0" promptText="Password" style="-fx-background-radius: 15; -fx-padding: 15;">
+                  <PasswordField fx:id="passwordTextField" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="250.0" promptText="Password" style="-fx-background-radius: 15; -fx-padding: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -57,7 +57,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="66.0" prefWidth="378.0">
                <children>
-                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="285.0" text="Login" textFill="WHITE" />
+                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="250.0" text="Login" textFill="WHITE" />
                </children>
             </HBox>
             <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="74.0" prefWidth="378.0">
@@ -67,7 +67,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#signup" style="-fx-background-color: transparent; -fx-font-weight: bold;" stylesheets="@login.css" text="Sign up" textFill="#5f28c0">
+                  <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signup" stylesheets="@login.css" text="Sign up" textFill="#5f28c0">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
