@@ -43,7 +43,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         language_options = 0;
-
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -85,6 +84,11 @@ public class Controller implements Initializable {
             change_language_button.setText("Vietnamese - English");
         } else {
             change_language_button.setText("English - Vietnamese");
+        }
+    }
+    public void pronounce(ActionEvent event) {
+        if(selectedWord != null) {
+            TextToSpeech.pronounce(selectedWord);
         }
     }
 }
