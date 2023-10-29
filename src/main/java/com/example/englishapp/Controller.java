@@ -72,6 +72,11 @@ public class Controller implements Initializable {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
+    public void start_game_2(ActionEvent event) throws IOException {
+        Application app = new Application();
+        app.changeScene("start_game2.fxml");
+    }
+
     public void changeLanguage(ActionEvent event) {
 
         language_options = 1 - language_options;

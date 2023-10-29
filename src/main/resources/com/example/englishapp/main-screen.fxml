@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
       <ListView fx:id="word_list_listView" layoutX="7.0" layoutY="48.0" prefHeight="546.0" prefWidth="243.0" />
       <TextField fx:id="search_box" layoutX="7.0" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" promptText="Search" />
-      <Button fx:id="translate_button" layoutX="432.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
-      <Button layoutX="666.0" layoutY="14.0" mnemonicParsing="false" onAction="#play_game" text="game" />
-      <Button layoutX="533.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
+      <Button fx:id="translate_button" layoutX="418.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
+      <Button layoutX="611.0" layoutY="14.0" mnemonicParsing="false" onAction="#play_game" text="game" />
+      <Button layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
       <VBox layoutX="323.0" layoutY="90.0" prefHeight="464.0" prefWidth="419.0">
          <children>
             <Label fx:id="definition" prefHeight="205.0" prefWidth="422.0" style="-fx-wrap-text: true;">
@@ -25,6 +25,7 @@
          </children>
       </VBox>
       <ToggleButton fx:id="change_language_button" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
+      <Button layoutX="690.0" layoutY="14.0" mnemonicParsing="false" onAction="#start_game_2" text="game2" />
       <Button layoutX="264.0" layoutY="65.0" mnemonicParsing="false" onAction="#pronounce" text="Pronounce" />
    </children>
 </AnchorPane>
