@@ -9,6 +9,7 @@ module com.example.englishapp {
     requires java.desktop;
     requires jsapi;
     requires freetts;
+    requires javafx.media;
 
     opens com.example.englishapp to javafx.fxml;
     exports com.example.englishapp;
