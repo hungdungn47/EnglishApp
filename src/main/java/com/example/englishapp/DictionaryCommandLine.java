@@ -65,6 +65,7 @@ public class DictionaryCommandLine {
         while(true){
             System.out.println("Chọn chức năng: ");
             int request = in.nextInt();
+            in.nextLine();
             if(request == 0){
                 return;
             }
@@ -85,7 +86,7 @@ public class DictionaryCommandLine {
             else if(request == 5){
                 System.out.println("Enter the word you wanna look up:");
                 String target = in.nextLine();
-                DictionaryManagement.dictionaryLookup(target, 0);
+                System.out.println(DictionaryManagement.dictionaryLookup(target, 0));
             }
             else if(request == 6){
                 DictionaryManagement.dictionarySearcher();
