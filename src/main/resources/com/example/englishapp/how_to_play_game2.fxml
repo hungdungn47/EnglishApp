@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Game2">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../data/background/start_game2.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="341.0" layoutY="396.0" mnemonicParsing="false" onAction="#start_game_2" prefHeight="62.0" prefWidth="118.0" stylesheets="@game2.css" text="Return" textFill="#8d2aa4">
+         <font>
+            <Font name="Bell MT Bold" size="24.0" />
+         </font>
+      </Button>
+      <VBox alignment="CENTER" layoutX="205.0" layoutY="131.0" prefHeight="249.0" prefWidth="407.0" stylesheets="@game2.css">
+         <children>
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="38.0" prefWidth="170.0" text="WELCOME" textFill="#8c3cf4">
+               <font>
+                  <Font name="Britannic Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="28.0" prefWidth="80.0" text="Luật chơi" textFill="#8c3cf4">
+               <font>
+                  <Font name="Calibri Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="313.0" text="Mỗi bức ảnh tương ứng với 1 trong 4 đáp án" textFill="#8c3cf4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Với mỗi câu trả lời đúng bạn sẽ được cộng 1 điểm" textFill="#8c3cf4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="310.0" text="Điểm số tối đa bạn đạt được là 30 điểm" textFill="#8c3cf4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="214.0" text="Hope you enjoy it" textFill="#8c3cf4">
+               <font>
+                  <Font name="Cooper Black" size="20.0" />
+               </font>
+            </Label>
+         </children></VBox>
+   </children>
+</AnchorPane>

@@ -1,8 +1,10 @@
 package com.example.englishapp;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,7 +29,7 @@ public class Game2 {
     @FXML
     private Button answer4;
     @FXML
-    private Label scoreLabel;
+    public Label scoreLabel;
     @FXML
     ImageView image_question;
     private boolean[] check = new boolean[30]; // mac dinh la false
@@ -35,17 +37,22 @@ public class Game2 {
     private String correct_answer;
     private int current_score = 0;
 
-
-    public void back_to_main(ActionEvent event) throws IOException {
-        Application app = new Application();
-        app.changeScene("main-screen.fxml");
-    }
-
     public void play_game_2(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("game2.fxml");
     }
-
+    public void start_game_2(ActionEvent event) throws IOException {
+        Application app = new Application();
+        app.changeScene("start_game2.fxml");
+    }
+    public void how_to_play_game2(ActionEvent event) throws IOException {
+        Application app = new Application();
+        app.changeScene("how_to_play_game2.fxml");
+    }
+    public void back_to_main(ActionEvent event) throws IOException {
+        Application app = new Application();
+        app.changeScene("main-screen.fxml");
+    }
     public void next_question(ActionEvent event) throws IOException {
         next_button.setText("Next");
         String[] a = new String[30];
@@ -58,7 +65,7 @@ public class Game2 {
         a[6] = "dandelion";
         a[7] = "depression";
         a[8] = "dog";
-        a[9] = "ear buds";
+        a[9] = "earbuds";
         a[10] = "emotional";
         a[11] = "forget";
         a[12] = "four-leaf clover";
@@ -89,14 +96,25 @@ public class Game2 {
         }
 
         if (allQuestionsUsed) {
-            Application app = new Application();
-            app.changeScene("end_game2.fxml");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("end_game2.fxml"));
-//            Parent root = loader.load();
-//            Scene scene = new Scene(root);
-//            Stage stage = (Stage) next_button.getScene().getWindow();
-//            stage.setScene(scene);
-//            scoreLabel.setText("Your score is: " + current_score);
+//            Application app = new Application();
+//            app.changeScene("end_game2.fxml");
+            scoreLabel.setText("");
+            answer1.setText("YOUR");
+            answer2.setText("SCORE");
+            answer3.setText("IS");
+            answer4.setText(String.valueOf(current_score));
+            next_button.setText("Finish");
+            next_button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Application app = new Application();
+                    try {
+                        app.changeScene("end_game2.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
             return;
         }
         // random question
@@ -154,10 +172,25 @@ public class Game2 {
         if (isCorrect) {
             next_question(event);
             current_score++;
-            scoreLabel.setText(String.valueOf(current_score));
+            scoreLabel.setText("Score: " + String.valueOf(current_score));
         } else {
-            Application app = new Application();
-            app.changeScene("end_game2.fxml");
+            scoreLabel.setText("");
+            answer1.setText("YOUR");
+            answer2.setText("SCORE");
+            answer3.setText("IS");
+            answer4.setText(String.valueOf(current_score));
+            next_button.setText("Finish");
+            next_button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Application app = new Application();
+                    try {
+                        app.changeScene("end_game2.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
         }
     }
 }
