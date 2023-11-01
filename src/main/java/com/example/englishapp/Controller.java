@@ -23,42 +23,27 @@ public class Controller implements Initializable {
     @FXML
     private TextField search_box;
     @FXML
-    private Label phonetic;
-    @FXML
-    private Label part_of_speech;
-    @FXML
     private Label definition;
-    @FXML
-    private Label example;
     @FXML
     private ListView<String> word_list_listView;
     @FXML
     private ToggleButton change_language_button;
     @FXML
     private ImageView favoriteButton;
-    private Image blankHeart = new Image("D:\\Coding\\Java\\OOP\\EnglishApp\\src\\main\\resources\\images\\heart1.png");
-    private Image redHeart = new Image("D:\\Coding\\Java\\OOP\\EnglishApp\\src\\main\\resources\\images\\heart2.png");
+    private final Image blankHeart = new Image(new File("src/main/resources/images/heart1.png").toURI().toString());
+    private final Image redHeart = new Image(new File("src/main/resources/images/heart2.png").toURI().toString());
     private String selectedWord;
     private int language_options;
-    private List<String> favoriteWords = new ArrayList<>();
+    private final List<String> favoriteWords = new ArrayList<>();
+
     // 0: anh - viet
     // 1: viet - anh
-    private void updateLabels(Word result) {
-        phonetic.setText(result.phonetic);
-        part_of_speech.setText("(" + result.partOfSpeech + ")");
-        definition.setText("Definition: " + result.definitions.get(0).get("definition"));
-        if(result.definitions.get(0).get("example") != null) {
-            example.setText("Example: " + result.definitions.get(0).get("example"));
-        } else {
-            example.setText("");
-        }
-    }
     private void getFavoriteWords() {
         String fileName = Login.getUsername() + "FavoriteWord.txt";
         String filePath = "src/main/resources/data/favoriteWords/" + fileName;
         try {
             Scanner sc = new Scanner(new File(filePath));
-            while(sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
                 String tmp = sc.nextLine();
                 favoriteWords.add(tmp);
             }
@@ -66,6 +51,7 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         language_options = 0;
@@ -75,36 +61,36 @@ public class Controller implements Initializable {
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            if(!favoriteWords.contains(selectedWord)) {
+            if (!favoriteWords.contains(selectedWord)) {
                 favoriteButton.setImage(blankHeart);
             } else {
                 favoriteButton.setImage(redHeart);
             }
             String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
             definition.setText(result);
-            //updateLabels(result);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
             word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue));
         });
     }
+
     public void translate(ActionEvent event) {
         String target = search_box.getText();
         String result = DictionaryManagement.dictionaryLookup(target, language_options);
         definition.setText(result);
-
-        //updateLabels(result);
     }
 
-    public void add_delete (ActionEvent event) throws IOException {
+    public void add_delete(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("addordelete.fxml");
     }
+
     public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
+
     public void start_game_2(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("start_game2.fxml");
@@ -113,24 +99,25 @@ public class Controller implements Initializable {
     public void changeLanguage(ActionEvent event) {
 
         language_options = 1 - language_options;
-        if(language_options == 1) {
+        if (language_options == 1) {
             change_language_button.setText("Vietnamese - English");
         } else {
             change_language_button.setText("English - Vietnamese");
         }
     }
-    public void pronounce(ActionEvent event) {
-        if(selectedWord != null) {
+
+    public void pronounce() {
+        if (selectedWord != null) {
             TextToSpeech.pronounce(selectedWord);
         }
     }
 
     public void addToFavorite(MouseEvent mouseEvent) {
         String fileName = Login.getUsername() + "FavoriteWord.txt";
-        if(!favoriteWords.contains(selectedWord)) {
+        if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
             favoriteWords.add(selectedWord);
             DictionaryCommandLine.dictionaryExportToFile(fileName, selectedWord);
+            favoriteButton.setImage(redHeart);
         }
-        favoriteButton.setImage(redHeart);
     }
 }
