@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -25,6 +28,8 @@ public class Controller implements Initializable {
     private ListView<String> word_list_listView;
     @FXML
     private ToggleButton change_language_button;
+    @FXML
+    private ImageView favoriteButton;
     private String selectedWord;
     private int language_options;
     // 0: anh - viet
@@ -68,7 +73,7 @@ public class Controller implements Initializable {
         Application app = new Application();
         app.changeScene("addordelete.fxml");
     }
-    public void play_game(ActionEvent event) throws IOException {
+    public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
@@ -90,5 +95,8 @@ public class Controller implements Initializable {
         if(selectedWord != null) {
             TextToSpeech.pronounce(selectedWord);
         }
+    }
+
+    public void addToFavorite(MouseEvent mouseEvent) {
     }
 }
