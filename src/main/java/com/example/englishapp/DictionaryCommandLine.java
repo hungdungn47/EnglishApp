@@ -43,6 +43,25 @@ public class DictionaryCommandLine {
             throw new RuntimeException(e);
         }
     }
+    public static void dictionaryExportToFile(String fileName, String word){
+        FileWriter fw = null;
+        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
+        try {
+            fw = new FileWriter(filePath, true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            fw.write(word + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Display a menu for user
