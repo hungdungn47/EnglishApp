@@ -7,8 +7,6 @@ module com.example.englishapp {
     requires com.almasb.fxgl.all;
     requires json.simple;
     requires java.desktop;
-    requires jsapi;
-    requires freetts;
     requires javafx.media;
 
     opens com.example.englishapp to javafx.fxml;
