@@ -1,14 +1,18 @@
 TextField {
     -fx-background-radius: 15;
+    -fx-padding: 15;
+    -fx-pref-height: 50;
+    -fx-pref-width: 250;
+    -fx-font-size: 15px;
 }
 Label {
-    -fx-text-fill: black;
+    -fx-text-fill: #272154;
     -fx-font-weight: bold;
 }
 VBox {
     -fx-background-color: white;
     -fx-padding: 20;
-    -fx-background-radius: 20;
+    -fx-background-radius: 30;
 }
 #wrongConfirm{
     -fx-text-fill: red;
@@ -26,6 +30,7 @@ Button{
     -fx-font-size: 16px;
     -fx-background-color: #5f28c0;
     -fx-padding: 10;
+    -fx-background-radius: 15;
 }
 Button:hover{
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);

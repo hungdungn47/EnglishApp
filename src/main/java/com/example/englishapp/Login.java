@@ -24,9 +24,10 @@ public class Login implements Initializable {
     private Button loginButton;
     @FXML
     private Label wrongPasswordLabel;
+    private static String username;
     public void login(ActionEvent event) throws IOException {
         Application app = new Application();
-        String username = usernameTextField.getText();
+        username = usernameTextField.getText();
         String password = passwordTextField.getText();
         if(!passwordsMap.containsKey(username)) {
             wrongPasswordLabel.setText("No such username!");
@@ -38,7 +39,9 @@ public class Login implements Initializable {
             }
         }
     }
-
+    public static String getUsername() {
+        return username;
+    }
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("signup.fxml");

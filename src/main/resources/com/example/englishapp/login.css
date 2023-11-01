@@ -1,3 +1,7 @@
+TextField {
+    -fx-pref-height: 50;
+    -fx-pref-width: 250;
+}
 #loginButton {
     -fx-font-size: 16px;
     -fx-background-radius: 15;
@@ -7,10 +11,14 @@
 }
 
 #loginButton:hover {
-    -fx-font-size: 16px;
-    -fx-background-radius: 15;
-    -fx-font-weight: bold;
-    -fx-background-color: #5f28c0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
-    -fx-padding: 10;
+}
+#signUpButton {
+    -fx-font-size: 15px;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+}
+#signUpButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
 }

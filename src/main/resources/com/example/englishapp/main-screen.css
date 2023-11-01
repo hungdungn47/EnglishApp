@@ -1,0 +1,15 @@
+AnchorPane {
+    -fx-background-color: white;
+}
+#menu {
+    -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
+}
+#gameButton {
+    -fx-background-image: url("@../../../images/game_icon.png");
+}
+.gameButton:hover {
+    -fx-background-image: url("@../../../images/game_icon.png");
+}
+.gameButton:pressed {
+    -fx-background-image: url("@../../../images/game_icon.png");
+}

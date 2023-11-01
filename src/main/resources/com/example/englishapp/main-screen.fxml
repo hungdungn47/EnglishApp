@@ -5,27 +5,34 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
-      <ListView fx:id="word_list_listView" layoutX="7.0" layoutY="48.0" prefHeight="546.0" prefWidth="243.0" />
-      <TextField fx:id="search_box" layoutX="7.0" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" promptText="Search" />
-      <Button fx:id="translate_button" layoutX="418.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
-      <Button layoutX="611.0" layoutY="14.0" mnemonicParsing="false" onAction="#play_game" text="game" />
+      <ListView fx:id="word_list_listView" layoutX="80.0" layoutY="65.0" prefHeight="524.0" prefWidth="243.0" />
+      <TextField fx:id="search_box" layoutX="80.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
+      <Button fx:id="translate_button" layoutX="368.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
       <Button layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
-      <VBox layoutX="323.0" layoutY="90.0" prefHeight="464.0" prefWidth="419.0">
-         <children>
-            <Label fx:id="definition" prefHeight="205.0" prefWidth="422.0" style="-fx-wrap-text: true;">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-         </children>
-      </VBox>
-      <ToggleButton fx:id="change_language_button" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
+      <ToggleButton fx:id="change_language_button" layoutX="355.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
       <Button layoutX="690.0" layoutY="14.0" mnemonicParsing="false" onAction="#start_game_2" text="game2" />
-      <Button layoutX="264.0" layoutY="65.0" mnemonicParsing="false" onAction="#pronounce" text="Pronounce" />
+      <Button layoutX="498.0" layoutY="53.0" mnemonicParsing="false" onAction="#pronounce" text="Pronounce" />
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="270.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/game_icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="definition" layoutX="327.0" layoutY="181.0" prefHeight="238.0" prefWidth="459.0" style="-fx-wrap-text: true;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="favoriteButton" fitHeight="39.0" fitWidth="46.0" layoutX="722.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#addToFavorite">
+         <image>
+            <Image url="@../../../images/heart1.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -4,11 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Controller implements Initializable {
     @FXML
@@ -25,8 +34,13 @@ public class Controller implements Initializable {
     private ListView<String> word_list_listView;
     @FXML
     private ToggleButton change_language_button;
+    @FXML
+    private ImageView favoriteButton;
+    private Image blankHeart = new Image("D:\\Coding\\Java\\OOP\\EnglishApp\\src\\main\\resources\\images\\heart1.png");
+    private Image redHeart = new Image("D:\\Coding\\Java\\OOP\\EnglishApp\\src\\main\\resources\\images\\heart2.png");
     private String selectedWord;
     private int language_options;
+    private List<String> favoriteWords = new ArrayList<>();
     // 0: anh - viet
     // 1: viet - anh
     private void updateLabels(Word result) {
@@ -39,14 +53,33 @@ public class Controller implements Initializable {
             example.setText("");
         }
     }
-
+    private void getFavoriteWords() {
+        String fileName = Login.getUsername() + "FavoriteWord.txt";
+        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
+        try {
+            Scanner sc = new Scanner(new File(filePath));
+            while(sc.hasNextLine()) {
+                String tmp = sc.nextLine();
+                favoriteWords.add(tmp);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         language_options = 0;
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
+        // add favorite words to list
+        getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
+            if(!favoriteWords.contains(selectedWord)) {
+                favoriteButton.setImage(blankHeart);
+            } else {
+                favoriteButton.setImage(redHeart);
+            }
             String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
             definition.setText(result);
             //updateLabels(result);
@@ -68,7 +101,7 @@ public class Controller implements Initializable {
         Application app = new Application();
         app.changeScene("addordelete.fxml");
     }
-    public void play_game(ActionEvent event) throws IOException {
+    public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
@@ -90,5 +123,14 @@ public class Controller implements Initializable {
         if(selectedWord != null) {
             TextToSpeech.pronounce(selectedWord);
         }
+    }
+
+    public void addToFavorite(MouseEvent mouseEvent) {
+        String fileName = Login.getUsername() + "FavoriteWord.txt";
+        if(!favoriteWords.contains(selectedWord)) {
+            favoriteWords.add(selectedWord);
+            DictionaryCommandLine.dictionaryExportToFile(fileName, selectedWord);
+        }
+        favoriteButton.setImage(redHeart);
     }
 }
