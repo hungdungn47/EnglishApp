@@ -24,7 +24,7 @@
       <artifactId>javafx-fxml</artifactId>
       <version>20.0.1</version>
     </dependency>
-<dependency>
+    <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
       <version>20.0.1</version>
@@ -54,7 +54,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-<dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -70,6 +70,11 @@
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.27</version> <!-- Thay phiên bản tùy theo phiên bản bạn muốn sử dụng -->
     </dependency>
   </dependencies>
 
