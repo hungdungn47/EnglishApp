@@ -1,4 +1,5 @@
 package com.example.englishapp;
+import java.sql.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Login implements Initializable {
     private Map<String, String> passwordsMap = new HashMap<>();
@@ -25,18 +27,29 @@ public class Login implements Initializable {
     @FXML
     private Label wrongPasswordLabel;
     private static String username;
+    private static String password;
+    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
+    static final String USER = "root"; // Thay thế bằng tên người dùng MySQL
+    static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
     public void login(ActionEvent event) throws IOException {
         Application app = new Application();
-        username = usernameTextField.getText();
-        String password = passwordTextField.getText();
-        if(!passwordsMap.containsKey(username)) {
-            wrongPasswordLabel.setText("No such username!");
-        } else {
-            if(passwordsMap.get(username).equals(password)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            username = usernameTextField.getText();
+            password = passwordTextField.getText();
+
+            String sql = "SELECT * FROM tai_khoan WHERE username = ? AND password = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
                 app.changeScene("main-screen.fxml");
             } else {
-                wrongPasswordLabel.setText("Wrong password!");
+                wrongPasswordLabel.setText("Wrong username or password!");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public static String getUsername() {
