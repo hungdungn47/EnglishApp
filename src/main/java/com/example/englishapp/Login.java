@@ -53,7 +53,7 @@ public class Login implements Initializable {
         }
     }
     public static String getUsername() {
-        return username;
+        return "hungdungn47";
     }
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();
