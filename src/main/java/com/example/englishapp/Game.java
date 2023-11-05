@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.*;
 import java.util.*;
@@ -33,7 +35,6 @@ public class Game {
     private static final int ROWS = 20;
     private static final int COLUMNS = 15;
     private static final int SQUARE_SIZE = WIDTH / ROWS;
-    private static final String[] foods_image = new String[]{new File("src/main/resources/data/food.png").toURI().toString()};
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
     private static final int UP = 2;
@@ -59,11 +60,11 @@ public class Game {
     private int health = 3;
     private int score = 0;
     private char char_to_add;
-    private Stage primaryStage;
     Group root = new Group();
     String word_hidden = "";
     String word_origin = "";
-    Map<String, String> list_words_to_complete = new HashMap<String, String>();
+    private final List<String> listfavoriteWords = new ArrayList<>();
+    private final Map<String, Integer> History_score = new HashMap<>();
 
     public void back_to_main(ActionEvent event) throws IOException {
         Application app = new Application();
@@ -78,6 +79,12 @@ public class Game {
         primaryStage.setScene(scene);
         primaryStage.show();
         gc = canvas.getGraphicsContext2D();
+        build_list_word();
+        insertScoreFromTxt();
+//        if(listfavoriteWords.size() == 0){
+//            Application app = new Application();
+//            app.changeScene("warningfxml");
+//        }
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -137,6 +144,8 @@ public class Game {
 
     private void run_game(GraphicsContext gc) throws IOException {
         if (gameOver) {
+            UpdateScore();
+            ExportScoreToTxt();
             Ifgameover(gc);
             return;
         }
@@ -157,13 +166,13 @@ public class Game {
         if (direction == LEFT) {
             if (snakehead.x == 14 && snakehead.y >= 10) {
                 snakehead.x = 5;
-            } else if (snakehead.x < 0) {
-                snakehead.x = ROWS;
+            } else if (snakehead.x <= 0) {
+                snakehead.x = ROWS - 1;
             } else {
                 snakehead.x--;
             }
         } else if (direction == RIGHT) {
-            if (snakehead.x == ROWS) {
+            if (snakehead.x == ROWS - 1) {
                 snakehead.x = 0;
             } else if (snakehead.x == 5 && snakehead.y >= 10) {
                 snakehead.x = 14;
@@ -175,13 +184,13 @@ public class Game {
                 if (snakehead.x <= 13 && snakehead.x >= 6) {
                     snakehead.y = 9;
                 } else {
-                    snakehead.y = COLUMNS;
+                    snakehead.y = COLUMNS - 1;
                 }
             } else {
                 snakehead.y--;
             }
         } else if (direction == DOWN) {
-            if (snakehead.y == COLUMNS) {
+            if (snakehead.y == COLUMNS - 1) {
                 snakehead.y = 0;
             } else if (snakehead.y == 9 && snakehead.x <= 13 && snakehead.x >= 6) {
                 snakehead.y = 0;
@@ -243,47 +252,53 @@ public class Game {
             break;
         }
     }
-    private void draw_heart(GraphicsContext gc){
-        String heat_image = "src/main/resources/data/heart.png";
+
+    private void draw_heart(GraphicsContext gc) {
+        String heat_image = "src/main/resources/data/snake_game/heart.png";
         heat_image = new File(heat_image).toURI().toString();
         Image image_of_heart = new Image(heat_image);
-        for(int i =0; i < health; i++){
-            gc.drawImage(image_of_heart, (6+i)*SQUARE_SIZE, 10*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+        for (int i = 0; i < health; i++) {
+            gc.drawImage(image_of_heart, (6 + i) * SQUARE_SIZE, 10 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         }
     }
+
+    private void build_list_word() {
+        String fileName = Login.getUsername() + "FavoriteWord.txt";
+        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
+        try {
+            Scanner sc = new Scanner(new File(filePath));
+            while (sc.hasNextLine()) {
+                String tmp = sc.nextLine();
+                listfavoriteWords.add(tmp);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void draw_words_to_complete(GraphicsContext gc) {
-        list_words_to_complete.put("handsome", "ha__s_me");
-        list_words_to_complete.put("beautiful", "b_auti__l");
-        list_words_to_complete.put("dangerous", "d_nge_o_s");
-        list_words_to_complete.put("lucky", "l__k_");
-        list_words_to_complete.put("heart", "h__rt");
-        list_words_to_complete.put("password", "p_s_wo_d");
-        list_words_to_complete.put("game", "g__e");
-        list_words_to_complete.put("art", "a_t");
-        int index = (int) (Math.random() * list_words_to_complete.size());
-        Set<String> set = list_words_to_complete.keySet();
-        int temp = 0;
-        for (String word : set) {
-            if (temp != index) {
-                temp++;
-                continue;
-            } else {
-                word_hidden = list_words_to_complete.get(word);
-                word_origin = word;
-                for (int i = 0; i < word.length(); i++) {
-                    if (word_hidden.charAt(i) == '_') {
-                        char_to_add = word.charAt(i);
-                        gc.setFill(Color.RED);
-                        gc.setFont(new Font("Digital-7", 45));
-                        gc.fillText(word_hidden, WIDTH / 2.5, 500);
-                        word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
-                        break;
-                    }
-                }
+        int index = (int) (Math.random() * listfavoriteWords.size());
+        String word = listfavoriteWords.get(index);
+        String temp = word;
+        int rand = (int) (Math.random() * word.length());
+        for (int i = 0; i < 3; i++) {
+            while (temp.charAt(rand) == '_' || temp.charAt(rand) == ' ') {
+                rand = (int) (Math.random() * word.length());
+            }
+            temp = temp.substring(0, rand) + '_' + temp.substring(rand + 1);
+        }
+        word_hidden = temp;
+        word_origin = word;
+        for (int i = 0; i < word.length(); i++) {
+            if (word_hidden.charAt(i) == '_') {
+                char_to_add = word.charAt(i);
+                gc.setFill(Color.RED);
+                gc.setFont(new Font("Comic sans MS", 45));
+                gc.fillText(word_hidden, WIDTH / 2.5, 500);
+                word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
                 break;
             }
         }
-
     }
 
     private void draw_character(GraphicsContext gc) {
@@ -294,7 +309,7 @@ public class Game {
     }
 
     private void draw_snake(GraphicsContext gc) {
-        gc.setFill(Color.GRAY);
+        gc.setFill(Color.DARKGREEN);
         gc.fillRoundRect(snakehead.getX() * SQUARE_SIZE, snakehead.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1, 60, 60);
         for (int i = 1; i < snakebody.size(); i++) {
             gc.fillRoundRect(snakebody.get(i).getX() * SQUARE_SIZE, snakebody.get(i).getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1, 20, 20);
@@ -307,9 +322,9 @@ public class Game {
                 if ((i >= 6 && i <= 13 && j >= 10)) {
                     continue;
                 } else if ((i + j) % 2 == 0) {
-                    gc.setFill(Color.WHITE);
+                    gc.setFill(Color.PINK);
                 } else {
-                    gc.setFill(Color.BLACK);
+                    gc.setFill(Color.LIGHTPINK);
                 }
                 gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
@@ -324,22 +339,22 @@ public class Game {
             }
         }
     }
-    private void Ifgameover() throws IOException {
-        if (gameOver) {
-            Application app = new Application();
-            app.changeScene("main-screen.fxml");
-        }
-    }
 
     private void Ifgameover(GraphicsContext gc) throws IOException {
         if (gameOver) {
             gc.clearRect(0, 0, WIDTH, HEIGHT);
+            String gameoverImage = new File("src/main/resources/data/snake_game/gameover.png").toURI().toString();
+            Image gameover = new Image(gameoverImage);
+            gc.drawImage(gameover, 0, 0, WIDTH, HEIGHT);
             gc.setFill(Color.RED);
-            gc.setFont(new Font("Digital-7", 70));
-            gc.fillText("Game Over", WIDTH / 3.5, HEIGHT / 2);
-            gc.setFont(new Font("Digital-7", 35));
-            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3.5, 400);
-            gc.fillText("Điểm của bạn là: " + score, 10, 35);
+            gc.setFont(new Font("Comic sans MS", 70));
+            if (score < 100) {
+                gc.fillText("Chơi ngu vãi", WIDTH / 3.5 - 20, HEIGHT / 2 + 200);
+            }
+            gc.setFont(new Font("Comic sans MS", 35));
+            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 5, 560);
+            gc.fillText("Điểm của bạn là: " + score, 400, 35);
+            PrintRanking();
         }
     }
 
@@ -352,38 +367,38 @@ public class Game {
             gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3.5, 400);
         }
     }
+
     private void drawScore() {
-        gc.setFill(Color.RED);
-        gc.setFont(new Font("Digital-7", 35));
+        gc.setFill(Color.DARKMAGENTA);
+        gc.setFont(new Font("Comic sans MS", 35));
         gc.fillText("Score: " + score, 10, 35);
     }
+
     private void eat() {
         if (snakehead.getX() == x_foodcoor && snakehead.getY() == y_foodcoor) {
             snakebody.add(new Point(-1, -1));
             score += 10;
             if (word_hidden.equals(word_origin)) {
-                int index = (int) (Math.random() * list_words_to_complete.size());
-                Set<String> set = list_words_to_complete.keySet();
-                int temp = 0;
-                for (String word : set) {
-                    if (temp != index) {
-                        temp++;
-                        continue;
+                gc.clearRect(240, 440, 320, 100);
+                int index = (int) (Math.random() * listfavoriteWords.size());
+                String word = listfavoriteWords.get(index);
+                String temp = word;
+                int rand = (int) (Math.random() * word.length());
+                for (int i = 0; i < 3; i++) {
+                    while (temp.charAt(rand) == '_') {
+                        rand = (int) (Math.random() * word.length());
                     }
-                    else{
-                        word_hidden = list_words_to_complete.get(word);
-                        word_origin = word;
-                        for (int i = 0; i < word_hidden.length(); i++) {
-                            if (word_hidden.charAt(i) == '_') {
-                                char_to_add = word_origin.charAt(i);
-                                gc.clearRect(240, 440, 320, 100);
-                                gc.setFill(Color.RED);
-                                gc.setFont(new Font("Digital-7", 45));
-                                gc.fillText(word_hidden, WIDTH / 2.5, 500);
-                                word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
-                                break;
-                            }
-                        }
+                    temp = temp.substring(0, rand) + '_' + temp.substring(rand + 1);
+                }
+                word_hidden = temp;
+                word_origin = word;
+                for (int i = 0; i < word.length(); i++) {
+                    if (word_hidden.charAt(i) == '_') {
+                        char_to_add = word.charAt(i);
+                        gc.setFill(Color.RED);
+                        gc.setFont(new Font("Comic sans MS", 45));
+                        gc.fillText(word_hidden, WIDTH / 2.5, 500);
+                        word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
                         break;
                     }
                 }
@@ -393,7 +408,7 @@ public class Game {
                         char_to_add = word_origin.charAt(i);
                         gc.clearRect(240, 440, 320, 100);
                         gc.setFill(Color.RED);
-                        gc.setFont(new Font("Digital-7", 45));
+                        gc.setFont(new Font("Comic sans MS", 45));
                         gc.fillText(word_hidden, WIDTH / 2.5, 500);
                         word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
                         break;
@@ -403,15 +418,92 @@ public class Game {
             generate_character(char_to_add);
         }
         // nếu rắn ăn phải kì tự sai
-        else if(snakehead.getX() == x_fakecharacter && snakehead.getY() == y_fakecharacter
+        else if (snakehead.getX() == x_fakecharacter && snakehead.getY() == y_fakecharacter
                 || snakehead.getX() == x_fakecharacter1 && snakehead.getY() == y_fakecharacter1
-                || snakehead.getX() == x_fakecharacter2 && snakehead.getY() == y_fakecharacter2){
+                || snakehead.getX() == x_fakecharacter2 && snakehead.getY() == y_fakecharacter2) {
             health--;
-            gc.clearRect((6+health)*SQUARE_SIZE, 10*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            gc.clearRect((6 + health) * SQUARE_SIZE, 10 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             generate_character(char_to_add);
-            if(health == 0){
+            if (health == 0) {
                 gameOver = true;
             }
         }
+    }
+
+    private void insertScoreFromTxt() throws IOException {
+        Scanner sc = new Scanner(new File("src/main/resources/data/snake_game/score.txt"));
+        while (sc.hasNext()) {
+            String line = sc.next();
+            int index = 0;
+            for (int i = 0; i < line.length(); i++) {
+                if (line.charAt(i) == ':') {
+                    index = i;
+                    break;
+                }
+            }
+            String username = line.substring(0, index);
+            int scorefromtxt = Integer.parseInt(line.substring(index + 1));
+            History_score.put(username, scorefromtxt);
+        }
+    }
+
+    private void ExportScoreToTxt() {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/snake_game/score.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (String key : History_score.keySet()) {
+            try {
+                fw.write(key + ":" + History_score.get(key) + "\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void UpdateScore() {
+        String username = Login.getUsername();
+        if (History_score.get(username) != null) {
+            int temp = History_score.get(username);
+            if (temp > score) {
+                return;
+            } else {
+                History_score.put(username, score);
+            }
+        } else {
+            History_score.put(username, score);
+        }
+    }
+
+    private void PrintRanking() {
+        Set<String> set = History_score.keySet();
+        String[] rank = new String[3];
+        int temp = 0;
+        for (String key : set) {
+            rank[temp] = key;
+            temp++;
+            if (temp == 3) {
+                break;
+            }
+        }
+        for (String key : set) {
+            if (History_score.get(rank[1]) < History_score.get(key)) {
+                rank[2] = rank[1];
+                rank[1] = rank[0];
+                rank[0] = key;
+            }
+        }
+        String Rank = "Xếp hạng: \n" + rank[0] + ":" + History_score.get(rank[0]) + "\n" + rank[1] + ":" + History_score.get(rank[1]) + "\n" +
+                rank[2] + ":" + History_score.get(rank[2]);
+        gc.setFill(Color.WHITE);
+        gc.setFont(new Font("Comic sans MS", 25));
+        gc.fillText(Rank, 10, 35);
     }
 }

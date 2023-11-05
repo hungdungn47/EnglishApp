@@ -24,8 +24,8 @@ public class Signup {
     @FXML
     private Label wrongUsername;
     // Các thông tin kết nối cơ sở dữ liệu
-    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
-    static final String USER = "root"; // Thay thế bằng tên người dùng MySQL
+    static final String DB_URL = "jdbc:mysql://192.168.76.82:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
+    static final String USER = "dung"; // Thay thế bằng tên người dùng MySQL
     static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
     public void signup(ActionEvent event) throws IOException {
         String username = usernameField.getText();

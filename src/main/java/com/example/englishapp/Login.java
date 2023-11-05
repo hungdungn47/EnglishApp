@@ -28,8 +28,8 @@ public class Login implements Initializable {
     private Label wrongPasswordLabel;
     private static String username;
     private static String password;
-    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
-    static final String USER = "root"; // Thay thế bằng tên người dùng MySQL
+    static final String DB_URL = "jdbc:mysql://192.168.76.82:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
+    static final String USER = "dung"; // Thay thế bằng tên người dùng MySQL
     static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
     public void login(ActionEvent event) throws IOException {
         Application app = new Application();
@@ -53,7 +53,7 @@ public class Login implements Initializable {
         }
     }
     public static String getUsername() {
-        return username;
+        return "hungdungn47";
     }
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();
