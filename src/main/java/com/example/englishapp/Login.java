@@ -11,13 +11,10 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
-public class Login implements Initializable {
-    private Map<String, String> passwordsMap = new HashMap<>();
+public class Login {
+    private Map<String, String> passwordsMap;
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -32,35 +29,46 @@ public class Login implements Initializable {
     static final String USER = "root"; // Thay thế bằng tên người dùng MySQL
     static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
     public void login(ActionEvent event) throws IOException {
-        Application app = new Application();
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
-            username = usernameTextField.getText();
-            password = passwordTextField.getText();
-
-            String sql = "SELECT * FROM tai_khoan WHERE username = ? AND password = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, username);
-            statement.setString(2, password);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                app.changeScene("main-screen.fxml");
-            } else {
-                wrongPasswordLabel.setText("Wrong username or password!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+//        Application app = new Application();
+//        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+//            username = usernameTextField.getText();
+//            password = passwordTextField.getText();
+//
+//            String sql = "SELECT * FROM tai_khoan WHERE username = ? AND password = ?";
+//            PreparedStatement statement = conn.prepareStatement(sql);
+//            statement.setString(1, username);
+//            statement.setString(2, password);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                app.changeScene("main-screen.fxml");
+//            } else {
+//                wrongPasswordLabel.setText("Wrong username or password!");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        readData();
+        username = usernameTextField.getText();
+        password = passwordTextField.getText();
+        if(!passwordsMap.containsKey(username)) {
+            wrongPasswordLabel.setText("Username doesn't exist");
+        } else if(!Objects.equals(passwordsMap.get(username), password)) {
+            wrongPasswordLabel.setText("Wrong password");
+        } else {
+            Application app = new Application();
+            app.changeScene("main-screen.fxml");
         }
     }
     public static String getUsername() {
-        return "hungdungn47";
+        return username;
     }
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("signup.fxml");
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void readData() {
+        passwordsMap = new HashMap<>();
         File file = new File("src/main/resources/data/passwords.txt");
         BufferedReader br = null;
         try {
