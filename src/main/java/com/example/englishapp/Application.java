@@ -11,6 +11,10 @@ import java.util.Objects;
 
 public class Application extends javafx.application.Application {
     public static Stage myStage;
+    public void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
+        myStage.getScene().setRoot(pane);
+    }
     @Override
     public void start(Stage stage) throws IOException {
         try {
@@ -18,17 +22,13 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("main-screen.fxml"));
         Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
         myStage = stage;
-    }
-    public void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
-        myStage.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
