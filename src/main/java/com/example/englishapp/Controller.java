@@ -2,11 +2,15 @@ package com.example.englishapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
@@ -81,17 +85,30 @@ public class Controller implements Initializable {
         definition.setText(result);
     }
 
-    public void add_delete(ActionEvent event) throws IOException {
-        Application app = new Application();
-        app.changeScene("addordelete.fxml");
+    public void add() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+//        stage.setX(500);
+//        stage.setY(200);
+        stage.setScene(new Scene(root1));
+        stage.show();
     }
-
+    public void delete() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+//        stage.setX(500);
+//        stage.setY(200);
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
     public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
 
-    public void start_game_2(ActionEvent event) throws IOException {
+    public void start_game_2() throws IOException {
         Application app = new Application();
         app.changeScene("start_game2.fxml");
     }

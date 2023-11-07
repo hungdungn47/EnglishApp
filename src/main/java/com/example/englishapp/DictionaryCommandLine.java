@@ -5,7 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DictionaryCommandLine {
+public class
+DictionaryCommandLine {
     /**
      * Display all words in dictionary on console
      */

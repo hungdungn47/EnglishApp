@@ -9,3 +9,5 @@ abbacy
 abbess 
 a-plenty 
 a priori 
+a font 
+able 

@@ -1,8 +1,9 @@
 AnchorPane {
-    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
 }
 #menu {
     -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
 }
 #gameButton {
     -fx-background-image: url("@../../../images/game_icon.png");

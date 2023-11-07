@@ -9,21 +9,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
       <ListView fx:id="word_list_listView" layoutX="80.0" layoutY="65.0" prefHeight="524.0" prefWidth="243.0" />
       <TextField fx:id="search_box" layoutX="80.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
       <Button fx:id="translate_button" layoutX="368.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
-      <Button layoutX="498.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_delete" text="Add and Delete" />
       <ToggleButton fx:id="change_language_button" layoutX="355.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
-      <Button layoutX="690.0" layoutY="14.0" mnemonicParsing="false" onAction="#start_game_2" text="game2" />
       <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="316.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/game_icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="definition" layoutX="327.0" layoutY="181.0" prefHeight="238.0" prefWidth="459.0" style="-fx-wrap-text: true;">
+      <Label fx:id="definition" layoutX="327.0" layoutY="181.0" prefHeight="126.0" prefWidth="311.0" style="-fx-wrap-text: true;">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,5 +37,29 @@
             <Image url="@../../../images/speaker.png" />
          </image>
       </ImageView>
+      <Text layoutX="29.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-56.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="71.0" fitWidth="72.0" layoutX="6.0" layoutY="197.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/book.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="33.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Học" />
+      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="600.0" layoutY="14.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/add.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="638.0" layoutY="14.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/minus.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="64.0" fitWidth="72.0" layoutX="3.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/paragraph.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="16.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dịch đoạn" />
    </children>
 </AnchorPane>
