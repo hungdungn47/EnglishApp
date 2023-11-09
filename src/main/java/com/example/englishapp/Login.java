@@ -61,7 +61,7 @@ public class Login {
 //        }
     }
     public static String getUsername() {
-        return "hungdungn47";
+        return username;
     }
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();

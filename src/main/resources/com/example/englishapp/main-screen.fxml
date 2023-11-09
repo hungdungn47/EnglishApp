@@ -8,23 +8,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
-      <ListView fx:id="word_list_listView" layoutX="80.0" layoutY="65.0" prefHeight="524.0" prefWidth="243.0" />
-      <TextField fx:id="search_box" layoutX="80.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
-      <Button fx:id="translate_button" layoutX="368.0" layoutY="14.0" mnemonicParsing="false" onAction="#translate" text="Translate" />
-      <ToggleButton fx:id="change_language_button" layoutX="355.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeLanguage" text="English - Vietnamese" />
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="316.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/game_icon.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="definition" layoutX="327.0" layoutY="181.0" prefHeight="126.0" prefWidth="311.0" style="-fx-wrap-text: true;">
+      <ListView fx:id="word_list_listView" layoutX="112.0" layoutY="62.0" prefHeight="524.0" prefWidth="243.0" />
+      <TextField fx:id="search_box" layoutX="112.0" layoutY="14.0" onAction="#translate" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
+      <Label fx:id="definition" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="413.0" layoutY="205.0" prefHeight="190.0" prefWidth="331.0" style="-fx-wrap-text: true;">
          <font>
-            <Font size="14.0" />
+            <Font name="Segoe UI" size="20.0" />
          </font>
       </Label>
       <ImageView fx:id="favoriteButton" fitHeight="39.0" fitWidth="46.0" layoutX="722.0" layoutY="121.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
@@ -32,19 +25,11 @@
             <Image url="@../../../images/heart1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="27.0" layoutX="355.0" layoutY="133.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" layoutX="387.0" layoutY="136.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/speaker.png" />
          </image>
       </ImageView>
-      <Text layoutX="29.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-56.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="71.0" fitWidth="72.0" layoutX="6.0" layoutY="197.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/book.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="33.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Học" />
       <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="600.0" layoutY="14.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/add.png" />
@@ -55,11 +40,55 @@
             <Image url="@../../../images/minus.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="64.0" fitWidth="72.0" layoutX="3.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/paragraph.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="16.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dịch đoạn" />
+      <Button fx:id="gameButton" layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#play_game">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/game_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="studyButton" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" onAction="#start_game_2" prefHeight="60.0" prefWidth="60.0">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="65.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/book.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="transParaButton" layoutX="11.0" layoutY="116.0" mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="64.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/paragraph.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <HBox layoutX="375.0" layoutY="20.0" prefHeight="39.0" prefWidth="169.0" spacing="10.0">
+         <children>
+            <ImageView fx:id="translateFromIcon" fitHeight="40.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/england.png" />
+               </image>
+            </ImageView>
+            <ToggleButton fx:id="change_language_button" mnemonicParsing="false" onAction="#changeLanguage" prefHeight="41.0" prefWidth="44.0" style="-fx-border-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/arrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ImageView fx:id="translateToIcon" fitHeight="40.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/vietnam.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

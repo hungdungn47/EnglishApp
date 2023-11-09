@@ -34,6 +34,20 @@ public class Controller implements Initializable {
     private ToggleButton change_language_button;
     @FXML
     private ImageView favoriteButton;
+    @FXML
+    private ImageView translateFromIcon;
+    @FXML
+    private ImageView translateToIcon;
+    @FXML
+    private Button transParaButton;
+    @FXML
+    private Button studyButton;
+    @FXML
+    private Button gameButton;
+    @FXML
+    private ImageView pronounceButton;
+    private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
+    private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
     private final Image blankHeart = new Image(new File("src/main/resources/images/heart1.png").toURI().toString());
     private final Image redHeart = new Image(new File("src/main/resources/images/heart2.png").toURI().toString());
     private String selectedWord;
@@ -58,12 +72,16 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pronounceButton.setVisible(false);
+        favoriteButton.setVisible(false);
         language_options = 0;
         // add words to list view
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
         // add favorite words to list
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            pronounceButton.setVisible(true);
+            favoriteButton.setVisible(true);
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
             if (!favoriteWords.contains(selectedWord)) {
                 favoriteButton.setImage(blankHeart);
@@ -77,11 +95,27 @@ public class Controller implements Initializable {
             word_list_listView.getItems().clear();
             word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue));
         });
+        Tooltip swap = new Tooltip("Swap language");
+        Tooltip study = new Tooltip("Study");
+        Tooltip game = new Tooltip("Game");
+        Tooltip translatePara = new Tooltip("Translate paragraph");
+
+        swap.setShowDelay(javafx.util.Duration.millis(10));
+        study.setShowDelay(javafx.util.Duration.millis(10));
+        game.setShowDelay(javafx.util.Duration.millis(10));
+        translatePara.setShowDelay(javafx.util.Duration.millis(10));
+
+        Tooltip.install(change_language_button, swap);
+        Tooltip.install(transParaButton, translatePara);
+        Tooltip.install(studyButton, study);
+        Tooltip.install(gameButton, game);
     }
 
     public void translate(ActionEvent event) {
-        String target = search_box.getText();
-        String result = DictionaryManagement.dictionaryLookup(target, language_options);
+        pronounceButton.setVisible(true);
+        favoriteButton.setVisible(true);
+        selectedWord = search_box.getText();
+        String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
         definition.setText(result);
     }
 
@@ -117,24 +151,40 @@ public class Controller implements Initializable {
 
         language_options = 1 - language_options;
         if (language_options == 1) {
-            change_language_button.setText("Vietnamese - English");
+            translateFromIcon.setImage(vietnamese);
+            translateToIcon.setImage(english);
         } else {
-            change_language_button.setText("English - Vietnamese");
+            translateFromIcon.setImage(english);
+            translateToIcon.setImage(vietnamese);
         }
     }
 
     public void pronounce() {
         if (selectedWord != null) {
-            TextToSpeech.pronounce(selectedWord);
+            if(language_options == 0) {
+                TextToSpeech.pronounce(selectedWord);
+            } else {
+                TextToSpeech.pronounce(DictionaryManagement.dictionaryLookup(selectedWord, language_options));
+            }
         }
     }
 
     public void addToFavorite(MouseEvent mouseEvent) {
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
-            favoriteWords.add(selectedWord);
-            DictionaryCommandLine.dictionaryExportToFile(fileName, selectedWord);
-            favoriteButton.setImage(redHeart);
+        System.out.println("favor");
+        if(favoriteButton.getImage() == redHeart) {
+            String fileName = Login.getUsername() + "FavoriteWord.txt";
+            if (selectedWord != null && favoriteWords.contains(selectedWord)) {
+                favoriteWords.remove(selectedWord);
+                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
+                favoriteButton.setImage(blankHeart);
+            }
+        } else {
+            String fileName = Login.getUsername() + "FavoriteWord.txt";
+            if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
+                favoriteWords.add(selectedWord);
+                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
+                favoriteButton.setImage(redHeart);
+            }
         }
     }
 }
