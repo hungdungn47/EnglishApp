@@ -22,7 +22,7 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("main-screen.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");
         stage.setResizable(false);
