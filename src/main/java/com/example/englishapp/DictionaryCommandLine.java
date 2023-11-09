@@ -3,6 +3,7 @@ package com.example.englishapp;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class
@@ -44,18 +45,20 @@ DictionaryCommandLine {
             throw new RuntimeException(e);
         }
     }
-    public static void dictionaryExportToFile(String fileName, String word){
+    public static void changeFavoriteWords(String fileName, List<String> favoriteWords){
         FileWriter fw = null;
         String filePath = "src/main/resources/data/favoriteWords/" + fileName;
         try {
-            fw = new FileWriter(filePath, true);
+            fw = new FileWriter(filePath, false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            fw.write(word + "\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for(String s :favoriteWords) {
+            try {
+                fw.write(s + "\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         try {
             fw.close();
