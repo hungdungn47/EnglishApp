@@ -46,7 +46,7 @@ public class DictionaryManagement {
             }
             String word = line.substring(0, delimiter_pos);
             String definition = line.substring(delimiter_pos);
-            Dictionary.data.add(new Word(word, definition));
+            Dictionary.data.add(new Word(word.trim(), definition));
         }
         sc.close();
     }

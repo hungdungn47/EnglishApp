@@ -29,23 +29,7 @@ public class Signup {
     static final String USER = "dung"; // Thay thế bằng tên người dùng MySQL
     static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
     public void signup(ActionEvent event) throws IOException {
-        File file = new File("src/main/resources/data/passwords.txt");
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String line;
-        while(true) {
-            try {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String[] row = line.split(",");
-            passwordsMap.put(row[0], row[1]);
-        }
+        readData();
         String username = usernameField.getText();
         String password = passwordField.getText();
         String passwordConfirm = confirmPasswordField.getText();
@@ -77,6 +61,9 @@ public class Signup {
             Application app = new Application();
             app.changeScene("login.fxml");
         }
+//        String username = usernameField.getText();
+//        String password = passwordField.getText();
+//        String passwordConfirm = confirmPasswordField.getText();
 //        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
 //
 //            // Kiểm tra xem tên người dùng mới đã tồn tại hay chưa
@@ -116,5 +103,24 @@ public class Signup {
     public void back(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("login.fxml");
+    }
+    private void readData() {
+        File file = new File("src/main/resources/data/passwords.txt");
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String line;
+        while(true) {
+            try {
+                if ((line = br.readLine()) == null) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String[] row = line.split(",");
+            passwordsMap.put(row[0], row[1]);
+        }
     }
 }

@@ -1,15 +1,13 @@
 AnchorPane {
-    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
 }
 #menu {
     -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
 }
-#gameButton {
-    -fx-background-image: url("@../../../images/game_icon.png");
-}
-.gameButton:hover {
-    -fx-background-image: url("@../../../images/game_icon.png");
-}
-.gameButton:pressed {
-    -fx-background-image: url("@../../../images/game_icon.png");
+#change_language_button {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+
 }
