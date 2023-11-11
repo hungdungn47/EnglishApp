@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="com.example.englishapp.Controller" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0"
+            stylesheets="@main-screen.css" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
+        <ListView fx:id="word_list_listView" layoutY="79.0" prefHeight="487.0" prefWidth="273.0" />
+        <Label fx:id="definition" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="332.0" layoutY="170.0" prefHeight="196.0" prefWidth="327.0" style="-fx-wrap-text: true;" AnchorPane.bottomAnchor="220.0" AnchorPane.rightAnchor="48.0">
+            <font>
+                <Font name="Segoe UI" size="18.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="favoriteButton" fitHeight="30.0" fitWidth="33.0" layoutX="617.0" layoutY="123.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/heart1.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" layoutX="340.0" layoutY="124.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/speaker.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="515.0" layoutY="27.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/add.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="563.0" layoutY="27.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/minus.png" />
+            </image>
+        </ImageView>
+        <HBox layoutX="288.0" layoutY="20.0" prefHeight="39.0" prefWidth="169.0" spacing="10.0">
+            <children>
+                <ImageView fx:id="translateFromIcon" fitHeight="40.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/england.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="change_language_button" mnemonicParsing="false" onAction="#changeLanguage">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../images/arrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <ImageView fx:id="translateToIcon" fitHeight="40.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/vietnam.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
