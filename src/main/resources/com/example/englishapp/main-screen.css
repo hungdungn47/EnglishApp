@@ -1,13 +1,11 @@
-AnchorPane {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
-}
-#menu {
-    -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
-}
-#change_language_button {
+Button {
     -fx-border-color: transparent;
     -fx-background-color: transparent;
     -fx-background-insets: 0;
-
+}
+ListView {
+    -fx-background-radius: 12;
+}
+TextField {
+    -fx-background-radius: 12;
 }

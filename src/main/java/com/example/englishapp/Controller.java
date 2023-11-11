@@ -31,7 +31,7 @@ public class Controller implements Initializable {
     @FXML
     private ListView<String> word_list_listView;
     @FXML
-    private ToggleButton change_language_button;
+    private Button change_language_button;
     @FXML
     private ImageView favoriteButton;
     @FXML
