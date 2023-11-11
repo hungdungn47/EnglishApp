@@ -39,19 +39,24 @@ public class Signup {
             wrongConfirm.setText("Password and confirm password doesn't match!");
         } else {
             FileWriter fw = null;
+            FileWriter fw2 = null;
             String filePath = "src/main/resources/data/passwords.txt";
+            String filePathGame = "src/main/resources/data/snake_game/score.txt";
             try {
                 fw = new FileWriter(filePath, true);
+                fw2 = new FileWriter(filePathGame, true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             try {
                 fw.write(username + "," + password + "\n");
+                fw2.write(username + ":0");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             try {
                 fw.close();
+                fw2.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
