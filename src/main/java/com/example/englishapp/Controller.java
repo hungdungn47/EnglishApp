@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -22,8 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable {
+    @FXML
+    private BorderPane bp;
     @FXML
     private TextField search_box;
     @FXML
@@ -54,8 +59,8 @@ public class Controller implements Initializable {
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
     private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
-    private final Image blankHeart = new Image(new File("src/main/resources/images/heart1.png").toURI().toString());
-    private final Image redHeart = new Image(new File("src/main/resources/images/heart2.png").toURI().toString());
+    private final Image blankHeart = new Image(new File("src/main/resources/images/love.png").toURI().toString());
+    private final Image redHeart = new Image(new File("src/main/resources/images/heart.png").toURI().toString());
     private String selectedWord;
     private int language_options;
     private final List<String> favoriteWords = new ArrayList<>();
@@ -125,16 +130,20 @@ public class Controller implements Initializable {
         definition.setText(result);
     }
 
-    public void translate_paragraph(ActionEvent event) {
-        word_list_listView.setVisible(false);
-        favoriteButton.setVisible(false);
-        pronounceButton.setVisible(false);
-        search_box.setVisible(false);
-        translateFromIcon.setVisible(false);
-        addbutton.setVisible(false);
-        deletebutton.setVisible(false);
-        translateToIcon.setVisible(false);
-        change_lang.setVisible(false);
+    public void translateParagraph(ActionEvent event) {
+        loadPage("translateParagraph");
+    }
+    private void loadPage(String page) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
+        } catch (IOException e) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
+        }
+        bp.setCenter(root);
+    }
+    public void dictionaryPage(ActionEvent event) {
+        loadPage("dictionaryPage");
     }
 
     public void add() throws IOException {

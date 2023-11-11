@@ -34,8 +34,13 @@ public class Signup {
         String password = passwordField.getText();
         String passwordConfirm = confirmPasswordField.getText();
         if(passwordsMap.containsKey(username)) {
+            wrongConfirm.setText("");
             wrongUsername.setText("Username already exists!");
-        } else if (!passwordConfirm.equals(password)) {
+        } else if(password.isEmpty()) {
+            wrongUsername.setText("");
+            wrongConfirm.setText("Please enter your passwords!");
+        }else if (!passwordConfirm.equals(password)) {
+            wrongUsername.setText("");
             wrongConfirm.setText("Password and confirm password doesn't match!");
         } else {
             FileWriter fw = null;
