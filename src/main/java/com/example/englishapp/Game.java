@@ -494,10 +494,17 @@ public class Game {
             }
         }
         for (String key : set) {
-            if (History_score.get(rank[1]) < History_score.get(key)) {
+            if (History_score.get(rank[0]) < History_score.get(key)) {
                 rank[2] = rank[1];
                 rank[1] = rank[0];
                 rank[0] = key;
+            }
+            else if (History_score.get(rank[1]) < History_score.get(key)){
+                rank[2] = rank[1];
+                rank[1] = key;
+            }
+            else if(History_score.get(rank[2]) < History_score.get(key)){
+                rank[2] = key;
             }
         }
         String Rank = "Xếp hạng: \n" + rank[0] + ":" + History_score.get(rank[0]) + "\n" + rank[1] + ":" + History_score.get(rank[1]) + "\n" +
