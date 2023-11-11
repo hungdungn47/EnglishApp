@@ -45,6 +45,12 @@ public class Controller implements Initializable {
     @FXML
     private Button gameButton;
     @FXML
+    private ImageView addbutton;
+    @FXML
+    private ImageView deletebutton;
+    @FXML
+    private ImageView change_lang;
+    @FXML
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
     private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
@@ -119,6 +125,18 @@ public class Controller implements Initializable {
         definition.setText(result);
     }
 
+    public void translate_paragraph(ActionEvent event) {
+        word_list_listView.setVisible(false);
+        favoriteButton.setVisible(false);
+        pronounceButton.setVisible(false);
+        search_box.setVisible(false);
+        translateFromIcon.setVisible(false);
+        addbutton.setVisible(false);
+        deletebutton.setVisible(false);
+        translateToIcon.setVisible(false);
+        change_lang.setVisible(false);
+    }
+
     public void add() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -128,6 +146,7 @@ public class Controller implements Initializable {
         stage.setScene(new Scene(root1));
         stage.show();
     }
+
     public void delete() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -137,6 +156,7 @@ public class Controller implements Initializable {
         stage.setScene(new Scene(root1));
         stage.show();
     }
+
     public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
@@ -161,7 +181,7 @@ public class Controller implements Initializable {
 
     public void pronounce() {
         if (selectedWord != null) {
-            if(language_options == 0) {
+            if (language_options == 0) {
                 TextToSpeech.pronounce(selectedWord);
             } else {
                 TextToSpeech.pronounce(DictionaryManagement.dictionaryLookup(selectedWord, language_options));
@@ -171,7 +191,7 @@ public class Controller implements Initializable {
 
     public void addToFavorite(MouseEvent mouseEvent) {
         System.out.println("favor");
-        if(favoriteButton.getImage() == redHeart) {
+        if (favoriteButton.getImage() == redHeart) {
             String fileName = Login.getUsername() + "FavoriteWord.txt";
             if (selectedWord != null && favoriteWords.contains(selectedWord)) {
                 favoriteWords.remove(selectedWord);
