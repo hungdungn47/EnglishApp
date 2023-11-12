@@ -106,6 +106,9 @@ public class Game2 {
 
 
         themeSelectionAlert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == cancelButton) {
+                return;
+            }
             if (buttonType == theme1Button) {
                 selected_topic = "character";
             } else if (buttonType == theme2Button) {
