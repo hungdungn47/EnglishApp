@@ -22,15 +22,11 @@
                         <Font name="Franklin Gothic Medium Cond" size="50.0" />
                     </font>
                 </Label>
-                <HBox prefHeight="43.0" prefWidth="360.0">
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="360.0">
                <children>
-                  <Label fx:id="wrongUsername" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="227.0" textFill="#e40f0f">
-                     <HBox.margin>
-                        <Insets left="70.0" />
-                     </HBox.margin>
-                  </Label>
+                  <Label fx:id="wrongUsername" alignment="CENTER" prefHeight="43.0" prefWidth="360.0" />
                </children></HBox>
-                <HBox alignment="CENTER" prefHeight="81.0" prefWidth="360.0">
+                <HBox alignment="CENTER" prefHeight="111.0" prefWidth="360.0">
                     <children>
                         <TextField fx:id="usernameField" prefHeight="39.0" prefWidth="231.0" promptText="Username">
                             <HBox.margin>
@@ -57,9 +53,9 @@
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="0.0" prefWidth="442.0">
+                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="360.0">
                     <children>
-                        <Label fx:id="wrongConfirm" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="227.0" textFill="#e40f0f" />
+                        <Label fx:id="wrongConfirm" alignment="CENTER" prefHeight="45.0" prefWidth="360.0" textFill="#e40f0f" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="42.0" prefWidth="442.0">

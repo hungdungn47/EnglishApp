@@ -1,103 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
-   <children>
-      <ListView fx:id="word_list_listView" layoutX="112.0" layoutY="62.0" prefHeight="524.0" prefWidth="243.0" />
-      <TextField fx:id="search_box" layoutX="112.0" layoutY="14.0" onAction="#translate" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
-      <Label fx:id="definition" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="413.0" layoutY="205.0" prefHeight="190.0" prefWidth="331.0" style="-fx-wrap-text: true;">
-         <font>
-            <Font name="Segoe UI" size="20.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="favoriteButton" fitHeight="39.0" fitWidth="46.0" layoutX="722.0" layoutY="121.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/heart1.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" layoutX="387.0" layoutY="136.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/speaker.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="600.0" layoutY="14.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/add.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="638.0" layoutY="14.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/minus.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="gameButton" layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#play_game">
-         <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/game_icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="studyButton" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" onAction="#start_game_2" prefHeight="60.0" prefWidth="60.0">
-         <graphic>
-            <ImageView fitHeight="58.0" fitWidth="65.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/book.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="transParaButton" layoutX="11.0" layoutY="116.0" mnemonicParsing="false">
-         <graphic>
-            <ImageView fitHeight="64.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/paragraph.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <HBox layoutX="375.0" layoutY="20.0" prefHeight="39.0" prefWidth="169.0" spacing="10.0">
+
+<BorderPane fx:id="bp" maxHeight="600" maxWidth="800" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0" stylesheets="@main-screen.css">
+
          <children>
-            <ImageView fx:id="translateFromIcon" fitHeight="40.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
+            <ListView fx:id="word_list_listView" layoutY="79.0" prefHeight="487.0" prefWidth="273.0" />
+            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="515.0" layoutY="27.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/england.png" />
+                  <Image url="@../../../images/add.png" />
                </image>
             </ImageView>
-            <ToggleButton fx:id="change_language_button" mnemonicParsing="false" onAction="#changeLanguage" prefHeight="41.0" prefWidth="44.0" style="-fx-border-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="563.0" layoutY="27.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/minus.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="288.0" layoutY="26.0" prefHeight="23.0" prefWidth="132.0" spacing="10.0">
+               <children>
+                  <ImageView fx:id="translateFromIcon" fitHeight="27.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/arrow.png" />
+                        <Image url="@../../../images/england.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="change_language_button" mnemonicParsing="false" onAction="#changeLanguage">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ImageView fx:id="translateToIcon" fitHeight="29.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/vietnam.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" layoutX="288.0" layoutY="79.0" prefHeight="487.0" prefWidth="401.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12;" AnchorPane.topAnchor="79.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="319.0" spacing="200.0">
+                     <children>
+                        <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/speaker.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="favoriteButton" fitHeight="30.0" fitWidth="33.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/love.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label fx:id="definition" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="383.0" prefWidth="310.0" style="-fx-wrap-text: true;">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="49.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#dictionaryPage" prefHeight="46.0" prefWidth="28.0">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/dictionary.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </ToggleButton>
-            <ImageView fx:id="translateToIcon" fitHeight="40.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/vietnam.png" />
-               </image>
-            </ImageView>
+            </Button>
+            <Button fx:id="transParaButton" mnemonicParsing="false" onAction="#translateParagraph">
+               <graphic>
+                  <ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/translation.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="studyButton" mnemonicParsing="false" onAction="#start_game_2" prefHeight="52.0" prefWidth="46.0">
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="51.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/open-book.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="gameButton" mnemonicParsing="false" onAction="#play_game" prefHeight="41.0" prefWidth="43.0">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="52.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/game-controller.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
-      </HBox>
-      <Button fx:id="logOutButton" layoutX="17.0" layoutY="539.0" mnemonicParsing="false" onAction="#logOut" prefHeight="46.0" prefWidth="76.0">
-         <graphic>
-            <ImageView fitHeight="38.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/logout.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-   </children>
-</AnchorPane>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </left>
+</BorderPane>

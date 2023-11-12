@@ -10,15 +10,19 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable {
+    @FXML
+    private BorderPane bp;
     @FXML
     private TextField search_box;
     @FXML
@@ -26,7 +30,7 @@ public class Controller implements Initializable {
     @FXML
     private ListView<String> word_list_listView;
     @FXML
-    private ToggleButton change_language_button;
+    private Button change_language_button;
     @FXML
     private ImageView favoriteButton;
     @FXML
@@ -41,12 +45,17 @@ public class Controller implements Initializable {
     private Button gameButton;
     @FXML
     private Button logOutButton;
+    private ImageView addbutton;
+    @FXML
+    private ImageView deletebutton;
+    @FXML
+    private ImageView change_lang;
     @FXML
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
     private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
-    private final Image blankHeart = new Image(new File("src/main/resources/images/heart1.png").toURI().toString());
-    private final Image redHeart = new Image(new File("src/main/resources/images/heart2.png").toURI().toString());
+    private final Image blankHeart = new Image(new File("src/main/resources/images/love.png").toURI().toString());
+    private final Image redHeart = new Image(new File("src/main/resources/images/heart.png").toURI().toString());
     private String selectedWord;
     private int language_options;
     private final List<String> favoriteWords = new ArrayList<>();
@@ -114,6 +123,22 @@ public class Controller implements Initializable {
         selectedWord = search_box.getText();
         String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
         definition.setText(result);
+    }
+
+    public void translateParagraph(ActionEvent event) {
+        loadPage("translateParagraph");
+    }
+    private void loadPage(String page) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
+        } catch (IOException e) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
+        }
+        bp.setCenter(root);
+    }
+    public void dictionaryPage(ActionEvent event) {
+        loadPage("dictionaryPage");
     }
 
     public void add() throws IOException {
