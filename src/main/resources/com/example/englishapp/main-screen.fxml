@@ -90,7 +90,7 @@
             </ImageView>
          </children>
       </HBox>
-      <Button fx:id="logOutButton" layoutX="17.0" layoutY="492.0" mnemonicParsing="false" onAction="#logOut" prefHeight="46.0" prefWidth="76.0">
+      <Button fx:id="logOutButton" layoutX="17.0" layoutY="539.0" mnemonicParsing="false" onAction="#logOut" prefHeight="46.0" prefWidth="76.0">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
