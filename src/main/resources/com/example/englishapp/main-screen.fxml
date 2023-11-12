@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <children>
       <ListView fx:id="word_list_listView" layoutX="112.0" layoutY="62.0" prefHeight="524.0" prefWidth="243.0" />
       <TextField fx:id="search_box" layoutX="112.0" layoutY="14.0" onAction="#translate" prefHeight="39.0" prefWidth="243.0" promptText="Search" />
@@ -90,5 +90,14 @@
             </ImageView>
          </children>
       </HBox>
+      <Button fx:id="logOutButton" layoutX="17.0" layoutY="492.0" mnemonicParsing="false" onAction="#logOut" prefHeight="46.0" prefWidth="76.0">
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

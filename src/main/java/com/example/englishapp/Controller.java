@@ -10,18 +10,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controller implements Initializable {
     @FXML
@@ -44,6 +39,8 @@ public class Controller implements Initializable {
     private Button studyButton;
     @FXML
     private Button gameButton;
+    @FXML
+    private Button logOutButton;
     @FXML
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
@@ -128,6 +125,7 @@ public class Controller implements Initializable {
         stage.setScene(new Scene(root1));
         stage.show();
     }
+
     public void delete() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -137,6 +135,7 @@ public class Controller implements Initializable {
         stage.setScene(new Scene(root1));
         stage.show();
     }
+
     public void play_game() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
@@ -161,7 +160,7 @@ public class Controller implements Initializable {
 
     public void pronounce() {
         if (selectedWord != null) {
-            if(language_options == 0) {
+            if (language_options == 0) {
                 TextToSpeech.pronounce(selectedWord);
             } else {
                 TextToSpeech.pronounce(DictionaryManagement.dictionaryLookup(selectedWord, language_options));
@@ -171,7 +170,7 @@ public class Controller implements Initializable {
 
     public void addToFavorite(MouseEvent mouseEvent) {
         System.out.println("favor");
-        if(favoriteButton.getImage() == redHeart) {
+        if (favoriteButton.getImage() == redHeart) {
             String fileName = Login.getUsername() + "FavoriteWord.txt";
             if (selectedWord != null && favoriteWords.contains(selectedWord)) {
                 favoriteWords.remove(selectedWord);
@@ -185,6 +184,28 @@ public class Controller implements Initializable {
                 DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
                 favoriteButton.setImage(redHeart);
             }
+        }
+    }
+
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to logout?");
+
+        String textColor = "#8d2aa4";
+        alert.getDialogPane().lookup(".content.label").setStyle("-fx-text-fill: " + textColor + ";");
+
+        InputStream inputStream = getClass().getResourceAsStream("/images/close.png");
+        Image image = new Image(inputStream);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        alert.setGraphic(imageView);
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Application application = new Application();
+            application.changeScene("login.fxml");
         }
     }
 }
