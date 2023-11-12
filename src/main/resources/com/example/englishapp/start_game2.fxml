@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Game2">
    <children>
-      <Button layoutX="351.0" layoutY="167.0" mnemonicParsing="false" onAction="#play_game_2" prefHeight="80.0" prefWidth="98.0" text="Play" />
-      <Button layoutX="351.0" layoutY="323.0" mnemonicParsing="false" onAction="#back_to_main" prefHeight="80.0" prefWidth="98.0" text="Back" />
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../data/background/start_game2.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="341.0" layoutY="179.0" mnemonicParsing="false" onAction="#play_game_2" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="Play" textFill="#8d2aa4">
+         <font>
+            <Font name="Bell MT Bold" size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="341.0" layoutY="287.0" mnemonicParsing="false" onAction="#how_to_play_game2" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="How to play" textFill="#8d2aa4">
+         <font>
+            <Font name="Bell MT Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="341.0" layoutY="379.0" mnemonicParsing="false" onAction="#back_to_main" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="Back" textFill="#8d2aa4">
+         <font>
+            <Font name="Bell MT Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

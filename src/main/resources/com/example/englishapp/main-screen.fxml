@@ -13,9 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <BorderPane fx:id="bp" maxHeight="600" maxWidth="800" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0" stylesheets="@main-screen.css">
+
          <children>
             <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
             <ListView fx:id="word_list_listView" layoutY="79.0" prefHeight="487.0" prefWidth="273.0" />

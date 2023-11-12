@@ -14,15 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +44,7 @@ public class Controller implements Initializable {
     @FXML
     private Button gameButton;
     @FXML
+    private Button logOutButton;
     private ImageView addbutton;
     @FXML
     private ImageView deletebutton;
@@ -214,6 +209,28 @@ public class Controller implements Initializable {
                 DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
                 favoriteButton.setImage(redHeart);
             }
+        }
+    }
+
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to logout?");
+
+        String textColor = "#8d2aa4";
+        alert.getDialogPane().lookup(".content.label").setStyle("-fx-text-fill: " + textColor + ";");
+
+        InputStream inputStream = getClass().getResourceAsStream("/images/close.png");
+        Image image = new Image(inputStream);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        alert.setGraphic(imageView);
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Application application = new Application();
+            application.changeScene("login.fxml");
         }
     }
 }

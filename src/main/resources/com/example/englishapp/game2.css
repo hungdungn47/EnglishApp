@@ -1,0 +1,16 @@
+Button{
+    -fx-background-color: #c4add1;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-padding: 10;
+}
+VBox{
+    -fx-background-color: #c4add1;
+    -fx-background-radius: 15;
+}
+#next_button{
+    -fx-background-color: #bca3ff;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-padding: 10;
+}
