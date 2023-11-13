@@ -1,4 +1,4 @@
-1:60
+1:200
 jdjd:0
 hoanganhknk:100
 hoanganh:120

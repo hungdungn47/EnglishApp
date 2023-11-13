@@ -1,21 +1,17 @@
 a-plenty
-abaft 
-a-bomb 
-a-power 
-abbess 
+abaft
+a-bomb
+a-power
+abbess
 a.m.
 aba
 a priori
 abaft
 a la mode
 code
-<<<<<<< HEAD
 school-marm
 a
-=======
 a posteriori
 aasvogel
 abbacy
 refloat
-indestructibleness
->>>>>>> main

@@ -85,6 +85,10 @@ public class Game {
 //            Application app = new Application();
 //            app.changeScene("warningfxml");
 //        }
+        for(int i= 0; i< ROWS;i ++){
+            setfilltaskbar(gc);
+            gc.fillRect(i * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
+        }
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -164,9 +168,7 @@ public class Game {
         }
 
         if (direction == LEFT) {
-            if (snakehead.x == 14 && snakehead.y >= 10) {
-                snakehead.x = 5;
-            } else if (snakehead.x <= 0) {
+            if (snakehead.x <= 0) {
                 snakehead.x = ROWS - 1;
             } else {
                 snakehead.x--;
@@ -174,26 +176,18 @@ public class Game {
         } else if (direction == RIGHT) {
             if (snakehead.x == ROWS - 1) {
                 snakehead.x = 0;
-            } else if (snakehead.x == 5 && snakehead.y >= 10) {
-                snakehead.x = 14;
             } else {
                 snakehead.x++;
             }
         } else if (direction == UP) {
-            if (snakehead.y == 0) {
-                if (snakehead.x <= 13 && snakehead.x >= 6) {
-                    snakehead.y = 9;
-                } else {
-                    snakehead.y = COLUMNS - 1;
-                }
+            if (snakehead.y == 1) {
+                snakehead.y = COLUMNS - 1;
             } else {
                 snakehead.y--;
             }
         } else if (direction == DOWN) {
             if (snakehead.y == COLUMNS - 1) {
-                snakehead.y = 0;
-            } else if (snakehead.y == 9 && snakehead.x <= 13 && snakehead.x >= 6) {
-                snakehead.y = 0;
+                snakehead.y = 1;
             } else {
                 snakehead.y++;
             }
@@ -215,13 +209,19 @@ public class Game {
             y_fakecharacter2 = (int) (Math.random() * (COLUMNS - 3));
             for (Point snake : snakebody) {
                 if (snake.getX() == x_foodcoor && snake.getY() == y_foodcoor
-                        || (x_foodcoor >= 4 && x_foodcoor <= 13 && y_foodcoor >= 10)
+                        || (y_foodcoor <= 1)
                         || (snake.getX() == x_fakecharacter && snake.getY() == y_fakecharacter)
-                        || (x_fakecharacter >= 4 && x_fakecharacter <= 13 && y_fakecharacter >= 10)
+                        || (y_fakecharacter <= 1)
                         || (snake.getX() == x_fakecharacter1 && snake.getY() == y_fakecharacter1)
-                        || (x_fakecharacter1 >= 4 && x_fakecharacter1 <= 13 && y_fakecharacter1 >= 10)
+                        || (y_fakecharacter1 <= 1)
                         || (snake.getX() == x_fakecharacter2 && snake.getY() == y_fakecharacter2)
-                        || (x_fakecharacter2 >= 4 && x_fakecharacter2 <= 13 && y_fakecharacter2 >= 10)) {
+                        || (y_fakecharacter2 <= 1)
+                        || (x_foodcoor == x_fakecharacter && y_foodcoor == y_fakecharacter)
+                        || (x_foodcoor == x_fakecharacter1 && y_foodcoor == y_fakecharacter1)
+                        || (x_foodcoor == x_fakecharacter2 && y_foodcoor == y_fakecharacter2)
+                        || (x_fakecharacter == x_fakecharacter1 && y_fakecharacter == y_fakecharacter1)
+                        || (x_fakecharacter == x_fakecharacter2 && y_fakecharacter == y_fakecharacter2)
+                        || (x_fakecharacter2 == x_fakecharacter1 && y_fakecharacter2 == y_fakecharacter1)) {
                     continue start;
                 }
             }
@@ -258,7 +258,7 @@ public class Game {
         heat_image = new File(heat_image).toURI().toString();
         Image image_of_heart = new Image(heat_image);
         for (int i = 0; i < health; i++) {
-            gc.drawImage(image_of_heart, (6 + i) * SQUARE_SIZE, 10 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            gc.drawImage(image_of_heart, (17 + i) * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
         }
     }
 
@@ -279,10 +279,16 @@ public class Game {
     public void draw_words_to_complete(GraphicsContext gc) {
         int index = (int) (Math.random() * listfavoriteWords.size());
         String word = listfavoriteWords.get(index);
+        int count_hidden;
+        if (word.length() > 3) {
+            count_hidden = 3;
+        } else {
+            count_hidden = 1;
+        }
         String temp = word;
         int rand = (int) (Math.random() * word.length());
-        for (int i = 0; i < 3; i++) {
-            while (temp.charAt(rand) == '_' || temp.charAt(rand) == ' ' || temp.charAt(rand) == '-') {
+        for (int i = 0; i < count_hidden; i++) {
+            while (temp.charAt(rand) == '_' || temp.charAt(rand) == ' ' || temp.charAt(rand) == '-' || temp.charAt(rand) == '.') {
                 rand = (int) (Math.random() * word.length());
             }
             temp = temp.substring(0, rand) + '_' + temp.substring(rand + 1);
@@ -293,8 +299,8 @@ public class Game {
             if (word_hidden.charAt(i) == '_') {
                 char_to_add = word.charAt(i);
                 gc.setFill(Color.RED);
-                gc.setFont(new Font("Comic sans MS", 45));
-                gc.fillText(word_hidden, WIDTH / 2.5, 500);
+                gc.setFont(new Font("Comic sans MS", 40));
+                gc.fillText(word_hidden, WIDTH / 2.5, SQUARE_SIZE - 8);
                 word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
                 break;
             }
@@ -319,7 +325,7 @@ public class Game {
     private void drawBackground(GraphicsContext gc) {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                if ((i >= 6 && i <= 13 && j >= 10)) {
+                if (j == 0) {
                     continue;
                 } else if ((i + j) % 2 == 0) {
                     gc.setFill(Color.PINK);
@@ -343,17 +349,16 @@ public class Game {
     private void Ifgameover(GraphicsContext gc) throws IOException {
         if (gameOver) {
             gc.clearRect(0, 0, WIDTH, HEIGHT);
+            setfilltaskbar(gc);
+            gc.fillRect(0,0,WIDTH,HEIGHT);
             String gameoverImage = new File("src/main/resources/data/snake_game/gameover.png").toURI().toString();
             Image gameover = new Image(gameoverImage);
-            gc.drawImage(gameover, 0, 0, WIDTH, HEIGHT);
+            gc.drawImage(gameover, WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
             gc.setFill(Color.RED);
-            gc.setFont(new Font("Comic sans MS", 70));
-            if (score < 100) {
-                gc.fillText(" ", WIDTH / 3.5 - 20, HEIGHT / 2 + 200);
-            }
-            gc.setFont(new Font("Comic sans MS", 35));
-            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 5, 560);
-            gc.fillText("Điểm của bạn là: " + score, 400, 35);
+            gc.setFont(new Font("Verdana", 20));
+            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3 - 25, 560);
+            gc.setFont(new Font("100px Tahoma", 20));
+            gc.fillText("Điểm của bạn: " + score, WIDTH/2 - 55, 35);
             PrintRanking();
         }
     }
@@ -369,47 +374,30 @@ public class Game {
     }
 
     private void drawScore() {
-        gc.setFill(Color.DARKMAGENTA);
+        gc.setFill(Color.WHITE);
         gc.setFont(new Font("Comic sans MS", 35));
         gc.fillText("Score: " + score, 10, 35);
     }
 
     private void eat() {
         if (snakehead.getX() == x_foodcoor && snakehead.getY() == y_foodcoor) {
+            gc.clearRect(0, 0, 16 * SQUARE_SIZE, SQUARE_SIZE);
+            setfilltaskbar(gc);
+            gc.fillRect(0, 0, 16 * SQUARE_SIZE, SQUARE_SIZE);
             snakebody.add(new Point(-1, -1));
             score += 10;
+            gc.setFill(Color.WHITE);
+            gc.setFont(new Font("Comic sans MS", 35));
+            gc.fillText("Score: " + score, 10, 35);
             if (word_hidden.equals(word_origin)) {
-                gc.clearRect(240, 440, 320, 100);
-                int index = (int) (Math.random() * listfavoriteWords.size());
-                String word = listfavoriteWords.get(index);
-                String temp = word;
-                int rand = (int) (Math.random() * word.length());
-                for (int i = 0; i < 3; i++) {
-                    while (temp.charAt(rand) == '_') {
-                        rand = (int) (Math.random() * word.length());
-                    }
-                    temp = temp.substring(0, rand) + '_' + temp.substring(rand + 1);
-                }
-                word_hidden = temp;
-                word_origin = word;
-                for (int i = 0; i < word.length(); i++) {
-                    if (word_hidden.charAt(i) == '_') {
-                        char_to_add = word.charAt(i);
-                        gc.setFill(Color.RED);
-                        gc.setFont(new Font("Comic sans MS", 45));
-                        gc.fillText(word_hidden, WIDTH / 2.5, 500);
-                        word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
-                        break;
-                    }
-                }
+                draw_words_to_complete(gc);
             } else {
                 for (int i = 0; i < word_hidden.length(); i++) {
                     if (word_hidden.charAt(i) == '_') {
                         char_to_add = word_origin.charAt(i);
-                        gc.clearRect(240, 440, 320, 100);
                         gc.setFill(Color.RED);
-                        gc.setFont(new Font("Comic sans MS", 45));
-                        gc.fillText(word_hidden, WIDTH / 2.5, 500);
+                        gc.setFont(new Font("Comic sans MS", 40));
+                        gc.fillText(word_hidden, WIDTH / 2.5, SQUARE_SIZE - 8);
                         word_hidden = word_hidden.substring(0, i) + word_origin.charAt(i) + word_hidden.substring(i + 1);
                         break;
                     }
@@ -422,14 +410,18 @@ public class Game {
                 || snakehead.getX() == x_fakecharacter1 && snakehead.getY() == y_fakecharacter1
                 || snakehead.getX() == x_fakecharacter2 && snakehead.getY() == y_fakecharacter2) {
             health--;
-            gc.clearRect((6 + health) * SQUARE_SIZE, 10 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            gc.clearRect((17 + health) * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
+            setfilltaskbar(gc);
+            gc.fillRect((17 + health - 1) * SQUARE_SIZE, 0, 2*SQUARE_SIZE, SQUARE_SIZE);
             generate_character(char_to_add);
             if (health == 0) {
                 gameOver = true;
             }
         }
     }
-
+    private void setfilltaskbar(GraphicsContext gc){
+        gc.setFill(Color.valueOf("EA91E2"));
+    }
     private void insertScoreFromTxt() throws IOException {
         Scanner sc = new Scanner(new File("src/main/resources/data/snake_game/score.txt"));
         while (sc.hasNext()) {
@@ -498,16 +490,14 @@ public class Game {
                 rank[2] = rank[1];
                 rank[1] = rank[0];
                 rank[0] = key;
-            }
-            else if (History_score.get(rank[1]) < History_score.get(key)){
+            } else if (History_score.get(rank[1]) < History_score.get(key) && !key.equals(rank[0])) {
                 rank[2] = rank[1];
                 rank[1] = key;
-            }
-            else if(History_score.get(rank[2]) < History_score.get(key)){
+            } else if (History_score.get(rank[2]) < History_score.get(key) && !key.equals(rank[0]) && !key.equals(rank[1])) {
                 rank[2] = key;
             }
         }
-        String Rank = "Xếp hạng: \n" + rank[0] + ":" + History_score.get(rank[0]) + "\n" + rank[1] + ":" + History_score.get(rank[1]) + "\n" +
+        String Rank = "TOP\n" + rank[0] + ":" + History_score.get(rank[0]) + "\n" + rank[1] + ":" + History_score.get(rank[1]) + "\n" +
                 rank[2] + ":" + History_score.get(rank[2]);
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Comic sans MS", 25));
