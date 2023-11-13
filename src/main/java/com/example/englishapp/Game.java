@@ -282,7 +282,7 @@ public class Game {
         String temp = word;
         int rand = (int) (Math.random() * word.length());
         for (int i = 0; i < 3; i++) {
-            while (temp.charAt(rand) == '_' || temp.charAt(rand) == ' ') {
+            while (temp.charAt(rand) == '_' || temp.charAt(rand) == ' ' || temp.charAt(rand) == '-') {
                 rand = (int) (Math.random() * word.length());
             }
             temp = temp.substring(0, rand) + '_' + temp.substring(rand + 1);
@@ -349,7 +349,7 @@ public class Game {
             gc.setFill(Color.RED);
             gc.setFont(new Font("Comic sans MS", 70));
             if (score < 100) {
-                gc.fillText("Chơi ngu vãi", WIDTH / 3.5 - 20, HEIGHT / 2 + 200);
+                gc.fillText(" ", WIDTH / 3.5 - 20, HEIGHT / 2 + 200);
             }
             gc.setFont(new Font("Comic sans MS", 35));
             gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 5, 560);
