@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,11 +10,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<BorderPane fx:id="bp" maxHeight="600" maxWidth="800" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
+<BorderPane fx:id="bp" maxHeight="600" maxWidth="800" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0" stylesheets="@main-screen.css">
+      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0" stylesheets="@main-screen.css">
 
          <children>
             <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
@@ -37,7 +36,7 @@
                         <Image url="@../../../images/england.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="change_language_button" mnemonicParsing="false" onAction="#changeLanguage">
+                  <Button fx:id="changeLanguageButton" mnemonicParsing="false" onAction="#changeLanguage">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,7 +54,7 @@
             </HBox>
             <VBox alignment="CENTER" layoutX="288.0" layoutY="79.0" prefHeight="487.0" prefWidth="401.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12;" AnchorPane.topAnchor="79.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="319.0" spacing="200.0">
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="305.0" spacing="250.0">
                      <children>
                         <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -69,11 +68,11 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label fx:id="definition" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="383.0" prefWidth="310.0" style="-fx-wrap-text: true;">
-                     <font>
-                        <Font name="Segoe UI" size="18.0" />
-                     </font>
-                  </Label>
+                  <WebView fx:id="definitionWebView" prefHeight="381.0" prefWidth="341.0">
+                     <VBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </VBox.margin>
+                  </WebView>
                </children>
             </VBox>
          </children>
@@ -100,18 +99,18 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="studyButton" mnemonicParsing="false" onAction="#start_game_2" prefHeight="52.0" prefWidth="46.0">
+            <Button fx:id="studyButton" mnemonicParsing="false" onAction="#vocabGame" prefHeight="52.0" prefWidth="46.0">
                <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="51.0" onMouseClicked="#start_game_2" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="48.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/open-book.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="gameButton" mnemonicParsing="false" onAction="#play_game" prefHeight="41.0" prefWidth="43.0">
+            <Button fx:id="gameButton" mnemonicParsing="false" onAction="#snakeGame" prefHeight="41.0" prefWidth="43.0">
                <graphic>
-                  <ImageView fitHeight="52.0" fitWidth="52.0" onMouseClicked="#play_game" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/game-controller.png" />
                      </image>

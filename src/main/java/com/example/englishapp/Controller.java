@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -18,19 +19,25 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import java.util.logging.Logger;
 
 public class Controller implements Initializable {
+    public static final int EN_TO_VI = 0;
+    public static final int VI_TO_EN = 1;
+    @FXML
+    private WebView definitionWebView;
     @FXML
     private BorderPane bp;
     @FXML
-    private TextField search_box;
+    private AnchorPane anchorPane;
     @FXML
-    private Label definition;
+    private TextField search_box;
     @FXML
     private ListView<String> word_list_listView;
     @FXML
-    private Button change_language_button;
+    private Button changeLanguageButton;
     @FXML
     private ImageView favoriteButton;
     @FXML
@@ -57,7 +64,7 @@ public class Controller implements Initializable {
     private final Image blankHeart = new Image(new File("src/main/resources/images/love.png").toURI().toString());
     private final Image redHeart = new Image(new File("src/main/resources/images/heart.png").toURI().toString());
     private String selectedWord;
-    private int language_options;
+    private int languageOptions;
     private final List<String> favoriteWords = new ArrayList<>();
 
     // 0: anh - viet
@@ -80,22 +87,25 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pronounceButton.setVisible(false);
         favoriteButton.setVisible(false);
-        language_options = 0;
-        // add words to list view
+        languageOptions = EN_TO_VI;
+
         word_list_listView.getItems().addAll(Dictionary.get_target_list());
-        // add favorite words to list
+
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            if (!favoriteWords.contains(selectedWord)) {
-                favoriteButton.setImage(blankHeart);
-            } else {
-                favoriteButton.setImage(redHeart);
+            if(selectedWord != null) {
+                if (!favoriteWords.contains(selectedWord)) {
+                    favoriteButton.setImage(blankHeart);
+                } else {
+                    favoriteButton.setImage(redHeart);
+                }
+                String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
+                WebEngine webEngine = definitionWebView.getEngine();
+                webEngine.loadContent(result, "text/html");
             }
-            String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
-            definition.setText(result);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -111,7 +121,7 @@ public class Controller implements Initializable {
         game.setShowDelay(javafx.util.Duration.millis(10));
         translatePara.setShowDelay(javafx.util.Duration.millis(10));
 
-        Tooltip.install(change_language_button, swap);
+        Tooltip.install(changeLanguageButton, swap);
         Tooltip.install(transParaButton, translatePara);
         Tooltip.install(studyButton, study);
         Tooltip.install(gameButton, game);
@@ -121,8 +131,9 @@ public class Controller implements Initializable {
         pronounceButton.setVisible(true);
         favoriteButton.setVisible(true);
         selectedWord = search_box.getText();
-        String result = DictionaryManagement.dictionaryLookup(selectedWord, language_options);
-        definition.setText(result);
+        String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
+        WebEngine webEngine = definitionWebView.getEngine();
+        webEngine.loadContent(result, "text/html");
     }
 
     public void translateParagraph(ActionEvent event) {
@@ -138,7 +149,7 @@ public class Controller implements Initializable {
         bp.setCenter(root);
     }
     public void dictionaryPage(ActionEvent event) {
-        loadPage("dictionaryPage");
+        bp.setCenter(anchorPane);
     }
 
     public void add() throws IOException {
@@ -161,20 +172,20 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-    public void play_game() throws IOException {
+    public void snakeGame() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
     }
 
-    public void start_game_2() throws IOException {
+    public void vocabGame() throws IOException {
         Application app = new Application();
         app.changeScene("start_game2.fxml");
     }
 
     public void changeLanguage(ActionEvent event) {
 
-        language_options = 1 - language_options;
-        if (language_options == 1) {
+        languageOptions = 1 - languageOptions;
+        if (languageOptions == VI_TO_EN) {
             translateFromIcon.setImage(vietnamese);
             translateToIcon.setImage(english);
         } else {
@@ -185,10 +196,11 @@ public class Controller implements Initializable {
 
     public void pronounce() {
         if (selectedWord != null) {
-            if (language_options == 0) {
-                TextToSpeech.pronounce(selectedWord);
+            if (languageOptions == EN_TO_VI) {
+                TextToSpeech.pronounce(selectedWord, "en");
             } else {
-                TextToSpeech.pronounce(DictionaryManagement.dictionaryLookup(selectedWord, language_options));
+                System.out.println(selectedWord);
+                TextToSpeech.pronounce(selectedWord, "vi");
             }
         }
     }
