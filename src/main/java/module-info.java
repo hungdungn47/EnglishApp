@@ -9,6 +9,7 @@ module com.example.englishapp {
     requires java.desktop;
     requires javafx.media;
     requires java.sql;
+    requires javafx.web;
 
     opens com.example.englishapp to javafx.fxml;
     exports com.example.englishapp;

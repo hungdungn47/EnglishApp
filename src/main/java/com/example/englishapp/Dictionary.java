@@ -27,7 +27,7 @@ public class Dictionary {
      * @param first old word
      * @param last  new word
      */
-    public void update_word_target(String first, String last) {
+    public static void update_word_target(String first, String last) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_target().equals(first)) {
                 data.set(i, new Word(last, data.get(i).getWord_explain()));
@@ -41,7 +41,7 @@ public class Dictionary {
      * @param first old word
      * @param last  new word
      */
-    public void update_word_explain(String first, String last) {
+    public static void update_word_explain(String first, String last) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getWord_explain().equals(first)) {
                 data.set(i, new Word(data.get(i).getWord_target(), last));
