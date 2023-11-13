@@ -15,6 +15,9 @@ public class Application extends javafx.application.Application {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         myStage.getScene().setRoot(pane);
     }
+    public Scene getScene() throws IOException {
+        return myStage.getScene();
+    }
     @Override
     public void start(Stage stage) throws IOException {
         try {

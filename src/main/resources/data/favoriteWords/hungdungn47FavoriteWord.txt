@@ -14,3 +14,4 @@ able
 abacus
 a-plenty
 a fortiori
+a priori
