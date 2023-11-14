@@ -71,8 +71,6 @@ public class Controller implements Initializable {
     private int languageOptions;
     private final List<String> favoriteWords = new ArrayList<>();
 
-    // 0: anh - viet
-    // 1: viet - anh
     private void getFavoriteWords() {
         String fileName = Login.getUsername() + "FavoriteWord.txt";
         String filePath = "src/main/resources/data/favoriteWords/" + fileName;
@@ -170,6 +168,9 @@ public class Controller implements Initializable {
     }
     public void dictionaryPage(ActionEvent event) {
         bp.setCenter(anchorPane);
+    }
+    public void studyPage(ActionEvent event) {
+        loadPage("studyPage");
     }
 
     public void add() throws IOException {
