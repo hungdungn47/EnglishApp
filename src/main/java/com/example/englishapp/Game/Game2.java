@@ -1,5 +1,6 @@
-package com.example.englishapp;
+package com.example.englishapp.Game;
 
+import com.example.englishapp.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

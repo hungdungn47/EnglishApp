@@ -1,5 +1,10 @@
 package com.example.englishapp;
 
+import com.example.englishapp.Util.Dictionary;
+import com.example.englishapp.Util.DictionaryCommandLine;
+import com.example.englishapp.Util.DictionaryManagement;
+import com.example.englishapp.Util.Login;
+import com.example.englishapp.Util.TextToSpeech;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;

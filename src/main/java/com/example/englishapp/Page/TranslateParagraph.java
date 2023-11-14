@@ -1,5 +1,6 @@
-package com.example.englishapp;
+package com.example.englishapp.Page;
 
+import com.example.englishapp.Util.DictionaryManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

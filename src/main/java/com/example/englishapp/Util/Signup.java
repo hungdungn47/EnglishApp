@@ -1,5 +1,6 @@
-package com.example.englishapp;
+package com.example.englishapp.Util;
 
+import com.example.englishapp.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
