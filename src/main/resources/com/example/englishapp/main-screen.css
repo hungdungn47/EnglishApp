@@ -4,8 +4,14 @@ Button {
     -fx-background-insets: 0;
 }
 ListView {
-    -fx-background-radius: 12;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
 TextField {
     -fx-background-radius: 12;
+}
+StackPane {
+    -fx-background-radius: 12;
+    -fx-padding: 5;
+    -fx-background-color: white;
 }

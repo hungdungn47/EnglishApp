@@ -1,11 +1,12 @@
 package com.example.englishapp;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 public class DictionaryManagement {
-    // Init a new dictionary
+    // store each language's word into a set in order to easily detect language
+    public static Set<String> englishWords = new HashSet<>();
+    public static Set<String> vietnameseWords = new HashSet<>();
 
     /**
      * import data from text file.
@@ -61,7 +62,16 @@ public class DictionaryManagement {
             String word = parts[0];
             String definition = "<html>" + parts[1];
             Dictionary.data.add(new Word(word, definition));
+
+            if(Objects.equals(fileName, "E_V.txt")) {
+                englishWords.add(word);
+            } else {
+                vietnameseWords.add(word);
+            }
         }
+    }
+    public static boolean isEnglish(String word) {
+        return englishWords.contains(word);
     }
 
     /**
