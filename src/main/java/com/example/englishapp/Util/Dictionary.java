@@ -1,6 +1,7 @@
-package com.example.englishapp;
+package com.example.englishapp.Util;
 
-import java.io.*;
+import com.example.englishapp.Util.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;

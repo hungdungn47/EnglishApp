@@ -13,4 +13,10 @@ module com.example.englishapp {
 
     opens com.example.englishapp to javafx.fxml;
     exports com.example.englishapp;
+    exports com.example.englishapp.Util;
+    opens com.example.englishapp.Util to javafx.fxml;
+    exports com.example.englishapp.Game;
+    opens com.example.englishapp.Game to javafx.fxml;
+    exports com.example.englishapp.Page;
+    opens com.example.englishapp.Page to javafx.fxml;
 }
