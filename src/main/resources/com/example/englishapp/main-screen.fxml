@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
@@ -18,7 +19,6 @@
 
          <children>
             <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
-            <ListView fx:id="word_list_listView" layoutY="79.0" prefHeight="487.0" prefWidth="273.0" />
             <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="515.0" layoutY="27.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/add.png" />
@@ -75,6 +75,11 @@
                   </WebView>
                </children>
             </VBox>
+            <StackPane layoutY="79.0" prefHeight="487.0" prefWidth="273.0">
+               <children>
+                  <ListView fx:id="word_list_listView" prefHeight="487.0" prefWidth="273.0" />
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
    </center>

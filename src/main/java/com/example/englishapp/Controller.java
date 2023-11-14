@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -125,6 +127,22 @@ public class Controller implements Initializable {
         Tooltip.install(transParaButton, translatePara);
         Tooltip.install(studyButton, study);
         Tooltip.install(gameButton, game);
+        word_list_listView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Set text and apply rounded border styling
+                    setText(item);
+                    setStyle("-fx-border-radius: 10; -fx-background-radius: 10;");
+                }
+            }
+        });
+        word_list_listView.setFixedCellSize(30);
     }
 
     public void translate(ActionEvent event) {
@@ -196,7 +214,7 @@ public class Controller implements Initializable {
 
     public void pronounce() {
         if (selectedWord != null) {
-            if (languageOptions == EN_TO_VI) {
+            if (DictionaryManagement.isEnglish(selectedWord)) {
                 TextToSpeech.pronounce(selectedWord, "en");
             } else {
                 System.out.println(selectedWord);
