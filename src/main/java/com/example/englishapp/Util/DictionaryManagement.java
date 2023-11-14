@@ -7,8 +7,8 @@ import java.util.*;
 
 public class DictionaryManagement {
     // store each language's word into a set in order to easily detect language
-    public static Set<String> englishWords = new HashSet<>();
-    public static Set<String> vietnameseWords = new HashSet<>();
+    public static List<String> englishWords = new ArrayList<>();
+    public static List<String> vietnameseWords = new ArrayList<>();
 
     /**
      * import data from text file.
