@@ -10,6 +10,7 @@ public class DictionaryManagement {
 
     /**
      * import data from text file.
+     *
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws IOException {
@@ -53,6 +54,7 @@ public class DictionaryManagement {
         System.out.println(Dictionary.data.size());
         readDataFromHtml("V_E.txt");
     }
+
     public static void readDataFromHtml(String fileName) throws IOException {
         FileReader file = new FileReader("src/main/resources/data/" + fileName);
         BufferedReader br = new BufferedReader(file);
@@ -63,13 +65,37 @@ public class DictionaryManagement {
             String definition = "<html>" + parts[1];
             Dictionary.data.add(new Word(word, definition));
 
-            if(Objects.equals(fileName, "E_V.txt")) {
+            if (Objects.equals(fileName, "E_V.txt")) {
                 englishWords.add(word);
             } else {
                 vietnameseWords.add(word);
             }
         }
+        Scanner sc = new Scanner(new File("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt"));
+        while (sc.hasNext()) {
+            String temp = sc.next();
+            int index = 0;
+            for (int i = 0; i < temp.length(); i++) {
+                if (temp.charAt(i) == ':') {
+                    index = i;
+                    break;
+                }
+            }
+            String target = temp.substring(0, index);
+            String explain = temp.substring(index + 1);
+            Dictionary.data.add(new Word(target, explain));
+        }
+        Scanner file2 = new Scanner(new File("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt"));
+        while (file2.hasNext()) {
+            String temp = file2.next();
+            for (int i = 0; i < Dictionary.data.size(); i++) {
+                if (Dictionary.data.get(i).getWord_target().equals(temp)) {
+                    Dictionary.data.remove(i);
+                }
+            }
+        }
     }
+
     public static boolean isEnglish(String word) {
         return englishWords.contains(word);
     }
@@ -82,7 +108,7 @@ public class DictionaryManagement {
         System.out.println("How many words do you want to add ?");
         int n = in.nextInt();
         in.nextLine();
-        while(n > 0) {
+        while (n > 0) {
             System.out.println("Please enter word, then enter meaning");
             String target = in.nextLine();
             String explain = in.nextLine();
@@ -102,21 +128,76 @@ public class DictionaryManagement {
             n--;
         }
     }
+
+    /**
+     * delete a word
+     */
+    public static void delete_word(String target) {
+        for (int i = 0; i < Dictionary.data.size(); i++) {
+            if (Dictionary.data.get(i).getWord_target().equals(target)) {
+                Dictionary.data.remove(i);
+            }
+        }
+        update_worddeleted_file(Login.getUsername(), target);
+    }
+
     public static void addWord(String target, String explain) {
         Dictionary.data.add(new Word(target, explain));
-        DictionaryCommandLine.dictionaryExportToFile(true);
+        update_wordadd_file(Login.getUsername(), target, explain);
+    }
+
+    public static void update_worddeleted_file(String user, String target) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/WordDeleted/" + user + "wordsDeleted.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            fw.write(target + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void update_wordadd_file(String user, String target, String explain) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/WordAdded/" + user + "wordsAdded.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            fw.write(target + ":" + explain + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Look up word
      */
     public static String dictionaryLookup(String target, int languageOption) {
-        for(Word word : Dictionary.data) {
-            if(target.equals(word.getWord_target())) {
+        for (Word word : Dictionary.data) {
+            if (target.equals(word.getWord_target())) {
                 return word.getWord_explain();
             }
         }
-        if(languageOption == Controller.EN_TO_VI) {
+        if (languageOption == Controller.EN_TO_VI) {
             try {
                 return GoogleTranslatorAPI.translate("en", "vi", target);
             } catch (IOException e) {
@@ -132,21 +213,9 @@ public class DictionaryManagement {
     }
 
     /**
-     * delete a word
-     */
-    public static void delete_word(String target){
-        for(int i = 0; i < Dictionary.data.size(); i++){
-            if(Dictionary.data.get(i).getWord_target().equals(target)){
-                Dictionary.data.remove(i);
-            }
-        }
-        DictionaryCommandLine.dictionaryExportToFile(false);
-    }
-
-    /**
      * change a word in dictionary
      */
-    public static void update_word(){
+    public static void update_word() {
         System.out.println("Bạn muốn sửa gì: ");
         System.out.println("[1] word_target");
         System.out.println("[2] word_explain");
@@ -155,14 +224,13 @@ public class DictionaryManagement {
         int choose = in.nextInt();
 
         in.nextLine();
-        if(choose == 1) {
+        if (choose == 1) {
             System.out.println("Nhập từ bạn muốn sửa: ");
             String first = in.nextLine();
             System.out.println("Bạn muốn sửa thành: ");
             String last = in.nextLine();
             Dictionary.update_word_target(first, last);
-        }
-        else{
+        } else {
             System.out.println("Nhập từ bạn muốn sửa: ");
             String first = in.nextLine();
             System.out.println("Bạn muốn sửa thành: ");
@@ -176,12 +244,12 @@ public class DictionaryManagement {
     /**
      * search hint.
      */
-    public static void dictionarySearcher(){
+    public static void dictionarySearcher() {
         System.out.println("Nhập từ bạn muốn tra: ");
         Scanner in = new Scanner(System.in);
         String word_search = in.nextLine();
-        for(Word word : Dictionary.data){
-            if(word.getWord_target().startsWith(word_search)){
+        for (Word word : Dictionary.data) {
+            if (word.getWord_target().startsWith(word_search)) {
                 System.out.println(word.getWord_target());
             }
         }
@@ -189,13 +257,14 @@ public class DictionaryManagement {
 
     /**
      * return list of hint words when searching.
+     *
      * @param word_search searching string
      * @return list
      */
     public static List<String> searchHint(String word_search) {
         List<String> res = new ArrayList<>();
-        for(Word word : Dictionary.data){
-            if(word.getWord_target().startsWith(word_search)){
+        for (Word word : Dictionary.data) {
+            if (word.getWord_target().startsWith(word_search)) {
                 res.add(word.getWord_target());
             }
         }

@@ -82,6 +82,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            DictionaryManagement.insertFromFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         pronounceButton.setVisible(false);
         favoriteButton.setVisible(false);
         languageOptions = EN_TO_VI;
