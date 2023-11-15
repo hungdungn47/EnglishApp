@@ -20,7 +20,7 @@
             <Font name="Elephant" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="next_button" layoutX="636.0" layoutY="471.0" mnemonicParsing="false" onAction="#next_question" prefHeight="43.0" prefWidth="127.0" stylesheets="@game2.css" text="Begin" textFill="#7721a9">
+      <Button fx:id="next_button" layoutX="636.0" layoutY="471.0" mnemonicParsing="false" onAction="#next_question" prefHeight="43.0" prefWidth="127.0" stylesheets="@game2.css" text="Next" textFill="#7721a9">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
