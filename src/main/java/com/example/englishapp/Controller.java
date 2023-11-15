@@ -83,8 +83,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            DictionaryManagement.insertFromFile();
-        } catch (IOException e) {
+            DictionaryManagement.readAddedAndDeletedWord();
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         pronounceButton.setVisible(false);
