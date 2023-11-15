@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="116.0" fitWidth="118.0" layoutX="181.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../data/snake_game/warning.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game để luyện tập các từ vựng yêu thích của bạn, vui lòng thiết lập danh sách từ yêu thích của bản thân!" wrappingWidth="126.13672637939453">
+         <font>
+            <Font name="System Bold Italic" size="11.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

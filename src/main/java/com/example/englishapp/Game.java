@@ -78,10 +78,6 @@ public class Game {
         gc = canvas.getGraphicsContext2D();
         build_list_word();
         insertScoreFromTxt();
-//        if(listfavoriteWords.size() == 0){
-//            Application app = new Application();
-//            app.changeScene("warningfxml");
-//        }
         for(int i= 0; i< ROWS;i ++){
             setfilltaskbar(gc);
             gc.fillRect(i * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
