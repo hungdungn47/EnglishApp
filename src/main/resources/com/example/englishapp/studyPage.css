@@ -1,0 +1,26 @@
+.list-cell {
+    -fx-padding: 5px ;
+    -fx-background-color: transparent, -fx-background ;
+    -fx-background-insets: 0px, 2px ;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.list-cell:empty {
+    -fx-padding: 5px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+    -fx-opacity: 0;
+}
+StackPane {
+    -fx-background-radius: 12;
+    -fx-padding: 5;
+    -fx-background-color: white;
+}
+Button {
+    -fx-font-size: 16px;
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-padding: 10;
+}

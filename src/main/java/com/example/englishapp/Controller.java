@@ -1,10 +1,5 @@
 package com.example.englishapp;
 
-import com.example.englishapp.Util.Dictionary;
-import com.example.englishapp.Util.DictionaryCommandLine;
-import com.example.englishapp.Util.DictionaryManagement;
-import com.example.englishapp.Util.Login;
-import com.example.englishapp.Util.TextToSpeech;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -196,11 +191,6 @@ public class Controller implements Initializable {
     public void snakeGame() throws IOException {
         Application app = new Application();
         app.changeScene("game.fxml");
-    }
-
-    public void vocabGame() throws IOException {
-        Application app = new Application();
-        app.changeScene("start_game2.fxml");
     }
 
     public void changeLanguage(ActionEvent event) {

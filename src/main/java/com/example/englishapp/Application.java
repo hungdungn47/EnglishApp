@@ -1,6 +1,5 @@
 package com.example.englishapp;
 
-import com.example.englishapp.Util.DictionaryManagement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

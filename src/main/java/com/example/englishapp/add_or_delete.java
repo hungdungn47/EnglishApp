@@ -1,7 +1,5 @@
-package com.example.englishapp.Page;
+package com.example.englishapp;
 
-import com.example.englishapp.Application;
-import com.example.englishapp.Util.DictionaryManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

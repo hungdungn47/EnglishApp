@@ -1,7 +1,5 @@
-package com.example.englishapp.Game;
+package com.example.englishapp;
 
-import com.example.englishapp.Application;
-import com.example.englishapp.Util.Login;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

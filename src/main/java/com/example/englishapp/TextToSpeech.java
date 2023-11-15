@@ -1,4 +1,4 @@
-package com.example.englishapp.Util;
+package com.example.englishapp;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

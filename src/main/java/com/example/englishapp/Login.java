@@ -1,4 +1,4 @@
-package com.example.englishapp.Util;
+package com.example.englishapp;
 import java.sql.*;
 
 import com.example.englishapp.Application;
