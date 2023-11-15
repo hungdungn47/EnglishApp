@@ -20,11 +20,11 @@ public class Application extends javafx.application.Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
-//        try {
-//            DictionaryManagement.insertFromFile();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            DictionaryManagement.insertFromFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");

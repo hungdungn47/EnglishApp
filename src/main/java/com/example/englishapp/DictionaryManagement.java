@@ -14,42 +14,6 @@ public class DictionaryManagement {
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws IOException {
-//        Scanner sc = new Scanner(new File("src/main/resources/data/english-vietnamese.txt"));
-//        sc.useDelimiter("@");
-//        sc.next();
-//        while (sc.hasNext()) {
-//            String line = sc.next();
-//            int delimiter_pos = line.length() - 1;
-//            boolean found_delimiter = false;
-//            for(int i = 0; i < line.length(); i++) {
-//                if(line.charAt(i) == '/') {
-//                    delimiter_pos = i;
-//                    found_delimiter = true;
-//                    break;
-//                }
-//            }
-//            if(!found_delimiter) {
-//                for(int i = 0; i < line.length(); i++) {
-//                    if(line.charAt(i) == '*') {
-//                        delimiter_pos = i;
-//                        found_delimiter = true;
-//                        break;
-//                    }
-//                }
-//            }
-//            if(!found_delimiter) {
-//                for(int i = 0; i < line.length(); i++) {
-//                    if(line.charAt(i) == '-') {
-//                        delimiter_pos = i;
-//                        break;
-//                    }
-//                }
-//            }
-//            String word = line.substring(0, delimiter_pos);
-//            String definition = line.substring(delimiter_pos);
-//            Dictionary.data.add(new Word(word.trim(), definition));
-//        }
-//        sc.close();
         readDataFromHtml("E_V.txt");
         System.out.println(Dictionary.data.size());
         readDataFromHtml("V_E.txt");
@@ -71,6 +35,8 @@ public class DictionaryManagement {
                 vietnameseWords.add(word);
             }
         }
+    }
+    public static void readAddedAndDeletedWord() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt"));
         while (sc.hasNext()) {
             String temp = sc.next();
