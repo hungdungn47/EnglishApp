@@ -22,34 +22,34 @@
       </Button>
       <VBox alignment="CENTER" layoutX="205.0" layoutY="131.0" prefHeight="249.0" prefWidth="407.0" stylesheets="@game2.css">
          <children>
-            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="38.0" prefWidth="170.0" text="WELCOME" textFill="#8c3cf4">
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="38.0" prefWidth="170.0" text="WELCOME" textFill="#8d2aa4">
                <font>
-                  <Font name="Britannic Bold" size="30.0" />
+                  <Font name="Times New Roman Bold" size="30.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="28.0" prefWidth="80.0" text="Luật chơi" textFill="#8c3cf4">
+            <Label alignment="CENTER" prefHeight="28.0" prefWidth="80.0" text="Luật chơi" textFill="#8d2aa4">
                <font>
-                  <Font name="Calibri Bold Italic" size="18.0" />
+                  <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="20.0" prefWidth="313.0" text="Mỗi bức ảnh tương ứng với 1 trong 4 đáp án" textFill="#8c3cf4">
+            <Label prefHeight="20.0" prefWidth="313.0" text="Mỗi bức ảnh tương ứng với 1 trong 4 đáp án" textFill="#8d2aa4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label text="Với mỗi câu trả lời đúng bạn sẽ được cộng 1 điểm" textFill="#8c3cf4">
+            <Label text="Với mỗi câu trả lời đúng bạn sẽ được cộng 1 điểm" textFill="#8d2aa4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label prefHeight="20.0" prefWidth="310.0" text="Điểm số tối đa bạn đạt được là 30 điểm" textFill="#8c3cf4">
+            <Label prefHeight="20.0" prefWidth="310.0" text="Điểm số tối đa bạn đạt được là 10 điểm" textFill="#8d2aa4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="44.0" prefWidth="214.0" text="Hope you enjoy it" textFill="#8c3cf4">
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="214.0" text="Hope you enjoy it" textFill="#8d2aa4">
                <font>
-                  <Font name="Cooper Black" size="20.0" />
+                  <Font name="Times New Roman Bold" size="20.0" />
                </font>
             </Label>
          </children></VBox>

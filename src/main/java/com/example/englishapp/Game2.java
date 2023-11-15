@@ -3,9 +3,14 @@ package com.example.englishapp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 
 import java.io.*;
@@ -66,6 +71,9 @@ public class Game2 {
     private int x;
     private String correct_answer;
     private int current_score = 0;
+    private void firstQuestion() {
+        randomQuestion();
+    }
 
     public void play_game_2(ActionEvent event) throws IOException {
         Alert themeSelectionAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -120,27 +128,35 @@ public class Game2 {
             } else if (buttonType == theme5Button) {
                 selected_topic = "work";
             }
-            Application application = new Application();
+            String directoryPath = "./src/main/resources/data/learnWord";
+            List<String> imageNames = getImageNames(directoryPath, selected_topic);
+            int i = 0;
+            for (String name : imageNames) {
+                if (i == 10) {
+                    break;
+                } else {
+                    a[i++] = name;
+                }
+            }
+            GameData gameData = GameData.getInstance();
+            gameData.setArray(a);
+            gameData.setSelect(selected_topic);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("game2.fxml"));
+            Parent root = null;
             try {
-                application.changeScene("game2.fxml");
+                root = loader.load();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            Game2 gameController = loader.getController();
+            gameController.firstQuestion();
+
+            Scene gameScene = new Scene(root);
+            Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gameStage.setScene(gameScene);
+            gameStage.show();
         });
-        String directoryPath = "./src/main/resources/data/learnWord";
-        List<String> imageNames = getImageNames(directoryPath, selected_topic);
-        int i = 0;
-        for (String name : imageNames) {
-            System.out.println(name);
-            if (i == 10) {
-                break;
-            } else {
-                a[i++] = name;
-            }
-        }
-        GameData gameData = GameData.getInstance();
-        gameData.setArray(a);
-        gameData.setSelect(selected_topic);
     }
 
     public void start_game_2(ActionEvent event) throws IOException {
@@ -185,46 +201,10 @@ public class Game2 {
         }
         return fileName;
     }
-
-    public void next_question(ActionEvent event) throws IOException {
-        next_button.setText("Next");
-
+    private void randomQuestion() {
         GameData gameData = GameData.getInstance();
         a = gameData.getArray();
         selected_topic = gameData.getSelect();
-        for (int i = 0; i < 10; i++) {
-            System.out.println(a[i]);
-        }
-
-        boolean allQuestionsUsed = true;
-        for (boolean used : check) {
-            if (!used) {
-                allQuestionsUsed = false;
-                break;
-            }
-        }
-
-        if (allQuestionsUsed) {
-            scoreLabel.setText("");
-            answer1.setText("YOUR");
-            answer2.setText("SCORE");
-            answer3.setText("IS");
-            answer4.setText(String.valueOf(current_score + 1));
-            next_button.setText("Finish");
-            next_button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Application app = new Application();
-                    try {
-                        app.changeScene("end_game2.fxml");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-            return;
-        }
-        // random question
         do {
             x = ThreadLocalRandom.current().nextInt(0, 10);
         } while (check[x]);
@@ -243,9 +223,6 @@ public class Game2 {
                 image_question.setImage(newImage);
             } else {
                 System.out.println("Không tìm thấy hình ảnh: " + imagePath);
-                for (int i = 0; i < 10; i++) {
-                    System.out.println(a[i]);
-                }
             }
         } catch (Exception e) {
             System.out.println("Lỗi khi thay đổi hình ảnh: " + e.getMessage());
@@ -273,6 +250,38 @@ public class Game2 {
             answer2.setText(a[(x + 2) % 10]);
             answer3.setText(a[(x + 3) % 10]);
         }
+    }
+
+    public void next_question(ActionEvent event) throws IOException {
+        boolean allQuestionsUsed = true;
+        for (boolean used : check) {
+            if (!used) {
+                allQuestionsUsed = false;
+                break;
+            }
+        }
+
+        if (allQuestionsUsed) {
+            scoreLabel.setText(null);
+            answer1.setText("YOUR");
+            answer2.setText("SCORE");
+            answer3.setText("IS");
+            answer4.setText(String.valueOf(current_score + 1));
+            next_button.setText("Finish");
+            next_button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Application app = new Application();
+                    try {
+                        app.changeScene("end_game2.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            return;
+        }
+        randomQuestion();
     }
 
     public void check_answer(ActionEvent event) throws IOException {

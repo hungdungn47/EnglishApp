@@ -13,17 +13,17 @@
             <Image url="@../../../data/background/start_game2.png" />
          </image>
       </ImageView>
-      <Button layoutX="341.0" layoutY="179.0" mnemonicParsing="false" onAction="#play_game_2" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="Play" textFill="#8d2aa4">
+      <Button layoutX="317.0" layoutY="166.0" mnemonicParsing="false" onAction="#play_game_2" prefHeight="66.0" prefWidth="166.0" stylesheets="@game2.css" text="Play" textFill="#8d2aa4">
          <font>
-            <Font name="Bell MT Bold" size="28.0" />
+            <Font name="Bell MT Bold" size="24.0" />
          </font>
       </Button>
-      <Button layoutX="341.0" layoutY="287.0" mnemonicParsing="false" onAction="#how_to_play_game2" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="How to play" textFill="#8d2aa4">
+      <Button layoutX="317.0" layoutY="267.0" mnemonicParsing="false" onAction="#how_to_play_game2" prefHeight="66.0" prefWidth="166.0" stylesheets="@game2.css" text="How to play" textFill="#8d2aa4">
          <font>
-            <Font name="Bell MT Bold" size="20.0" />
+            <Font name="Bell MT Bold" size="24.0" />
          </font>
       </Button>
-      <Button layoutX="341.0" layoutY="379.0" mnemonicParsing="false" onAction="#back_to_main" prefHeight="54.0" prefWidth="136.0" stylesheets="@game2.css" text="Back" textFill="#8d2aa4">
+      <Button layoutX="317.0" layoutY="367.0" mnemonicParsing="false" onAction="#back_to_main" prefHeight="66.0" prefWidth="166.0" stylesheets="@game2.css" text="Back" textFill="#8d2aa4">
          <font>
             <Font name="Bell MT Bold" size="24.0" />
          </font>
