@@ -2,37 +2,45 @@ package com.example.englishapp;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class StudyPage implements Initializable {
     private List<String> todayWords;
     @FXML
+    private Label label;
+    @FXML
     private ListView<String> dailyWordListView;
     @FXML
     private WebView definitionWebView;
+    @FXML
+    private VBox container;
     private String selectedWord;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        DailyRandomWordGenerator gen = new DailyRandomWordGenerator(DictionaryManagement.englishWords);
-        todayWords = gen.getDailyWords();
-        dailyWordListView.getItems().addAll(todayWords);
+        changeToDailyWords();
         selectedWord = todayWords.get(0);
         String res = DictionaryManagement.dictionaryLookup(selectedWord, 0);
-        WebEngine webEngine1 = definitionWebView.getEngine();
-        webEngine1.loadContent(res, "text/html");
-
+        definitionWebView.getEngine().loadContent(res, "text/html");
         dailyWordListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = dailyWordListView.getSelectionModel().getSelectedItem();
             if(selectedWord != null) {
+                container.setVisible(true);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, 0);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
@@ -50,7 +58,8 @@ public class StudyPage implements Initializable {
                 } else {
                     // Set text and apply rounded border styling
                     setText(item);
-                    setStyle("-fx-border-radius: 10; -fx-background-radius: 10;");
+                    setStyle("-fx-border-radius: 10; -fx-background-radius: 10; " +
+                            "-fx-font-size: 15;");
                 }
             }
         });
@@ -59,5 +68,69 @@ public class StudyPage implements Initializable {
     public void vocabGame() throws IOException {
         Application app = new Application();
         app.changeScene("start_game2.fxml");
+    }
+    public void changeToDailyWords() {
+        DailyRandomWordGenerator gen = new DailyRandomWordGenerator(DictionaryManagement.englishWords);
+        todayWords = gen.getDailyWords();
+        dailyWordListView.getItems().clear();
+        dailyWordListView.getItems().addAll(todayWords);
+        selectedWord = todayWords.get(0);
+        String res = DictionaryManagement.dictionaryLookup(selectedWord, 0);
+        definitionWebView.getEngine().loadContent(res, "text/html");
+        label.setText("Today's new words");
+    }
+    public void changeToRecentWords() {
+        todayWords = new ArrayList<>();
+        FileReader file = null;
+        try {
+            file = new FileReader("src/main/resources/data/RecentWords/" + Login.getUsername() + "RecentWords.txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader br = new BufferedReader(file);
+        String line;
+        while (true) {
+            try {
+                if (!((line = br.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            todayWords.add(line);
+        }
+        dailyWordListView.getItems().clear();
+        dailyWordListView.getItems().addAll(todayWords);
+        if(!todayWords.isEmpty()) {
+            selectedWord = todayWords.get(0);
+            String res = DictionaryManagement.dictionaryLookup(selectedWord, 0);
+            definitionWebView.getEngine().loadContent(res, "text/html");
+        }
+        label.setText("Recent words");
+    }
+    public void changeToFavoriteWords() {
+        todayWords = new ArrayList<>();
+        FileReader file = null;
+        try {
+            file = new FileReader("src/main/resources/data/favoriteWords/" + Login.getUsername() + "FavoriteWord.txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader br = new BufferedReader(file);
+        String line;
+        while (true) {
+            try {
+                if (!((line = br.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            todayWords.add(line);
+        }
+        dailyWordListView.getItems().clear();
+        dailyWordListView.getItems().addAll(todayWords);
+        if(!todayWords.isEmpty()) {
+            selectedWord = todayWords.get(0);
+            String res = DictionaryManagement.dictionaryLookup(selectedWord, 0);
+            definitionWebView.getEngine().loadContent(res, "text/html");
+        }
+        label.setText("Favorite words");
     }
 }

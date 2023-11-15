@@ -19,7 +19,9 @@ public class DailyRandomWordGenerator {
     public DailyRandomWordGenerator(List<String> wordList) {
         this.wordList = wordList;
         loadStoredData();
-        generateDailyWords();
+        if(currentDate.equals(LocalDate.MIN)) {
+            generateDailyWords();
+        }
     }
 
     public List<String> getDailyWords() {
@@ -32,7 +34,7 @@ public class DailyRandomWordGenerator {
     }
 
     private void generateDailyWords() {
-        SecureRandom random = new SecureRandom(currentDate.toString().getBytes());
+        SecureRandom random = new SecureRandom();
         indices = new ArrayList<>();
         while (indices.size() < Math.min(5, wordList.size())) {
             int randomIndex = random.nextInt(wordList.size());

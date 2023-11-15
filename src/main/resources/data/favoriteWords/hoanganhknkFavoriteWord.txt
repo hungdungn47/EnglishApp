@@ -1,6 +1,0 @@
-handsome
-mathematics
-machine
-learning
-neural
-network

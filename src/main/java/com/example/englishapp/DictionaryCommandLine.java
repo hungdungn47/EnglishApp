@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-public class
-DictionaryCommandLine {
+public class DictionaryCommandLine {
     /**
      * Display all words in dictionary on console
      */
@@ -59,6 +58,21 @@ DictionaryCommandLine {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void addToRecentList(String username, String word) {
+        FileWriter fw = null;
+        String filePath = "src/main/resources/data/RecentWords/" + username + "RecentWords.txt";
+        try {
+            fw = new FileWriter(filePath, true);
+            fw.write(word + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         try {
             fw.close();

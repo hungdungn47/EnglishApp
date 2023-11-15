@@ -4,30 +4,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="586.0" prefWidth="723.0" style="-fx-background-radius: 12;" stylesheets="@studyPage.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.StudyPage">
+<AnchorPane onDragDetected="#changeToRecentWords" prefHeight="586.0" prefWidth="723.0" style="-fx-background-radius: 12;" stylesheets="@studyPage.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.StudyPage">
    <children>
-      <Label layoutX="45.0" layoutY="37.0" text="Today's new word">
+      <Label fx:id="label" layoutX="34.0" layoutY="57.0" text="Today's new word">
          <font>
             <Font name="Georgia" size="30.0" />
          </font>
       </Label>
-      <VBox layoutX="322.0" layoutY="106.0" prefHeight="268.0" prefWidth="357.0" style="-fx-padding: 20; -fx-background-radius: 12; -fx-background-color: white;">
+      <VBox fx:id="container" layoutX="320.0" layoutY="129.0" prefHeight="268.0" prefWidth="378.0" style="-fx-padding: 20; -fx-background-radius: 12; -fx-background-color: white;">
          <children>
             <WebView fx:id="definitionWebView" prefHeight="378.0" prefWidth="315.0" />
          </children>
       </VBox>
-      <StackPane layoutX="45.0" layoutY="106.0" prefHeight="268.0" prefWidth="238.0">
+      <StackPane layoutX="22.0" layoutY="129.0" prefHeight="268.0" prefWidth="261.0">
          <children>
             <ListView fx:id="dailyWordListView" maxHeight="3000.0" prefHeight="268.0" prefWidth="200.0" />
          </children>
       </StackPane>
-      <Button layoutX="100.0" layoutY="477.0" mnemonicParsing="false" onAction="#vocabGame" text="Game" />
-      <Button layoutX="283.0" layoutY="477.0" mnemonicParsing="false" text="Recent words" />
-      <Button layoutX="501.0" layoutY="471.0" mnemonicParsing="false" text="Favorite words" />
+      <HBox alignment="CENTER" layoutY="449.0" prefHeight="73.0" prefWidth="723.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#vocabGame" prefWidth="150.0" text="Game" />
+            <Button mnemonicParsing="false" onAction="#changeToDailyWords" text="Daily words" />
+            <Button mnemonicParsing="false" onAction="#changeToRecentWords" prefWidth="150.0" text="Recent words" />
+            <Button mnemonicParsing="false" onAction="#changeToFavoriteWords" prefWidth="150.0" text="Favorite words" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

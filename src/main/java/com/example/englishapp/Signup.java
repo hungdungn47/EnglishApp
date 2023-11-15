@@ -66,13 +66,14 @@ public class Signup {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String fileName = username;
-            File favoriteWord = new File("src/main/resources/data/favoriteWords/" + fileName + "FavoriteWord.txt");
-            File wordAdded = new File("src/main/resources/data/WordAdded/" + fileName + "wordsAdded.txt");
-            File wordDeleted = new File("src/main/resources/data/WordDeleted/" + fileName + "wordsDeleted.txt");
+            File favoriteWord = new File("src/main/resources/data/favoriteWords/" + username + "FavoriteWord.txt");
+            File wordAdded = new File("src/main/resources/data/WordAdded/" + username + "wordsAdded.txt");
+            File wordDeleted = new File("src/main/resources/data/WordDeleted/" + username + "wordsDeleted.txt");
+            File recentWord = new File("src/main/resources/data/RecentWords/" + username + "RecentWords.txt");
             favoriteWord.createNewFile();
             wordAdded.createNewFile();
             wordDeleted.createNewFile();
+            recentWord.createNewFile();
             Application app = new Application();
             app.changeScene("login.fxml");
         }
