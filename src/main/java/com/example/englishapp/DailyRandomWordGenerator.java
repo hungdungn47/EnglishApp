@@ -1,6 +1,4 @@
 package com.example.englishapp;
-import com.example.englishapp.Util.Dictionary;
-import com.example.englishapp.Util.DictionaryManagement;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class DailyRandomWordGenerator {
     private static final String DATA_FILE_PATH = "src/main/resources/data/daily_words_data.txt";

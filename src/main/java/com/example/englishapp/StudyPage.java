@@ -1,7 +1,5 @@
-package com.example.englishapp.Page;
+package com.example.englishapp;
 
-import com.example.englishapp.DailyRandomWordGenerator;
-import com.example.englishapp.Util.DictionaryManagement;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -9,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,6 +25,10 @@ public class StudyPage implements Initializable {
         DailyRandomWordGenerator gen = new DailyRandomWordGenerator(DictionaryManagement.englishWords);
         todayWords = gen.getDailyWords();
         dailyWordListView.getItems().addAll(todayWords);
+        selectedWord = todayWords.get(0);
+        String res = DictionaryManagement.dictionaryLookup(selectedWord, 0);
+        WebEngine webEngine1 = definitionWebView.getEngine();
+        webEngine1.loadContent(res, "text/html");
 
         dailyWordListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = dailyWordListView.getSelectionModel().getSelectedItem();
@@ -52,5 +55,9 @@ public class StudyPage implements Initializable {
             }
         });
         dailyWordListView.setFixedCellSize(50);
+    }
+    public void vocabGame() throws IOException {
+        Application app = new Application();
+        app.changeScene("start_game2.fxml");
     }
 }

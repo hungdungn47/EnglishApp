@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="109.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Page.add_or_delete">
+<AnchorPane prefHeight="109.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.add_or_delete">
     <TextField fx:id="word_delete_textField" layoutX="45.0" layoutY="41.0" />
     <Button layoutX="235.0" layoutY="42.0" mnemonicParsing="false" onAction="#delete_word" text="Xóa" />
    <Text layoutX="45.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Từ muốn xóa" />

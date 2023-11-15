@@ -1,6 +1,4 @@
-package com.example.englishapp.Util;
-
-import com.example.englishapp.Util.Word;
+package com.example.englishapp;
 
 import java.util.ArrayList;
 import java.util.List;
