@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -25,6 +26,8 @@ import java.util.logging.Logger;
 public class Controller implements Initializable {
     public static final int EN_TO_VI = 0;
     public static final int VI_TO_EN = 1;
+    @FXML
+    private Button updateButton;
     @FXML
     private WebView definitionWebView;
     @FXML
@@ -49,6 +52,8 @@ public class Controller implements Initializable {
     private Button studyButton;
     @FXML
     private Button gameButton;
+    @FXML
+    private HTMLEditor definitionEditor;
     @FXML
     private Button logOutButton;
     private ImageView addbutton;
@@ -82,6 +87,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
         } catch (FileNotFoundException e) {
@@ -104,10 +110,20 @@ public class Controller implements Initializable {
                 } else {
                     favoriteButton.setImage(redHeart);
                 }
+                DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
+                definitionEditor.setHtmlText(result);
             }
+        });
+        updateButton.setOnAction(e -> {
+            String htmlContent = definitionEditor.getHtmlText();
+
+            // Load the HTML content into the WebView
+            definitionWebView.getEngine().loadContent(htmlContent);
+//            definitionEditor.setVisible(false);
+//            definitionWebView.setVisible(true);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -149,6 +165,7 @@ public class Controller implements Initializable {
         pronounceButton.setVisible(true);
         favoriteButton.setVisible(true);
         selectedWord = search_box.getText();
+        DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
         String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
         WebEngine webEngine = definitionWebView.getEngine();
         webEngine.loadContent(result, "text/html");
@@ -254,6 +271,10 @@ public class Controller implements Initializable {
                 favoriteButton.setImage(redHeart);
             }
         }
+    }
+    public void updateDefinition() {
+//        definitionWebView.setVisible(false);
+//        definitionEditor.setVisible(true);
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {

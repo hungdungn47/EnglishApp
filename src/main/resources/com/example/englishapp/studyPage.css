@@ -18,9 +18,14 @@ StackPane {
     -fx-background-color: white;
 }
 Button {
+    -fx-text-fill: #5f28c0;
     -fx-font-size: 16px;
     -fx-background-radius: 15;
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-padding: 10;
+    -fx-pref-width: 150;
+}
+Button:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
 }

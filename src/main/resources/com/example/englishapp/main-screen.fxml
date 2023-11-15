@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
 <BorderPane fx:id="bp" maxHeight="600" maxWidth="800" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" stylesheets="@main-screen.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Controller">
@@ -18,7 +19,7 @@
       <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="723.0" stylesheets="@main-screen.css">
 
          <children>
-            <TextField fx:id="search_box" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="273.0" promptText="Search" />
+            <TextField fx:id="search_box" layoutX="17.0" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="256.0" promptText="Search" />
             <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="515.0" layoutY="27.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/add.png" />
@@ -52,15 +53,24 @@
                   </ImageView>
                </children>
             </HBox>
-            <VBox alignment="CENTER" layoutX="288.0" layoutY="79.0" prefHeight="487.0" prefWidth="401.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12;" AnchorPane.topAnchor="79.0">
+            <StackPane layoutX="18.0" layoutY="79.0" prefHeight="487.0" prefWidth="255.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="305.0" spacing="250.0">
+                  <ListView fx:id="word_list_listView" prefHeight="487.0" prefWidth="273.0" />
+               </children>
+            </StackPane>
+            <AnchorPane layoutX="297.0" layoutY="79.0" prefHeight="487.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 12;">
+               <children>
+                  <WebView fx:id="definitionWebView" layoutY="267.0" prefHeight="161.0" prefWidth="400.0" />
+                  <HTMLEditor fx:id="definitionEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutY="59.0" prefHeight="195.0" prefWidth="400.0" />
+                  <HBox alignment="CENTER" layoutX="47.0" layoutY="14.0" prefHeight="32.0" prefWidth="305.0" spacing="50.0">
                      <children>
                         <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/speaker.png" />
                            </image>
                         </ImageView>
+                        <Button mnemonicParsing="false" onAction="#updateDefinition" text="Edit" />
+                        <Button fx:id="updateButton" mnemonicParsing="false" text="OK" />
                         <ImageView fx:id="favoriteButton" fitHeight="30.0" fitWidth="33.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/love.png" />
@@ -68,23 +78,13 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <WebView fx:id="definitionWebView" prefHeight="381.0" prefWidth="341.0">
-                     <VBox.margin>
-                        <Insets left="30.0" right="30.0" />
-                     </VBox.margin>
-                  </WebView>
                </children>
-            </VBox>
-            <StackPane layoutY="79.0" prefHeight="487.0" prefWidth="273.0">
-               <children>
-                  <ListView fx:id="word_list_listView" prefHeight="487.0" prefWidth="273.0" />
-               </children>
-            </StackPane>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>
    <left>
-      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="49.0" spacing="50.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menu" alignment="CENTER" prefHeight="600.0" prefWidth="49.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#dictionaryPage" prefHeight="46.0" prefWidth="28.0">
                <graphic>

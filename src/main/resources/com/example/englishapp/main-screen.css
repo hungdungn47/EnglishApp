@@ -15,3 +15,6 @@ StackPane {
     -fx-padding: 5;
     -fx-background-color: white;
 }
+#menu {
+    -fx-background-color: linear-gradient(#7ebbde, #65c2f7, #7ebbde);
+}
