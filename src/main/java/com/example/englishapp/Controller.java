@@ -194,8 +194,24 @@ public class Controller implements Initializable {
     }
 
     public void snakeGame() throws IOException {
+        String fileName = Login.getUsername() + "FavoriteWord.txt";
+        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
+        Scanner sc = new Scanner(new File(filePath));
+        boolean check = false;
+        if(!sc.hasNext()){
+            check = true;
+        }
         Application app = new Application();
-        app.changeScene("game.fxml");
+        if(check == false){
+            app.changeScene("game.fxml");
+        }
+        else{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning_game_snake.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
     }
 
     public void changeLanguage(ActionEvent event) {
