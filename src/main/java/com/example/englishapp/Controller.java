@@ -22,6 +22,9 @@ import java.util.logging.Level;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import java.util.logging.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 
 public class Controller implements Initializable {
     public static final int EN_TO_VI = 0;
@@ -87,6 +90,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        definitionEditor.setVisible(false);
         loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
@@ -97,7 +101,7 @@ public class Controller implements Initializable {
         favoriteButton.setVisible(false);
         languageOptions = EN_TO_VI;
 
-        word_list_listView.getItems().addAll(Dictionary.get_target_list());
+        word_list_listView.getItems().addAll(Dictionary.getWordList());
 
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -118,12 +122,22 @@ public class Controller implements Initializable {
             }
         });
         updateButton.setOnAction(e -> {
-            String htmlContent = definitionEditor.getHtmlText();
+            String editedContent = definitionEditor.getHtmlText();
+            Document doc = Jsoup.parse(editedContent);
+            Whitelist whitelist = Whitelist.relaxed(); // Define your whitelist rules
+            // Allow style attribute and specific color-related styles
+            whitelist.addAttributes(":all", "style");
+            whitelist.addAttributes("span", "style");
+            whitelist.addAttributes("font", "style");
 
-            // Load the HTML content into the WebView
-            definitionWebView.getEngine().loadContent(htmlContent);
-//            definitionEditor.setVisible(false);
-//            definitionWebView.setVisible(true);
+// Allow specific CSS properties for text color (for example)
+            whitelist.addAttributes("span", "color");
+            whitelist.addAttributes("font", "color");
+            String sanitizedHTML = Jsoup.clean(doc.html(), whitelist);
+
+            definitionWebView.getEngine().loadContent(sanitizedHTML);
+            definitionEditor.setVisible(false);
+            definitionWebView.setVisible(true);
         });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
@@ -273,8 +287,8 @@ public class Controller implements Initializable {
         }
     }
     public void updateDefinition() {
-//        definitionWebView.setVisible(false);
-//        definitionEditor.setVisible(true);
+        definitionWebView.setVisible(false);
+        definitionEditor.setVisible(true);
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {

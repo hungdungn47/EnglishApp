@@ -10,6 +10,7 @@ module com.example.englishapp {
     requires javafx.media;
     requires java.sql;
     requires javafx.web;
+    requires jsoup;
 
     opens com.example.englishapp to javafx.fxml;
     exports com.example.englishapp;

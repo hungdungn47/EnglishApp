@@ -1,23 +1,31 @@
 package com.example.englishapp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class Dictionary {
     public static Vector<Word> data = new Vector<Word>(1000);
+    private static final Map<String, Word> mp = new TreeMap<>();
 
     /**
      * get all the word in English as a List of string.
      *
      * @return list of all English word
      */
-    public static List<String> get_target_list() {
-        List<String> res = new ArrayList<>();
-        for (Word word : data) {
-            res.add(word.getWord_target());
-        }
-        return res;
+    public static List<String> getWordList() {
+        return new ArrayList<>(mp.keySet());
+    }
+
+    public static void addWord(String target, String explain) {
+        mp.put(target, new Word(target, explain));
+    }
+    public static void deleteWord(String target) {
+        mp.remove(target);
+    }
+    public static boolean contains(String word) {
+        return mp.containsKey(word);
+    }
+    public static String getDefinition(String target) {
+        return mp.get(target).getWord_explain();
     }
 
     /**
