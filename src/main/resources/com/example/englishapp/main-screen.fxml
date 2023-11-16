@@ -60,7 +60,7 @@
             </StackPane>
             <AnchorPane layoutX="297.0" layoutY="79.0" prefHeight="487.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 12;">
                <children>
-                  <WebView fx:id="definitionWebView" layoutY="267.0" prefHeight="161.0" prefWidth="400.0" />
+                  <WebView fx:id="definitionWebView" layoutY="267.0" prefHeight="162.0" prefWidth="400.0" />
                   <HTMLEditor fx:id="definitionEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutY="59.0" prefHeight="195.0" prefWidth="400.0" />
                   <HBox alignment="CENTER" layoutX="47.0" layoutY="14.0" prefHeight="32.0" prefWidth="305.0" spacing="50.0">
                      <children>
