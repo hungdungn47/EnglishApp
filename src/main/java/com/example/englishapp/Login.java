@@ -26,40 +26,40 @@ public class Login {
     private Label wrongPasswordLabel;
     private static String username;
     private static String password;
-    static final String DB_URL = "jdbc:mysql://192.168.76.82:3306/account"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
-    static final String USER = "dung"; // Thay thế bằng tên người dùng MySQL
-    static final String PASS = "Hungdung030105?"; // Thay thế bằng mật khẩu người dùng MySQL
+    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
+    static final String USER = "sql12662519"; // Thay thế bằng tên người dùng MySQL
+    static final String PASS = "EmA6Z8XLRD"; // Thay thế bằng mật khẩu người dùng MySQL
     public void login(ActionEvent event) throws IOException {
-        readData();
-        username = usernameTextField.getText();
-        password = passwordTextField.getText();
-        if(!passwordsMap.containsKey(username)) {
-            wrongPasswordLabel.setText("Username doesn't exist");
-        } else if(!Objects.equals(passwordsMap.get(username), password)) {
-            wrongPasswordLabel.setText("Wrong password");
-        } else {
-            Application app = new Application();
-            app.changeScene("main-screen.fxml");
-        }
-//        Application app = new Application();
-//        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
-//            username = usernameTextField.getText();
-//            password = passwordTextField.getText();
-//
-//            String sql = "SELECT * FROM tai_khoan WHERE username = ? AND password = ?";
-//            PreparedStatement statement = conn.prepareStatement(sql);
-//            statement.setString(1, username);
-//            statement.setString(2, password);
-//
-//            ResultSet resultSet = statement.executeQuery();
-//            if (resultSet.next()) {
-//                app.changeScene("main-screen.fxml");
-//            } else {
-//                wrongPasswordLabel.setText("Wrong username or password!");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
+//        readData();
+//        username = usernameTextField.getText();
+//        password = passwordTextField.getText();
+//        if(!passwordsMap.containsKey(username)) {
+//            wrongPasswordLabel.setText("Username doesn't exist");
+//        } else if(!Objects.equals(passwordsMap.get(username), password)) {
+//            wrongPasswordLabel.setText("Wrong password");
+//        } else {
+//            Application app = new Application();
+//            app.changeScene("main-screen.fxml");
 //        }
+        Application app = new Application();
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            username = usernameTextField.getText();
+            password = passwordTextField.getText();
+
+            String sql = "SELECT * FROM userAccounts WHERE username = ? AND password = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                app.changeScene("main-screen.fxml");
+            } else {
+                wrongPasswordLabel.setText("Wrong username or password!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public static String getUsername() {
         return username;
