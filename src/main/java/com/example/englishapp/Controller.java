@@ -1,6 +1,7 @@
 package com.example.englishapp;
 
-import javafx.event.ActionEvent;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.HTMLEditor;
@@ -20,9 +19,13 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
+
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+
 import java.util.logging.Logger;
+
+import javafx.util.Duration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Whitelist;
@@ -57,12 +60,11 @@ public class Controller implements Initializable {
     @FXML
     private Button gameButton;
     @FXML
+    private Button dictionaryButton;
+    @FXML
     private HTMLEditor definitionEditor;
     @FXML
     private Button logOutButton;
-    private ImageView addbutton;
-    @FXML
-    private ImageView deletebutton;
     @FXML
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
@@ -103,7 +105,8 @@ public class Controller implements Initializable {
         favoriteButton.setVisible(false);
         languageOptions = EN_TO_VI;
 
-        word_list_listView.getItems().addAll(Dictionary.getWordList());
+        DictionaryManagement.readUpdatedWord(Login.getUsername());
+        word_list_listView.getItems().addAll(DictionaryManagement.englishWords);
 
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -111,7 +114,7 @@ public class Controller implements Initializable {
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
-            if(selectedWord != null) {
+            if (selectedWord != null) {
                 if (!favoriteWords.contains(selectedWord)) {
                     favoriteButton.setImage(blankHeart);
                 } else {
@@ -127,22 +130,32 @@ public class Controller implements Initializable {
 
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
-            word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue));
+            word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue, languageOptions));
         });
+        Tooltip dictionary = new Tooltip("Dictionary");
         Tooltip swap = new Tooltip("Swap language");
         Tooltip study = new Tooltip("Study");
         Tooltip game = new Tooltip("Game");
         Tooltip translatePara = new Tooltip("Translate paragraph");
 
+        dictionary.setShowDelay(javafx.util.Duration.millis(10));
         swap.setShowDelay(javafx.util.Duration.millis(10));
         study.setShowDelay(javafx.util.Duration.millis(10));
         game.setShowDelay(javafx.util.Duration.millis(10));
         translatePara.setShowDelay(javafx.util.Duration.millis(10));
 
+        Tooltip.install(dictionaryButton, dictionary);
         Tooltip.install(changeLanguageButton, swap);
         Tooltip.install(transParaButton, translatePara);
         Tooltip.install(studyButton, study);
         Tooltip.install(gameButton, game);
+
+        addScaleTransition(dictionaryButton);
+        addScaleTransition(transParaButton);
+        addScaleTransition(studyButton);
+        addScaleTransition(gameButton);
+        addScaleTransition(logOutButton);
+
         word_list_listView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -161,7 +174,7 @@ public class Controller implements Initializable {
         word_list_listView.setFixedCellSize(30);
     }
 
-    public void translate(ActionEvent event) {
+    public void translate() {
         pronounceButton.setVisible(true);
         favoriteButton.setVisible(true);
         selectedWord = search_box.getText();
@@ -171,41 +184,40 @@ public class Controller implements Initializable {
         webEngine.loadContent(result, "text/html");
     }
 
-    public void translateParagraph(ActionEvent event) {
+    public void translateParagraph() {
         loadPage("translateParagraph");
     }
+
     private void loadPage(String page) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(page + ".fxml")));
         } catch (IOException e) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
         }
         bp.setCenter(root);
     }
-    public void dictionaryPage(ActionEvent event) {
+
+    public void dictionaryPage() {
         bp.setCenter(anchorPane);
     }
-    public void studyPage(ActionEvent event) {
+
+    public void studyPage() {
         loadPage("studyPage");
     }
 
     public void add() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
-//        stage.setX(500);
-//        stage.setY(200);
         stage.setScene(new Scene(root1));
         stage.show();
     }
 
     public void delete() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
-//        stage.setX(500);
-//        stage.setY(200);
         stage.setScene(new Scene(root1));
         stage.show();
     }
@@ -214,30 +226,30 @@ public class Controller implements Initializable {
         String fileName = Login.getUsername() + "FavoriteWord.txt";
         String filePath = "src/main/resources/data/favoriteWords/" + fileName;
         Scanner sc = new Scanner(new File(filePath));
-        boolean check = false;
-        if(!sc.hasNext()){
-            check = true;
-        }
+        boolean check = !sc.hasNext();
         Application app = new Application();
-        if(check == false){
+        if (!check) {
             app.changeScene("game.fxml");
-        }
-        else{
+        } else {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning_game_snake.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
         }
     }
 
-    public void changeLanguage(ActionEvent event) {
+    public void changeLanguage() {
 
         languageOptions = 1 - languageOptions;
         if (languageOptions == VI_TO_EN) {
+            word_list_listView.getItems().clear();
+            word_list_listView.getItems().addAll(DictionaryManagement.vietnameseWords);
             translateFromIcon.setImage(vietnamese);
             translateToIcon.setImage(english);
         } else {
+            word_list_listView.getItems().clear();
+            word_list_listView.getItems().addAll(DictionaryManagement.englishWords);
             translateFromIcon.setImage(english);
             translateToIcon.setImage(vietnamese);
         }
@@ -254,7 +266,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void addToFavorite(MouseEvent mouseEvent) {
+    public void addToFavorite() {
         System.out.println("favor");
         if (favoriteButton.getImage() == redHeart) {
             String fileName = Login.getUsername() + "FavoriteWord.txt";
@@ -272,23 +284,17 @@ public class Controller implements Initializable {
             }
         }
     }
+
     public void updateDefinition() {
         ImageView iv = (ImageView) updateButton.getGraphic();
-        if(iv.getImage().equals(doneIcon)) {
+        if (iv.getImage().equals(doneIcon)) {
             String editedContent = definitionEditor.getHtmlText();
-            Document doc = Jsoup.parse(editedContent);
-            Whitelist whitelist = Whitelist.relaxed(); // Define your whitelist rules
-            // Allow style attribute and specific color-related styles
-            whitelist.addAttributes(":all", "style");
-            whitelist.addAttributes("span", "style");
-            whitelist.addAttributes("font", "style");
+            editedContent = editedContent.replaceAll(" contenteditable=\"true\"", "")
+                                            .replaceAll(" dir=\"ltr\"", "");
 
-            // Allow specific CSS properties for text color (for example)
-            whitelist.addAttributes("span", "color");
-            whitelist.addAttributes("font", "color");
-            String sanitizedHTML = Jsoup.clean(doc.html(), whitelist);
-
-            definitionWebView.getEngine().loadContent(sanitizedHTML);
+            String filePath = "src/main/resources/data/UpdatedWord/" + Login.getUsername() + "UpdatedWords.txt";
+            Utils.exportToFile(filePath, true, selectedWord, editedContent, "");
+            definitionWebView.getEngine().loadContent(editedContent);
             definitionEditor.setVisible(false);
             definitionWebView.setVisible(true);
             iv.setImage(editIcon);
@@ -299,7 +305,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void logOut(ActionEvent actionEvent) throws IOException {
+    public void logOut() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText(null);
@@ -309,6 +315,7 @@ public class Controller implements Initializable {
         alert.getDialogPane().lookup(".content.label").setStyle("-fx-text-fill: " + textColor + ";");
 
         InputStream inputStream = getClass().getResourceAsStream("/images/close.png");
+        assert inputStream != null;
         Image image = new Image(inputStream);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(30);
@@ -319,5 +326,28 @@ public class Controller implements Initializable {
             Application application = new Application();
             application.changeScene("login.fxml");
         }
+    }
+
+    private void addScaleTransition(Button btn) {
+        ScaleTransition hover = new ScaleTransition(Duration.millis(200), btn);
+        hover.setToX(1.15);
+        hover.setToY(1.15);
+
+        ScaleTransition exit = new ScaleTransition(Duration.millis(200), btn);
+        exit.setToX(1);
+        exit.setToY(1);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(200), btn);
+        tt.setToX(btn.getLayoutX() + 3);
+        TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), btn);
+        tt2.setToX(btn.getLayoutX() - 3);
+
+        btn.setOnMouseEntered(event -> {
+            hover.play();
+            tt.play();
+        });
+        btn.setOnMouseExited(event -> {
+            exit.play();
+            tt2.play();
+        });
     }
 }

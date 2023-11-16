@@ -63,15 +63,4 @@ public class Trie {
     public List<String> findAllWithPrefix(String prefix) {
         return root.findAllWithPrefix(prefix);
     }
-
-    public static void main(String[] args) {
-        Trie trie = new Trie();
-        trie.insert("xin chào");
-        trie.insert("cám ơn");
-        trie.insert("việt nam");
-        trie.insert("phở");
-
-        System.out.println("Words with prefix 'vi': " + trie.findAllWithPrefix("Vi"));
-        System.out.println("Words with prefix 'ph': " + trie.findAllWithPrefix("ph"));
-    }
 }

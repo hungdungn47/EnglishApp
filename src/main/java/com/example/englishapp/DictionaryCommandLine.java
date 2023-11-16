@@ -13,7 +13,7 @@ public class DictionaryCommandLine {
     public static void showAllWords() {
         int counter = 1;
         System.out.printf("%-3s|   %-10s|   %s\n", "No","English", "Vietnamese");
-        for(Word word : Dictionary.data) {
+        for(Word word : DictionaryManagement.enViDic.data) {
             System.out.printf("%-3s|   %-10s|   %s", Integer.toString(counter), word.getWord_target(),word.getWord_explain());
             System.out.println();
             counter++;
@@ -31,7 +31,7 @@ public class DictionaryCommandLine {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for(Word word : Dictionary.data){
+        for(Word word : DictionaryManagement.enViDic.data){
             try {
                 fw.write( word.getWord_target()+ "," + word.getWord_explain() + "\n");
             } catch (IOException e) {
