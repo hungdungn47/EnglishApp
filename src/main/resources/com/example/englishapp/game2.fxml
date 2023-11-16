@@ -11,11 +11,11 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/background/game2.png" />
+            <Image url="@../../../data/learnWord/game2.png" />
          </image>
       </ImageView>
       <ImageView fx:id="image_question" fitHeight="272.0" fitWidth="395.0" layoutX="164.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="answer1" layoutX="116.0" layoutY="397.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="150.0" stylesheets="@game2.css" textFill="#901fd1">
+      <Button fx:id="answer1" layoutX="116.0" layoutY="397.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="168.0" stylesheets="@game2.css" textFill="#901fd1">
          <font>
             <Font name="Elephant" size="14.0" />
          </font>
@@ -29,20 +29,25 @@
          <font>
             <Font name="Bauhaus 93" size="24.0" />
          </font></Label>
-      <Button fx:id="answer4" layoutX="400.0" layoutY="505.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="150.0" stylesheets="@game2.css" textFill="#901fd1">
+      <Button fx:id="answer4" layoutX="400.0" layoutY="505.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="168.0" stylesheets="@game2.css" textFill="#901fd1">
          <font>
             <Font name="Elephant" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="answer3" layoutX="116.0" layoutY="505.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="150.0" stylesheets="@game2.css" textFill="#901fd1">
+      <Button fx:id="answer3" layoutX="116.0" layoutY="505.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="168.0" stylesheets="@game2.css" textFill="#901fd1">
          <font>
             <Font name="Elephant" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="answer2" layoutX="400.0" layoutY="397.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="150.0" stylesheets="@game2.css" textFill="#901fd1">
+      <Button fx:id="answer2" layoutX="400.0" layoutY="397.0" mnemonicParsing="false" onAction="#check_answer" prefHeight="58.0" prefWidth="168.0" stylesheets="@game2.css" textFill="#901fd1">
          <font>
             <Font name="Elephant" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="timerLabel" alignment="CENTER" layoutX="608.0" layoutY="80.0" prefHeight="50.0" prefWidth="127.0" textFill="#cf08c1">
+         <font>
+            <Font name="Bauhaus 93" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,5 +1,9 @@
 package com.example.englishapp;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 import java.io.*;
@@ -65,14 +70,64 @@ public class Game2 {
     public Label scoreLabel;
     @FXML
     ImageView image_question;
+    @FXML
+    private Label timerLabel;
+    private Timeline timeline;
+    private static final int GAME_DURATION = 10;
+    private int secondsLeft = GAME_DURATION;
     private String[] a = new String[10];
     private boolean[] check = new boolean[10]; // mac dinh la false
     private String selected_topic;
     private int x;
     private String correct_answer;
     private int current_score = 0;
+
     private void firstQuestion() {
+        updateTimerLabel();
+        timeline = new Timeline();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+            secondsLeft--;
+            updateTimerLabel();
+            if (secondsLeft == 0) {
+                timeline.stop();
+                gameOver();
+            }
+        });
+        timeline.getKeyFrames().add(keyFrame);
         randomQuestion();
+        timeline.play();
+    }
+    private void updateTimerLabel() {
+        Platform.runLater(() -> {
+            if (secondsLeft > 0) {
+                timerLabel.setText("Time: " + String.valueOf(secondsLeft));
+            } else {
+                timerLabel.setText("Time out!");
+            }
+        });
+    }
+
+    private void gameOver() {
+        String imagePath = "/data/learnWord/gameover.png";
+        InputStream inputStream = getClass().getResourceAsStream(imagePath);
+        Image newImage = new Image(inputStream);
+        image_question.setImage(newImage);
+        scoreLabel.setVisible(false);
+        scoreLabel.setText("");
+        answer1.setText("YOUR");
+        answer2.setText("SCORE");
+        answer3.setText("IS");
+        answer4.setText(String.valueOf(current_score));
+        next_button.setText("Finish");
+        next_button.setOnAction(event -> {
+            Application app = new Application();
+            try {
+                app.changeScene("end_game2.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void play_game_2(ActionEvent event) throws IOException {
@@ -201,6 +256,7 @@ public class Game2 {
         }
         return fileName;
     }
+
     private void randomQuestion() {
         GameData gameData = GameData.getInstance();
         a = gameData.getArray();
@@ -253,6 +309,8 @@ public class Game2 {
     }
 
     public void next_question(ActionEvent event) throws IOException {
+        secondsLeft = GAME_DURATION;
+        updateTimerLabel();
         boolean allQuestionsUsed = true;
         for (boolean used : check) {
             if (!used) {
@@ -262,55 +320,50 @@ public class Game2 {
         }
 
         if (allQuestionsUsed) {
-            scoreLabel.setText(null);
-            answer1.setText("YOUR");
-            answer2.setText("SCORE");
-            answer3.setText("IS");
-            answer4.setText(String.valueOf(current_score + 1));
-            next_button.setText("Finish");
-            next_button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Application app = new Application();
-                    try {
-                        app.changeScene("end_game2.fxml");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+            handleGameFinish();
             return;
         }
         randomQuestion();
+        timeline.play();
+    }
+    private void handleGameFinish() {
+        String imagePath = "/data/learnWord/win.jpg";
+        InputStream inputStream = getClass().getResourceAsStream(imagePath);
+        Image newImage = new Image(inputStream);
+        image_question.setImage(newImage);
+        scoreLabel.setVisible(false);
+        scoreLabel.setText("");
+        answer1.setText("YOUR");
+        answer2.setText("SCORE");
+        answer3.setText("IS");
+        answer4.setText(String.valueOf(current_score + 1));
+        next_button.setText("Finish");
+        next_button.setOnAction(event -> {
+            Application app = new Application();
+            try {
+                app.changeScene("end_game2.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        secondsLeft = GAME_DURATION;
+        updateTimerLabel();
     }
 
     public void check_answer(ActionEvent event) throws IOException {
+        timeline.stop();
         Button clickedButton = (Button) event.getSource();
         String selectedAnswer = clickedButton.getText();
         boolean isCorrect = selectedAnswer.equals(correct_answer);
 
         if (isCorrect) {
+            secondsLeft = GAME_DURATION;
+            updateTimerLabel();
             next_question(event);
             current_score++;
             scoreLabel.setText("Score: " + String.valueOf(current_score));
         } else {
-            scoreLabel.setText("");
-            answer1.setText("YOUR");
-            answer2.setText("SCORE");
-            answer3.setText("IS");
-            answer4.setText(String.valueOf(current_score));
-            next_button.setText("Finish");
-            next_button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Application app = new Application();
-                    try {
-                        app.changeScene("end_game2.fxml");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+            gameOver();
         }
     }
 }

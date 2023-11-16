@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/background/start_game2.png" />
+            <Image url="@../../../data/learnWord/start_game2.png" />
          </image>
       </ImageView>
       <Button layoutX="341.0" layoutY="396.0" mnemonicParsing="false" onAction="#start_game_2" prefHeight="62.0" prefWidth="118.0" stylesheets="@game2.css" text="Return" textFill="#8d2aa4">
@@ -43,6 +43,11 @@
                </font>
             </Label>
             <Label prefHeight="20.0" prefWidth="310.0" text="Điểm số tối đa bạn đạt được là 10 điểm" textFill="#8d2aa4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="309.0" text="Bạn có thể bỏ qua nếu không biết đáp án." textFill="#8d2aa4">
                <font>
                   <Font size="14.0" />
                </font>

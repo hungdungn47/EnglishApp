@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/background/end_game2.png" />
+            <Image url="@../../../data/learnWord/end_game2.png" />
          </image>
       </ImageView>
       <Button layoutX="346.0" layoutY="185.0" mnemonicParsing="false" onAction="#play_game_2" prefHeight="48.0" prefWidth="130.0" stylesheets="@game2.css" text="PLAY" textFill="#450986">
