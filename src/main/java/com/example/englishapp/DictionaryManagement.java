@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DictionaryManagement {
     // store each language's word into a set in order to easily detect language
-    private static Trie searcher = new Trie();
+    private static final Trie searcher = new Trie();
     public static List<String> englishWords = new ArrayList<>();
     public static List<String> vietnameseWords = new ArrayList<>();
 

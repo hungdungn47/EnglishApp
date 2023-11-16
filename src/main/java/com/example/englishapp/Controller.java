@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -63,13 +64,13 @@ public class Controller implements Initializable {
     @FXML
     private ImageView deletebutton;
     @FXML
-    private ImageView change_lang;
-    @FXML
     private ImageView pronounceButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
     private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
     private final Image blankHeart = new Image(new File("src/main/resources/images/love.png").toURI().toString());
     private final Image redHeart = new Image(new File("src/main/resources/images/heart.png").toURI().toString());
+    private final Image doneIcon = new Image(new File("src/main/resources/images/check-mark.png").toURI().toString());
+    private final Image editIcon = new Image(new File("src/main/resources/images/editing.png").toURI().toString());
     private String selectedWord;
     private int languageOptions;
     private final List<String> favoriteWords = new ArrayList<>();
@@ -90,6 +91,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateButton.setVisible(false);
         definitionEditor.setVisible(false);
         loadPage("studyPage");
         try {
@@ -105,6 +107,7 @@ public class Controller implements Initializable {
 
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            updateButton.setVisible(true);
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
@@ -121,24 +124,7 @@ public class Controller implements Initializable {
                 definitionEditor.setHtmlText(result);
             }
         });
-        updateButton.setOnAction(e -> {
-            String editedContent = definitionEditor.getHtmlText();
-            Document doc = Jsoup.parse(editedContent);
-            Whitelist whitelist = Whitelist.relaxed(); // Define your whitelist rules
-            // Allow style attribute and specific color-related styles
-            whitelist.addAttributes(":all", "style");
-            whitelist.addAttributes("span", "style");
-            whitelist.addAttributes("font", "style");
 
-// Allow specific CSS properties for text color (for example)
-            whitelist.addAttributes("span", "color");
-            whitelist.addAttributes("font", "color");
-            String sanitizedHTML = Jsoup.clean(doc.html(), whitelist);
-
-            definitionWebView.getEngine().loadContent(sanitizedHTML);
-            definitionEditor.setVisible(false);
-            definitionWebView.setVisible(true);
-        });
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
             word_list_listView.getItems().clear();
             word_list_listView.getItems().addAll(DictionaryManagement.searchHint(newValue));
@@ -287,8 +273,30 @@ public class Controller implements Initializable {
         }
     }
     public void updateDefinition() {
-        definitionWebView.setVisible(false);
-        definitionEditor.setVisible(true);
+        ImageView iv = (ImageView) updateButton.getGraphic();
+        if(iv.getImage().equals(doneIcon)) {
+            String editedContent = definitionEditor.getHtmlText();
+            Document doc = Jsoup.parse(editedContent);
+            Whitelist whitelist = Whitelist.relaxed(); // Define your whitelist rules
+            // Allow style attribute and specific color-related styles
+            whitelist.addAttributes(":all", "style");
+            whitelist.addAttributes("span", "style");
+            whitelist.addAttributes("font", "style");
+
+            // Allow specific CSS properties for text color (for example)
+            whitelist.addAttributes("span", "color");
+            whitelist.addAttributes("font", "color");
+            String sanitizedHTML = Jsoup.clean(doc.html(), whitelist);
+
+            definitionWebView.getEngine().loadContent(sanitizedHTML);
+            definitionEditor.setVisible(false);
+            definitionWebView.setVisible(true);
+            iv.setImage(editIcon);
+        } else {
+            definitionWebView.setVisible(false);
+            definitionEditor.setVisible(true);
+            iv.setImage(doneIcon);
+        }
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {
