@@ -5,6 +5,7 @@ import java.util.*;
 
 public class DictionaryManagement {
     // store each language's word into a set in order to easily detect language
+    private static Trie searcher = new Trie();
     public static List<String> englishWords = new ArrayList<>();
     public static List<String> vietnameseWords = new ArrayList<>();
 
@@ -15,7 +16,6 @@ public class DictionaryManagement {
      */
     public static void insertFromFile() throws IOException {
         readDataFromHtml("E_V.txt");
-        System.out.println(Dictionary.data.size());
         readDataFromHtml("V_E.txt");
     }
 
@@ -27,8 +27,8 @@ public class DictionaryManagement {
             String[] parts = line.split("<html>");
             String word = parts[0];
             String definition = "<html>" + parts[1];
-            Dictionary.data.add(new Word(word, definition));
-
+            Dictionary.addWord(word, definition);
+            searcher.insert(word);
             if (Objects.equals(fileName, "E_V.txt")) {
                 englishWords.add(word);
             } else {
@@ -49,16 +49,12 @@ public class DictionaryManagement {
             }
             String target = temp.substring(0, index);
             String explain = temp.substring(index + 1);
-            Dictionary.data.add(new Word(target, explain));
+            Dictionary.addWord(target, explain);
         }
         Scanner file2 = new Scanner(new File("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt"));
         while (file2.hasNext()) {
             String temp = file2.next();
-            for (int i = 0; i < Dictionary.data.size(); i++) {
-                if (Dictionary.data.get(i).getWord_target().equals(temp)) {
-                    Dictionary.data.remove(i);
-                }
-            }
+            Dictionary.deleteWord(temp);
         }
     }
 
@@ -99,16 +95,12 @@ public class DictionaryManagement {
      * delete a word
      */
     public static void delete_word(String target) {
-        for (int i = 0; i < Dictionary.data.size(); i++) {
-            if (Dictionary.data.get(i).getWord_target().equals(target)) {
-                Dictionary.data.remove(i);
-            }
-        }
+        Dictionary.deleteWord(target);
         update_worddeleted_file(Login.getUsername(), target);
     }
 
     public static void addWord(String target, String explain) {
-        Dictionary.data.add(new Word(target, explain));
+        Dictionary.addWord(target, explain);
         update_wordadd_file(Login.getUsername(), target, explain);
     }
 
@@ -158,10 +150,8 @@ public class DictionaryManagement {
      * Look up word
      */
     public static String dictionaryLookup(String target, int languageOption) {
-        for (Word word : Dictionary.data) {
-            if (target.equals(word.getWord_target())) {
-                return word.getWord_explain();
-            }
+        if(Dictionary.contains(target)) {
+            return Dictionary.getDefinition(target);
         }
         if (languageOption == Controller.EN_TO_VI) {
             try {
@@ -228,12 +218,6 @@ public class DictionaryManagement {
      * @return list
      */
     public static List<String> searchHint(String word_search) {
-        List<String> res = new ArrayList<>();
-        for (Word word : Dictionary.data) {
-            if (word.getWord_target().startsWith(word_search)) {
-                res.add(word.getWord_target());
-            }
-        }
-        return res;
+        return searcher.findAllWithPrefix(word_search);
     }
 }
