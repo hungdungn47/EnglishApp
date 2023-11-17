@@ -131,47 +131,11 @@ public class DictionaryManagement {
     public static void update_worddeleted_file(String user, String target) {
         String filePath = "src/main/resources/data/WordDeleted/" + user + "wordsDeleted.txt";
         Utils.exportToFile(filePath, true, target);
-//        FileWriter fw = null;
-//        try {
-//            fw = new FileWriter("src/main/resources/data/WordDeleted/" + user + "wordsDeleted.txt");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//            fw.write(target + "\n");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//            fw.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     public static void update_wordadd_file(String user, String target, String explain) {
         String filePath = "src/main/resources/data/WordAdded/" + user + "wordsAdded.txt";
         Utils.exportToFile(filePath, true, target, explain, ":");
-//        FileWriter fw = null;
-//        try {
-//            fw = new FileWriter("src/main/resources/data/WordAdded/" + user + "wordsAdded.txt");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//            fw.write(target + ":" + explain + "\n");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//            fw.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     /**
