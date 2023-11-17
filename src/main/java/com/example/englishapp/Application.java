@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class Application extends javafx.application.Application {
     public static Stage myStage;
+    private static Image logo = new Image(new File("src/main/resources/images/logo.png").toURI().toString());
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         myStage.getScene().setCursor(new ImageCursor(new Image(new File("src/main/resources/data/cursor.png").toURI().toString())));
@@ -35,7 +36,8 @@ public class Application extends javafx.application.Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/cursor.png").toURI().toString())));
+        stage.getIcons().add(logo);
+        scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/images/cursor.png").toURI().toString())));
         myStage = stage;
     }
 

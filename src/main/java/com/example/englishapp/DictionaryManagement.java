@@ -120,6 +120,12 @@ public class DictionaryManagement {
      */
     public static void delete_word(String target) {
         enViDic.deleteWord(target);
+        for(String temp : englishWords){
+            if(temp.equals(target)){
+                englishWords.remove(temp);
+                break;
+            }
+        }
         update_worddeleted_file(Login.getUsername(), target);
     }
 

@@ -75,6 +75,7 @@ public class Game {
         root.getChildren().add(canvas);
         Scene scene = new Scene(root);
         scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/snake_game/cursor_snakegame.png").toURI().toString())));
+        primaryStage.setTitle("Snake Game");
         primaryStage.setScene(scene);
         primaryStage.show();
         gc = canvas.getGraphicsContext2D();
