@@ -8,20 +8,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Level;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.scene.effect.ColorAdjust;
 
 import java.util.logging.Logger;
 
@@ -53,6 +60,16 @@ public class Controller implements Initializable {
     private ImageView translateFromIcon;
     @FXML
     private ImageView translateToIcon;
+    @FXML
+    private Rectangle dictionaryButtonSign;
+    @FXML
+    private Rectangle transParaButtonSign;
+    @FXML
+    private Rectangle studyButtonSign;
+    @FXML
+    private Rectangle gameButtonSign;
+    @FXML
+    private Rectangle logOutButtonSign;
     @FXML
     private Button transParaButton;
     @FXML
@@ -93,6 +110,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        dictionaryButtonSign.setVisible(false);
+        transParaButtonSign.setVisible(false);
+        studyButtonSign.setVisible(true);
+        gameButtonSign.setVisible(false);
+        logOutButtonSign.setVisible(false);
         updateButton.setVisible(false);
         definitionEditor.setVisible(false);
         loadPage("studyPage");
@@ -106,7 +128,7 @@ public class Controller implements Initializable {
         languageOptions = EN_TO_VI;
 
         DictionaryManagement.readUpdatedWord(Login.getUsername());
-        word_list_listView.getItems().addAll(DictionaryManagement.englishWords);
+        word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
 
         getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
@@ -175,13 +197,15 @@ public class Controller implements Initializable {
     }
 
     public void translate() {
-        pronounceButton.setVisible(true);
-        favoriteButton.setVisible(true);
         selectedWord = search_box.getText();
-        DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
-        String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
-        WebEngine webEngine = definitionWebView.getEngine();
-        webEngine.loadContent(result, "text/html");
+        if(!selectedWord.isEmpty()) {
+            DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+            String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
+            WebEngine webEngine = definitionWebView.getEngine();
+            webEngine.loadContent(result, "text/html");
+            pronounceButton.setVisible(true);
+            favoriteButton.setVisible(true);
+        }
     }
 
     public void translateParagraph() {
@@ -197,7 +221,6 @@ public class Controller implements Initializable {
         }
         bp.setCenter(root);
     }
-
     public void dictionaryPage() {
         bp.setCenter(anchorPane);
     }
@@ -242,14 +265,12 @@ public class Controller implements Initializable {
     public void changeLanguage() {
 
         languageOptions = 1 - languageOptions;
+        word_list_listView.getItems().clear();
+        word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
         if (languageOptions == VI_TO_EN) {
-            word_list_listView.getItems().clear();
-            word_list_listView.getItems().addAll(DictionaryManagement.vietnameseWords);
             translateFromIcon.setImage(vietnamese);
             translateToIcon.setImage(english);
         } else {
-            word_list_listView.getItems().clear();
-            word_list_listView.getItems().addAll(DictionaryManagement.englishWords);
             translateFromIcon.setImage(english);
             translateToIcon.setImage(vietnamese);
         }
@@ -329,25 +350,26 @@ public class Controller implements Initializable {
     }
 
     private void addScaleTransition(Button btn) {
-        ScaleTransition hover = new ScaleTransition(Duration.millis(200), btn);
-        hover.setToX(1.15);
-        hover.setToY(1.15);
+        List<Rectangle> signs = new ArrayList<>(Arrays.asList(dictionaryButtonSign, transParaButtonSign,
+                studyButtonSign, gameButtonSign, logOutButtonSign));
+        ScaleTransition hover = new ScaleTransition(Duration.millis(40), btn);
+        hover.setToX(1.3);
+        hover.setToY(1.3);
 
-        ScaleTransition exit = new ScaleTransition(Duration.millis(200), btn);
+        ScaleTransition exit = new ScaleTransition(Duration.millis(40), btn);
         exit.setToX(1);
         exit.setToY(1);
-        TranslateTransition tt = new TranslateTransition(Duration.millis(200), btn);
-        tt.setToX(btn.getLayoutX() + 3);
-        TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), btn);
-        tt2.setToX(btn.getLayoutX() - 3);
 
         btn.setOnMouseEntered(event -> {
             hover.play();
-            tt.play();
         });
         btn.setOnMouseExited(event -> {
             exit.play();
-            tt2.play();
+        });
+        btn.setOnMousePressed(event -> {
+            for(Rectangle sign : signs) {
+                sign.setVisible(sign.getId().contains(btn.getId()));
+            }
         });
     }
 }
