@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
@@ -28,9 +29,9 @@
                   <Image url="@../../../images/minus.png" />
                </image>
             </ImageView>
-            <HBox layoutX="288.0" layoutY="26.0" prefHeight="23.0" prefWidth="132.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="288.0" layoutY="26.0" prefHeight="23.0" prefWidth="132.0" spacing="10.0">
                <children>
-                  <ImageView fx:id="translateFromIcon" fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="translateFromIcon" fitHeight="33.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/england.png" />
                      </image>
@@ -44,7 +45,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ImageView fx:id="translateToIcon" fitHeight="30.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="translateToIcon" fitHeight="32.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/vietnam.png" />
                      </image>
@@ -85,53 +86,78 @@
       </AnchorPane>
    </center>
    <left>
-      <AnchorPane fx:id="menu" prefHeight="600.0" prefWidth="64.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="menu" prefHeight="600.0" prefWidth="58.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="dictionaryButton" layoutX="7.0" layoutY="44.0" mnemonicParsing="false" onAction="#dictionaryPage" prefHeight="46.0" prefWidth="28.0">
-               <graphic>
-                  <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/dictionary.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="transParaButton" layoutX="6.0" layoutY="156.0" mnemonicParsing="false" onAction="#translateParagraph">
-               <graphic>
-                  <ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/translation.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="studyButton" layoutX="5.0" layoutY="271.0" mnemonicParsing="false" onAction="#studyPage" prefHeight="52.0" prefWidth="46.0">
-               <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/open-book.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="gameButton" layoutX="3.0" layoutY="390.0" mnemonicParsing="false" onAction="#snakeGame" prefHeight="41.0" prefWidth="43.0">
-               <graphic>
-                  <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/game-controller.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="logOutButton" layoutX="9.0" layoutY="505.0" mnemonicParsing="false" onAction="#logOut">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/logout.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+            <HBox fx:id="dictionaryButtonContainer" alignment="CENTER" layoutX="-7.0" layoutY="45.0" prefHeight="58.0" prefWidth="84.0">
+               <children>
+                  <Rectangle fx:id="dictionaryButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
+                  <Button fx:id="dictionaryButton" mnemonicParsing="false" onAction="#dictionaryPage" prefHeight="54.0" prefWidth="44.0">
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/dictionary.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="transParaButtonContainer" alignment="CENTER" layoutX="-6.0" layoutY="157.0" prefHeight="58.0" prefWidth="84.0">
+               <children>
+                  <Rectangle fx:id="transParaButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
+                  <Button fx:id="transParaButton" mnemonicParsing="false" onAction="#translateParagraph">
+                     <graphic>
+                        <ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/translation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="studyButtonContainer" alignment="CENTER" layoutX="-5.0" layoutY="271.0" prefHeight="58.0" prefWidth="84.0">
+               <children>
+                  <Rectangle fx:id="studyButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
+                  <Button fx:id="studyButton" mnemonicParsing="false" onAction="#studyPage" prefHeight="52.0" prefWidth="46.0">
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/open-book.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="gameButtonContainer" alignment="CENTER" layoutX="-2.0" layoutY="386.0" prefHeight="62.0" prefWidth="82.0">
+               <children>
+                  <Rectangle fx:id="gameButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
+                  <Button fx:id="gameButton" mnemonicParsing="false" onAction="#snakeGame" prefHeight="41.0" prefWidth="43.0">
+                     <graphic>
+                        <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/game-controller.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="logOutButtonContainer" alignment="CENTER" layoutX="-12.0" layoutY="488.0" prefHeight="58.0" prefWidth="91.0">
+               <children>
+                  <Rectangle fx:id="logOutButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
+                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut">
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </left>

@@ -5,8 +5,6 @@ import java.util.*;
 
 public class DictionaryManagement {
     // store each language's word into a set in order to easily detect language
-    public static List<String> englishWords = new ArrayList<>();
-    public static List<String> vietnameseWords = new ArrayList<>();
     public static Dictionary enViDic = new Dictionary();
     public static Dictionary viEnDic = new Dictionary();
 
@@ -30,10 +28,8 @@ public class DictionaryManagement {
             String definition = "<html>" + parts[1];
 
             if (Objects.equals(fileName, "E_V.txt")) {
-                englishWords.add(word);
                 enViDic.addWord(word, definition);
             } else {
-                vietnameseWords.add(word);
                 viEnDic.addWord(word, definition);
             }
         }
@@ -83,7 +79,7 @@ public class DictionaryManagement {
     }
 
     public static boolean isEnglish(String word) {
-        return englishWords.contains(word);
+        return enViDic.contains(word);
     }
 
     /**
@@ -151,7 +147,7 @@ public class DictionaryManagement {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } else {
+        } else if(languageOption == Controller.VI_TO_EN) {
             if(viEnDic.contains(target)) {
                 return viEnDic.getDefinition(target);
             }
@@ -160,6 +156,17 @@ public class DictionaryManagement {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+        if(enViDic.contains(target)) {
+            return enViDic.getDefinition(target);
+        }
+        if(viEnDic.contains(target)) {
+            return viEnDic.getDefinition(target);
+        }
+        try {
+            return GoogleTranslatorAPI.translate("en", "vi", target);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
