@@ -16,5 +16,10 @@ StackPane {
     -fx-background-color: white;
 }
 #menu {
-    -fx-background-color: linear-gradient(#7ebbde, #65c2f7, #7ebbde);
+    -fx-border-radius: 12;
+    -fx-background-radius: 0 30 30 0;
+    -fx-background-color: #9beafa;
+}
+Rectangle {
+    -fx-border-color: transparent;
 }

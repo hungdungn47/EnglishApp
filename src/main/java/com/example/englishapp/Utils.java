@@ -1,7 +1,8 @@
 package com.example.englishapp;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
     public static void exportToFile(String filePath, boolean append, String word) {
@@ -43,5 +44,25 @@ public class Utils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static List<String> readWordListFromFile(String filePath) {
+        List<String> res = new ArrayList<>();
+        FileReader file = null;
+        try {
+            file = new FileReader(filePath);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader br = new BufferedReader(file);
+        String line;
+        while (true) {
+            try {
+                if ((line = br.readLine()) == null) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            res.add(line);
+        }
+        return res;
     }
 }
