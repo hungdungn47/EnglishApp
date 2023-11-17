@@ -1,10 +1,13 @@
 package com.example.englishapp;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -13,6 +16,7 @@ public class Application extends javafx.application.Application {
     public static Stage myStage;
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
+        myStage.getScene().setCursor(new ImageCursor(new Image(new File("src/main/resources/data/cursor.png").toURI().toString())));
         myStage.getScene().setRoot(pane);
     }
     public Scene getScene() throws IOException {
@@ -31,6 +35,7 @@ public class Application extends javafx.application.Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/cursor.png").toURI().toString())));
         myStage = stage;
     }
 
