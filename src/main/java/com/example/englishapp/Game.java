@@ -13,6 +13,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -61,8 +64,12 @@ public class Game {
     Group root = new Group();
     String word_hidden = "";
     String word_origin = "";
+    int temp = 0;
     private final List<String> listfavoriteWords = new ArrayList<>();
     private final Map<String, Integer> History_score = new HashMap<>();
+    private MediaPlayer sound_game = new MediaPlayer(new Media(new File("src/main/resources/data/snake_game/music.mp3").toURI().toString()));
+    private AudioClip eat_sound = new AudioClip(new File("src/main/resources/data/snake_game/eat_sound.mp3").toURI().toString());
+    private AudioClip game_over = new AudioClip(new File("src/main/resources/data/snake_game/game_over.mp3").toURI().toString());
 
     public void back_to_main(ActionEvent event) throws IOException {
         Application app = new Application();
@@ -77,10 +84,12 @@ public class Game {
         scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/snake_game/cursor_snakegame.png").toURI().toString())));
         primaryStage.setScene(scene);
         primaryStage.show();
+        sound_game.setOnEndOfMedia(() -> sound_game.seek(Duration.ZERO));
+        sound_game.play();
         gc = canvas.getGraphicsContext2D();
         build_list_word();
         insertScoreFromTxt();
-        for(int i= 0; i< ROWS;i ++){
+        for (int i = 0; i < ROWS; i++) {
             setfilltaskbar(gc);
             gc.fillRect(i * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
         }
@@ -118,6 +127,11 @@ public class Game {
             try {
                 run_game(gc);
                 if (gameOver || wingame) {
+                    sound_game.pause();
+                    if (temp == 0) {
+                        game_over.play();
+                        temp = 1;
+                    }
                     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                         @Override
                         public void handle(KeyEvent keyEvent) {
@@ -345,15 +359,15 @@ public class Game {
         if (gameOver) {
             gc.clearRect(0, 0, WIDTH, HEIGHT);
             setfilltaskbar(gc);
-            gc.fillRect(0,0,WIDTH,HEIGHT);
+            gc.fillRect(0, 0, WIDTH, HEIGHT);
             String gameoverImage = new File("src/main/resources/data/snake_game/gameover.png").toURI().toString();
             Image gameover = new Image(gameoverImage);
-            gc.drawImage(gameover, WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
+            gc.drawImage(gameover, WIDTH / 4, HEIGHT / 4, WIDTH / 2, HEIGHT / 2);
             gc.setFill(Color.RED);
             gc.setFont(new Font("Verdana", 20));
             gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3 - 25, 560);
             gc.setFont(new Font("100px Tahoma", 20));
-            gc.fillText("Điểm của bạn: " + score, WIDTH/2 - 55, 35);
+            gc.fillText("Điểm của bạn: " + score, WIDTH / 2 - 55, 35);
             PrintRanking();
         }
     }
@@ -376,6 +390,7 @@ public class Game {
 
     private void eat() {
         if (snakehead.getX() == x_foodcoor && snakehead.getY() == y_foodcoor) {
+            eat_sound.play();
             gc.clearRect(0, 0, 16 * SQUARE_SIZE, SQUARE_SIZE);
             setfilltaskbar(gc);
             gc.fillRect(0, 0, 16 * SQUARE_SIZE, SQUARE_SIZE);
@@ -404,19 +419,22 @@ public class Game {
         else if (snakehead.getX() == x_fakecharacter && snakehead.getY() == y_fakecharacter
                 || snakehead.getX() == x_fakecharacter1 && snakehead.getY() == y_fakecharacter1
                 || snakehead.getX() == x_fakecharacter2 && snakehead.getY() == y_fakecharacter2) {
+            eat_sound.play();
             health--;
             gc.clearRect((17 + health) * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE);
             setfilltaskbar(gc);
-            gc.fillRect((17 + health - 1) * SQUARE_SIZE, 0, 2*SQUARE_SIZE, SQUARE_SIZE);
+            gc.fillRect((17 + health - 1) * SQUARE_SIZE, 0, 2 * SQUARE_SIZE, SQUARE_SIZE);
             generate_character(char_to_add);
             if (health == 0) {
                 gameOver = true;
             }
         }
     }
-    private void setfilltaskbar(GraphicsContext gc){
+
+    private void setfilltaskbar(GraphicsContext gc) {
         gc.setFill(Color.valueOf("EA91E2"));
     }
+
     private void insertScoreFromTxt() throws IOException {
         Scanner sc = new Scanner(new File("src/main/resources/data/snake_game/score.txt"));
         while (sc.hasNext()) {
