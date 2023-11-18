@@ -1,3 +1,6 @@
+AnchorPane {
+    -fx-background-color:  linear-gradient(to right bottom, #61d8de, #e839f6);
+}
 TextField {
     -fx-pref-height: 50;
     -fx-pref-width: 250;

@@ -30,17 +30,6 @@ public class Login {
     static final String USER = "sql12662519"; // Thay thế bằng tên người dùng MySQL
     static final String PASS = "EmA6Z8XLRD"; // Thay thế bằng mật khẩu người dùng MySQL
     public void login(ActionEvent event) throws IOException {
-//        readData();
-//        username = usernameTextField.getText();
-//        password = passwordTextField.getText();
-//        if(!passwordsMap.containsKey(username)) {
-//            wrongPasswordLabel.setText("Username doesn't exist");
-//        } else if(!Objects.equals(passwordsMap.get(username), password)) {
-//            wrongPasswordLabel.setText("Wrong password");
-//        } else {
-//            Application app = new Application();
-//            app.changeScene("main-screen.fxml");
-//        }
         Application app = new Application();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
             username = usernameTextField.getText();
@@ -67,25 +56,5 @@ public class Login {
     public void signup(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("signup.fxml");
-    }
-
-    private void readData() {
-        File file = new File("src/main/resources/data/passwords.txt");
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String line;
-        while(true) {
-            try {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String[] row = line.split(",");
-            passwordsMap.put(row[0], row[1]);
-        }
     }
 }

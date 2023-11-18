@@ -14,7 +14,9 @@ public class Dictionary {
      * @return list of all English word
      */
     public List<String> getWordList() {
-        return new ArrayList<>(mp.keySet());
+        ArrayList<String> res = new ArrayList<>(mp.keySet());
+        Collections.sort(res);
+        return res;
     }
 
     public void addWord(String target, String explain) {
@@ -23,6 +25,7 @@ public class Dictionary {
     }
     public void deleteWord(String target) {
         mp.remove(target);
+        searcher.delete(target);
     }
     public boolean contains(String word) {
         return mp.containsKey(word);

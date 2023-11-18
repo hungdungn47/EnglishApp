@@ -56,25 +56,21 @@ public class DictionaryManagement {
             viEnDic.updateWord(word, newDefinition);
         }
     }
-    public static void readAddedAndDeletedWord() throws FileNotFoundException {
-        Scanner sc = new Scanner(new File("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt"));
-        while (sc.hasNext()) {
-            String temp = sc.next();
-            int index = 0;
-            for (int i = 0; i < temp.length(); i++) {
-                if (temp.charAt(i) == ':') {
-                    index = i;
-                    break;
-                }
-            }
-            String target = temp.substring(0, index);
-            String explain = temp.substring(index + 1);
-            enViDic.addWord(target, explain);
+    public static void readAddedAndDeletedWord() throws IOException {
+        FileReader file = new FileReader("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt");
+        BufferedReader br = new BufferedReader(file);
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(":");
+            String word = parts[0];
+            String definition = parts[1];
+
+            enViDic.addWord(word, definition);
         }
-        Scanner file2 = new Scanner(new File("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt"));
-        while (file2.hasNext()) {
-            String temp = file2.next();
-            enViDic.deleteWord(temp);
+        FileReader file2 = new FileReader("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt");
+        br = new BufferedReader(file2);
+        while ((line = br.readLine()) != null) {
+            enViDic.deleteWord(line);
         }
     }
 
@@ -111,9 +107,6 @@ public class DictionaryManagement {
         }
     }
 
-    /**
-     * delete a word
-     */
     public static void delete_word(String target) {
         enViDic.deleteWord(target);
         update_worddeleted_file(Login.getUsername(), target);
@@ -134,9 +127,6 @@ public class DictionaryManagement {
         Utils.exportToFile(filePath, true, target, explain, ":");
     }
 
-    /**
-     * Look up word
-     */
     public static String dictionaryLookup(String target, int languageOption) {
         if (languageOption == Controller.EN_TO_VI) {
             if(enViDic.contains(target)) {
@@ -170,9 +160,6 @@ public class DictionaryManagement {
         }
     }
 
-    /**
-     * change a word in dictionary
-     */
     public static void update_word() {
         System.out.println("Bạn muốn sửa gì: ");
         System.out.println("[1] word_target");

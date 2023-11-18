@@ -26,6 +26,5 @@ public class add_or_delete {
     public void return_back(ActionEvent event) throws IOException {
         Application app = new Application();
         app.changeScene("main-screen.fxml");
-
     }
 }

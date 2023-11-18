@@ -120,7 +120,7 @@ public class Controller implements Initializable {
         loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         pronounceButton.setVisible(false);
