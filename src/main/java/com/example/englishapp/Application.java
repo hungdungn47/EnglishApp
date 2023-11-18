@@ -14,11 +14,11 @@ import java.util.Objects;
 
 public class Application extends javafx.application.Application {
     public static Stage myStage;
-    private static Image logo = new Image(new File("src/main/resources/images/logo.png").toURI().toString());
+    private static final Image logo = new Image(new File("src/main/resources/images/logo.png").toURI().toString());
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
-        myStage.getScene().setCursor(new ImageCursor(new Image(new File("src/main/resources/data/cursor.png").toURI().toString())));
         myStage.getScene().setRoot(pane);
+        myStage.getScene().setCursor(new ImageCursor(new Image(new File("src/main/resources/images/cursor.png").toURI().toString())));
     }
     public Scene getScene() throws IOException {
         return myStage.getScene();
@@ -30,7 +30,7 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Scene scene = new Scene(fxmlLoader);
         stage.setTitle("Dictionary application");
         stage.setResizable(false);

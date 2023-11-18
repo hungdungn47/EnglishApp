@@ -337,9 +337,9 @@ public class Game {
                 if (j == 0) {
                     continue;
                 } else if ((i + j) % 2 == 0) {
-                    gc.setFill(Color.PINK);
+                    gc.setFill(Color.valueOf("#61d8de"));
                 } else {
-                    gc.setFill(Color.LIGHTPINK);
+                    gc.setFill(Color.valueOf("#42bbe3"));
                 }
                 gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
