@@ -12,6 +12,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -96,6 +97,10 @@ public class Game2 {
     private int x;
     private String correct_answer;
     private int current_score = 0;
+    private final AudioClip correct = new AudioClip(new File("src/main/resources/data/learnWord/correct.mp3").toURI().toString());
+    private final AudioClip wrong = new AudioClip(new File("src/main/resources/data/learnWord/wrong.mp3").toURI().toString());
+    private final AudioClip clock = new AudioClip(new File("src/main/resources/data/learnWord/clock.mp3").toURI().toString());
+
 
     private void firstQuestion() {
         updateTimerLabel();
@@ -104,6 +109,9 @@ public class Game2 {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
             secondsLeft--;
             updateTimerLabel();
+            if(secondsLeft <= 3){
+                clock.play();
+            }
             if (secondsLeft == 0) {
                 timeline.stop();
                 gameOver();
@@ -125,6 +133,7 @@ public class Game2 {
     }
 
     public void gameOver() {
+        clock.stop();
         updateScore();
         try {
             insertScoreFromTxt();
@@ -381,19 +390,27 @@ public class Game2 {
     }
 
     public void check_answer(ActionEvent event) throws IOException {
+        clock.stop();
         timeline.stop();
         Button clickedButton = (Button) event.getSource();
         String selectedAnswer = clickedButton.getText();
         boolean isCorrect = selectedAnswer.equals(correct_answer);
 
         if (isCorrect) {
+            correct.play();
             secondsLeft = GAME_DURATION;
             updateTimerLabel();
             current_score++;
             next_question(event);
             scoreLabel.setText("Score: " + current_score);
         } else {
+            wrong.play();
             gameOver();
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
