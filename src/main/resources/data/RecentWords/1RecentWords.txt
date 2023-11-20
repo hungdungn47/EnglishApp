@@ -483,3 +483,9 @@ amazedly
 -mer
 -trophin
 1 to many relationship
+-th
+AM wave = amplitude-modulated wave
+A shares
+Accesion rate
+Access
+Action lag
