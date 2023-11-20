@@ -123,7 +123,7 @@ public class DictionaryCommandLine {
             else if(request == 5){
                 System.out.println("Enter the word you wanna look up:");
                 String target = in.nextLine();
-                System.out.println(DictionaryManagement.dictionaryLookup(target, 0));
+                System.out.println(DictionaryManagement.dictionaryLookup(target, 2));
             }
             else if(request == 6){
                 DictionaryManagement.dictionarySearcher();

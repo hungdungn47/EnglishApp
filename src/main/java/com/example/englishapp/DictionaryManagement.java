@@ -126,7 +126,13 @@ public class DictionaryManagement {
         String filePath = "src/main/resources/data/WordAdded/" + user + "wordsAdded.txt";
         Utils.exportToFile(filePath, true, target, explain, ":");
     }
-
+    public static String TranslateParagraph(String target, String lang_from, String lang_to){
+        try {
+            return GoogleTranslatorAPI.translate(lang_from, lang_to, target);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static String dictionaryLookup(String target, int languageOption) {
         if (languageOption == Controller.EN_TO_VI) {
             if(enViDic.contains(target)) {

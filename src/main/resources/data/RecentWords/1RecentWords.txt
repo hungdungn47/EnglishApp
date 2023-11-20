@@ -470,3 +470,5 @@ Basic Outcome
 amazed
 amazedness
 amazedly
+-tude
+1 to many relationship
