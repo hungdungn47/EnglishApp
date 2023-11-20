@@ -54,6 +54,8 @@ public class TranslateParagraph implements Initializable {
 
     public void initializeMenu_Button() {
         Menu_detectLanguage.getItems().addAll(english1,vietnamese1,chinese1,japanese1,french1);
+        Menu_detectLanguage.getStyleClass().add("custom-menu-button");
+        Menu_OutputLanguage.getStyleClass().add("custom-menu-button");
         english1.setOnAction(event -> {
             Menu_detectLanguage.setText("English");
             lang_from = "en";
