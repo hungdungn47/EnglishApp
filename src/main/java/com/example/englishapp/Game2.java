@@ -8,9 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -173,6 +171,7 @@ public class Game2 {
 
         // Set the new scene on the current stage
         Scene scene = new Scene(root);
+        scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/snake_game/cursor_snakegame.png").toURI().toString())));
         stage.setScene(scene);
         stage.show();
     }
@@ -184,6 +183,7 @@ public class Game2 {
             throw new RuntimeException(e);
         }
         Alert themeSelectionAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        themeSelectionAlert.getDialogPane().setCursor(Cursor.HAND);
         themeSelectionAlert.setTitle("Choose game theme");
         themeSelectionAlert.setHeaderText(null);
         themeSelectionAlert.setContentText("Please select game theme:");
@@ -261,6 +261,7 @@ public class Game2 {
 
             Scene gameScene = new Scene(root);
             Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gameScene.setCursor(new ImageCursor(new Image(new File("src/main/resources/data/snake_game/cursor_snakegame.png").toURI().toString())));
             gameStage.setScene(gameScene);
             gameStage.show();
         });
