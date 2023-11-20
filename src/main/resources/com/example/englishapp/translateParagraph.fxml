@@ -8,37 +8,31 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane accessibleRole="MENU_BUTTON" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.TranslateParagraph">
+<AnchorPane accessibleRole="BUTTON" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="700.0" stylesheets="@TranslateParagraph.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.TranslateParagraph">
    <children>
-      <TextArea fx:id="toBeTranslatedTextArea" layoutX="47.0" layoutY="116.0" prefHeight="186.0" prefWidth="593.0">
+      <TextArea fx:id="toBeTranslatedTextArea" layoutX="47.0" layoutY="75.0" prefHeight="186.0" prefWidth="593.0">
          <font>
             <Font size="14.0" />
          </font></TextArea>
-      <TextArea fx:id="resultTextArea" layoutX="47.0" layoutY="344.0" prefHeight="204.0" prefWidth="593.0" promptText="Translation">
+      <TextArea fx:id="resultTextArea" layoutX="47.0" layoutY="330.0" prefHeight="204.0" prefWidth="593.0" promptText="Translation">
          <font>
             <Font size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></TextArea>
-      <MenuButton fx:id="Menu_detectLanguage" layoutX="47.0" layoutY="83.0" mnemonicParsing="false" style="-fx-background-radius: 15;" text="English">
+      <MenuButton fx:id="Menu_detectLanguage" layoutX="47.0" layoutY="35.0" mnemonicParsing="true" style="-fx-background-radius: 15;" text="English" textOverrun="WORD_ELLIPSIS">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></MenuButton>
-      <MenuButton fx:id="Menu_OutputLanguage" blendMode="DARKEN" layoutX="47.0" layoutY="311.0" mnemonicParsing="false" onAction="#initializeMenu_Button" style="-fx-background-radius: 15;" text="Vietnamese" />
-      <Text layoutX="47.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dịch đoạn hoặc câu văn!" wrappingWidth="356.13671875">
-         <font>
-            <Font name="System Bold Italic" size="30.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="508.0" onMouseClicked="#paragraph_speech2" pickOnBounds="true" preserveRatio="true">
+      <MenuButton fx:id="Menu_OutputLanguage" layoutX="47.0" layoutY="288.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-radius: 15;" text="Vietnamese" />
+      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="496.0" onMouseClicked="#paragraph_speech2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/speaker.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="261.0" onMouseClicked="#paragraph_speech1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="220.0" onMouseClicked="#paragraph_speech1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/speaker.png" />
          </image>
