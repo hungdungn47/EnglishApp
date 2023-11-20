@@ -257,6 +257,7 @@ public class Controller implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning_game_snake.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
+            stage.setTitle("Warning!");
             stage.setScene(new Scene(root1));
             stage.show();
         }
@@ -288,7 +289,6 @@ public class Controller implements Initializable {
     }
 
     public void addToFavorite() {
-        System.out.println("favor");
         if (favoriteButton.getImage() == redHeart) {
             String fileName = Login.getUsername() + "FavoriteWord.txt";
             if (selectedWord != null && favoriteWords.contains(selectedWord)) {
