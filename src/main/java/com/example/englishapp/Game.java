@@ -67,9 +67,9 @@ public class Game {
     int temp = 0;
     private final List<String> listfavoriteWords = new ArrayList<>();
     private final Map<String, Integer> History_score = new HashMap<>();
-    private MediaPlayer sound_game = new MediaPlayer(new Media(new File("src/main/resources/data/snake_game/music.mp3").toURI().toString()));
-    private AudioClip eat_sound = new AudioClip(new File("src/main/resources/data/snake_game/eat_sound.mp3").toURI().toString());
-    private AudioClip game_over = new AudioClip(new File("src/main/resources/data/snake_game/game_over.mp3").toURI().toString());
+    private final MediaPlayer sound_game = new MediaPlayer(new Media(new File("src/main/resources/data/snake_game/music.mp3").toURI().toString()));
+    private final AudioClip eat_sound = new AudioClip(new File("src/main/resources/data/snake_game/eat_sound.mp3").toURI().toString());
+    private final AudioClip game_over = new AudioClip(new File("src/main/resources/data/snake_game/game_over.mp3").toURI().toString());
 
     public void back_to_main(ActionEvent event) throws IOException {
         Application app = new Application();

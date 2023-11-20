@@ -117,17 +117,17 @@ public class Controller implements Initializable {
         logOutButtonSign.setVisible(false);
         updateButton.setVisible(false);
         definitionEditor.setVisible(false);
+        pronounceButton.setVisible(false);
+        favoriteButton.setVisible(false);
+        languageOptions = EN_TO_VI;
         loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        pronounceButton.setVisible(false);
-        favoriteButton.setVisible(false);
-        languageOptions = EN_TO_VI;
 
-        DictionaryManagement.readUpdatedWord(Login.getUsername());
+        DictionaryManagement.readUpdatedWord();
         word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
 
         getFavoriteWords();
@@ -189,11 +189,11 @@ public class Controller implements Initializable {
                 } else {
                     // Set text and apply rounded border styling
                     setText(item);
-                    setStyle("-fx-border-radius: 10; -fx-background-radius: 10;");
+                    setStyle("-fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14");
                 }
             }
         });
-        word_list_listView.setFixedCellSize(30);
+        word_list_listView.setFixedCellSize(40);
     }
 
     public void translate() {
