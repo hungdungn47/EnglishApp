@@ -1,6 +1,0 @@
-personalities
-two-decked
-two-engined
--manship
-key exchange
-cryptograph
