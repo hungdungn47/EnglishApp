@@ -19,16 +19,25 @@ import javafx.util.Duration;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 class GameData {
     private static GameData instance;
+    private Map<String, Integer> history_score;
     private String[] array;
     private String select;
 
     private GameData() {
+        history_score = new HashMap<>();
+    }
+
+    public Map<String, Integer> getHistoryScore() {
+        return history_score;
     }
 
     public static GameData getInstance() {
@@ -69,6 +78,14 @@ public class Game2 {
     @FXML
     public Label scoreLabel;
     @FXML
+    public Label yourScoreLabel;
+    @FXML
+    private Label rank1;
+    @FXML
+    private Label rank2;
+    @FXML
+    private Label rank3;
+    @FXML
     ImageView image_question;
     @FXML
     private Label timerLabel;
@@ -76,7 +93,7 @@ public class Game2 {
     private static final int GAME_DURATION = 10;
     private int secondsLeft = GAME_DURATION;
     private String[] a = new String[10];
-    private boolean[] check = new boolean[10]; // mac dinh la false
+    private final boolean[] check = new boolean[10]; // mac dinh la false
     private String selected_topic;
     private int x;
     private String correct_answer;
@@ -98,39 +115,74 @@ public class Game2 {
         randomQuestion();
         timeline.play();
     }
+
     private void updateTimerLabel() {
         Platform.runLater(() -> {
             if (secondsLeft > 0) {
-                timerLabel.setText("Time: " + String.valueOf(secondsLeft));
+                timerLabel.setText("Time: " + secondsLeft);
             } else {
                 timerLabel.setText("Time out!");
             }
         });
     }
 
-    private void gameOver() {
-        String imagePath = "/data/learnWord/gameover.png";
-        InputStream inputStream = getClass().getResourceAsStream(imagePath);
-        Image newImage = new Image(inputStream);
-        image_question.setImage(newImage);
-        scoreLabel.setVisible(false);
-        scoreLabel.setText("");
-        answer1.setText("YOUR");
-        answer2.setText("SCORE");
-        answer3.setText("IS");
-        answer4.setText(String.valueOf(current_score));
-        next_button.setText("Finish");
-        next_button.setOnAction(event -> {
-            Application app = new Application();
-            try {
-                app.changeScene("end_game2.fxml");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+    public void gameOver() {
+        updateScore();
+        try {
+            insertScoreFromTxt();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        GameData gameData = GameData.getInstance();
+        Map<String, Integer> historyScore = gameData.getHistoryScore();
+
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(historyScore.entrySet());
+        Collections.sort(sortedEntries, (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        int size = Math.min(sortedEntries.size(), 3);
+
+        String[] rank = new String[3];
+        for (int i = 0; i < size; i++) {
+            Map.Entry<String, Integer> entry = sortedEntries.get(i);
+            rank[i] = entry.getKey();
+        }
+
+        if (size < 3) {
+            for (int i = size; i < 3; i++) {
+                rank[i] = "";
             }
-        });
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("end_game2.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Game2 controller = loader.getController();
+
+        controller.rank1.setText(rank[0] + ":" + historyScore.get(rank[0]));
+        controller.rank2.setText(rank[1] + ":" + historyScore.get(rank[1]));
+        controller.rank3.setText(rank[2] + ":" + historyScore.get(rank[2]));
+
+        controller.yourScoreLabel.setText("Your Score: " + current_score);
+
+        // Access the current stage
+        Stage stage = (Stage) answer1.getScene().getWindow();
+
+        // Set the new scene on the current stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void play_game_2(ActionEvent event) throws IOException {
+        try {
+            insertScoreFromTxt();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Alert themeSelectionAlert = new Alert(Alert.AlertType.CONFIRMATION);
         themeSelectionAlert.setTitle("Choose game theme");
         themeSelectionAlert.setHeaderText(null);
@@ -320,34 +372,11 @@ public class Game2 {
         }
 
         if (allQuestionsUsed) {
-            handleGameFinish();
+            gameOver();
             return;
         }
         randomQuestion();
         timeline.play();
-    }
-    private void handleGameFinish() {
-        String imagePath = "/data/learnWord/win.jpg";
-        InputStream inputStream = getClass().getResourceAsStream(imagePath);
-        Image newImage = new Image(inputStream);
-        image_question.setImage(newImage);
-        scoreLabel.setVisible(false);
-        scoreLabel.setText("");
-        answer1.setText("YOUR");
-        answer2.setText("SCORE");
-        answer3.setText("IS");
-        answer4.setText(String.valueOf(current_score + 1));
-        next_button.setText("Finish");
-        next_button.setOnAction(event -> {
-            Application app = new Application();
-            try {
-                app.changeScene("end_game2.fxml");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        secondsLeft = GAME_DURATION;
-        updateTimerLabel();
     }
 
     public void check_answer(ActionEvent event) throws IOException {
@@ -359,11 +388,72 @@ public class Game2 {
         if (isCorrect) {
             secondsLeft = GAME_DURATION;
             updateTimerLabel();
-            next_question(event);
             current_score++;
-            scoreLabel.setText("Score: " + String.valueOf(current_score));
+            next_question(event);
+            scoreLabel.setText("Score: " + current_score);
         } else {
             gameOver();
+        }
+    }
+
+    private void insertScoreFromTxt() throws IOException {
+        String filePath = "src/main/resources/data/learnWord/score.txt";
+        Path path = Paths.get(filePath);
+        List<String> lines = Files.readAllLines(path);
+        GameData gameData = GameData.getInstance();
+        Map<String, Integer> historyScore = gameData.getHistoryScore();
+        for (String line : lines) {
+            int index = line.indexOf(':');
+            if (index != -1) {
+                String username = line.substring(0, index).trim();
+                int scorefromtxt = Integer.parseInt(line.substring(index + 1).trim());
+                historyScore.put(username, scorefromtxt);
+            }
+        }
+    }
+
+    private void exportScoreToTxt() {
+        GameData gameData = GameData.getInstance();
+        Map<String, Integer> historyScore = gameData.getHistoryScore();
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("src/main/resources/data/learnWord/score.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for (Map.Entry<String, Integer> entry : historyScore.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            try {
+                fw.write(key + ":" + value + "\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateScore() {
+        GameData gameData = GameData.getInstance();
+        Map<String, Integer> historyScore = gameData.getHistoryScore();
+        String username = Login.getUsername();
+        if (historyScore.containsKey(username)) {
+            int temp = historyScore.get(username);
+            if (temp > current_score) {
+                exportScoreToTxt();
+                return;
+            } else {
+                historyScore.put(username, current_score);
+                exportScoreToTxt();
+                return;
+            }
+        } else {
+            historyScore.put(username, current_score);
+            exportScoreToTxt();
         }
     }
 }
