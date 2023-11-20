@@ -1,8 +1,2 @@
-1:40
-as:0
-123:90
-asd:0
-jdjd:0
-hoanganhknk:100
-hoanganh:120
-hungdungn47:120
+1:100
+hungdungn47:0
