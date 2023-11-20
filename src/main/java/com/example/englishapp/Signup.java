@@ -140,9 +140,11 @@ public class Signup {
             File wordAdded = new File("src/main/resources/data/WordAdded/" + username + "wordsAdded.txt");
             File wordDeleted = new File("src/main/resources/data/WordDeleted/" + username + "wordsDeleted.txt");
             File recentWord = new File("src/main/resources/data/RecentWords/" + username + "RecentWords.txt");
+            File updatedWord = new File("src/main/resources/data/UpdatedWord/" + username + "UpdatedWords.txt");
             favoriteWord.createNewFile();
             wordAdded.createNewFile();
             wordDeleted.createNewFile();
             recentWord.createNewFile();
+            updatedWord.createNewFile();
     }
 }

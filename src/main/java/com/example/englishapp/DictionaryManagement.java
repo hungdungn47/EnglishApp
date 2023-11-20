@@ -34,10 +34,10 @@ public class DictionaryManagement {
             }
         }
     }
-    public static void readUpdatedWord(String username) {
+    public static void readUpdatedWord() {
         FileReader file = null;
         try {
-            file = new FileReader("src/main/resources/data/UpdatedWord/" + username + "UpdatedWords.txt");
+            file = new FileReader("src/main/resources/data/UpdatedWord/" + Login.getUsername() + "UpdatedWords.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -57,20 +57,20 @@ public class DictionaryManagement {
         }
     }
     public static void readAddedAndDeletedWord() throws IOException {
-        FileReader file = new FileReader("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt");
-        BufferedReader br = new BufferedReader(file);
+        FileReader file2 = new FileReader("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt");
+        BufferedReader br = new BufferedReader(file2);
         String line;
+        while ((line = br.readLine()) != null) {
+            enViDic.deleteWord(line);
+        }
+        FileReader file = new FileReader("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt");
+        br = new BufferedReader(file);
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(":");
             String word = parts[0];
             String definition = parts[1];
 
             enViDic.addWord(word, definition);
-        }
-        FileReader file2 = new FileReader("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt");
-        br = new BufferedReader(file2);
-        while ((line = br.readLine()) != null) {
-            enViDic.deleteWord(line);
         }
     }
 
