@@ -472,6 +472,7 @@ amazedness
 amazedly
 -tude
 1 to many relationship
+<<<<<<< HEAD
 -th
 -way
 -tude
@@ -483,3 +484,22 @@ amazedly
 -mancy
 AC-cut quartz
 ASCII (American Standard Code for Information Interchange) text
+=======
+-mancy
+-tude
+-ty
+-mancy
+-merous
+-tude
+-ment
+-th
+-mer
+-trophin
+1 to many relationship
+-th
+AM wave = amplitude-modulated wave
+A shares
+Accesion rate
+Access
+Action lag
+>>>>>>> bb4259ecad113417b9b1318efe484931587238aa

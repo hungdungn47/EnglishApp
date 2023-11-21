@@ -366,8 +366,9 @@ public class Game {
             gc.setFill(Color.RED);
             gc.setFont(new Font("Verdana", 20));
             gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3 - 25, 560);
-            gc.setFont(new Font("100px Tahoma", 20));
-            gc.fillText("Điểm của bạn: " + score, WIDTH / 2 - 55, 35);
+            gc.setFont(new Font("100px Tahoma", 35));
+            gc.setFill(Color.PINK);
+            gc.fillText("Điểm của bạn: " + score, WIDTH / 3 + 5, 500);
             PrintRanking();
         }
     }
@@ -510,10 +511,11 @@ public class Game {
                 rank[2] = key;
             }
         }
-        String Rank = "TOP\n" + rank[0] + ":" + History_score.get(rank[0]) + "\n" + rank[1] + ":" + History_score.get(rank[1]) + "\n" +
-                rank[2] + ":" + History_score.get(rank[2]);
-        gc.setFill(Color.WHITE);
-        gc.setFont(new Font("Comic sans MS", 25));
-        gc.fillText(Rank, 10, 35);
+        String score = "SCORE\n" + History_score.get(rank[0]) + "\n" + History_score.get(rank[1]) + "\n" + History_score.get(rank[2]);
+        String user = "USER\n" + rank[0] + "\n" + rank[1] + "\n" + rank[2];
+        gc.setFill(Color.PINK);
+        gc.setFont(new Font("Comic sans MS", 17));
+        gc.fillText(user, 10, 35);
+        gc.fillText(score, 160, 35);
     }
 }
