@@ -151,11 +151,13 @@ public class Utils {
 
     public static void insertRecentWord(String username, String word) {
         String insertQuery = "INSERT INTO RecentWords (username, word) VALUES (?, ?)";
-        String deleteQuery = "DELETE FROM RecentWords WHERE id IN (SELECT id FROM RecentWords ORDER BY timestamp LIMIT 1)";
+        String selectQuery = "SELECT id FROM RecentWords ORDER BY timestamp LIMIT 1";
+        String deleteQuery = "DELETE FROM RecentWords WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
-             Statement deleteStatement = connection.createStatement()) {
+             Statement selectStatement = connection.createStatement();
+             PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
 
             // Insert the new word
             insertStatement.setString(1, username);
@@ -163,13 +165,122 @@ public class Utils {
             insertStatement.executeUpdate();
 
             // Check if there are more than 50 rows and delete the oldest one(s)
-            ResultSet countResult = deleteStatement.executeQuery("SELECT COUNT(*) FROM RecentWords");
-            if (countResult.next() && countResult.getInt(1) > 50) {
-                deleteStatement.executeUpdate(deleteQuery);
+            ResultSet oldestIdResult = selectStatement.executeQuery(selectQuery);
+            if (oldestIdResult.next()) {
+                int oldestId = oldestIdResult.getInt("id");
+                deleteStatement.setInt(1, oldestId);
+                deleteStatement.executeUpdate();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static void addWord(String username, String word, String definition) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = conn.prepareStatement("INSERT INTO AddedWords (username, word, definition) VALUES (?, ?, ?)")) {
+
+            statement.setString(1, username);
+            statement.setString(2, word);
+            statement.setString(3, definition);
+            statement.executeUpdate();
+            System.out.println("New word: " + word + " means " + definition);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<String[]> getAddedWords(String username) {
+        List<String[]> wordsAndDefinitions = new ArrayList<>();
+        String selectQuery = "SELECT word, definition FROM AddedWords WHERE username = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String word = resultSet.getString("word");
+                String definition = resultSet.getString("definition");
+                wordsAndDefinitions.add(new String[]{word, definition});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return wordsAndDefinitions;
+    }
+    public static void deleteWord(String username, String word) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = conn.prepareStatement("INSERT INTO DeletedWords (username, word) VALUES (?, ?)")) {
+
+            statement.setString(1, username);
+            statement.setString(2, word);
+            statement.executeUpdate();
+            System.out.println("word deleted: " + word);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static List<String> getDeletedWords(String username) {
+        List<String> deletedWords = new ArrayList<>();
+        String selectQuery = "SELECT word FROM DeletedWords WHERE username = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String word = resultSet.getString("word");
+                deletedWords.add(word);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return deletedWords;
+    }
+    public static void updateWord(String username, String word, String definition) {
+        String insertQuery = "INSERT INTO UpdatedWords (username, word, definition) VALUES (?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE definition = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, word);
+            pstmt.setString(3, definition);
+            pstmt.setString(4, definition);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            // Handle the SQL exception
+            e.printStackTrace();
+        }
+    }
+    public static List<String[]> getUpdatedWords(String username) {
+        List<String[]> wordsAndDefinitions = new ArrayList<>();
+        String selectQuery = "SELECT word, definition FROM UpdatedWords WHERE username = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String word = resultSet.getString("word");
+                String definition = resultSet.getString("definition");
+                wordsAndDefinitions.add(new String[]{word, definition});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return wordsAndDefinitions;
     }
 }

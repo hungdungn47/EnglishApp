@@ -128,7 +128,7 @@ public class Controller implements Initializable {
                 } else {
                     favoriteButton.setImage(redHeart);
                 }
-                DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+//                DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
                 Utils.insertRecentWord(Login.getUsername(), selectedWord);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
                 WebEngine webEngine = definitionWebView.getEngine();
@@ -186,7 +186,7 @@ public class Controller implements Initializable {
     public void translate() {
         selectedWord = search_box.getText();
         if(!selectedWord.isEmpty()) {
-            DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+//            DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
             Utils.insertRecentWord(Login.getUsername(), selectedWord);
             String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
             WebEngine webEngine = definitionWebView.getEngine();
@@ -316,11 +316,13 @@ public class Controller implements Initializable {
                                             .replaceAll(" dir=\"ltr\"", "");
 
             String filePath = "src/main/resources/data/UpdatedWord/" + Login.getUsername() + "UpdatedWords.txt";
-            Utils.exportToFile(filePath, true, selectedWord, editedContent, "");
+//            Utils.exportToFile(filePath, true, selectedWord, editedContent, "");
+            Utils.updateWord(Login.getUsername(), selectedWord, editedContent);
             definitionWebView.getEngine().loadContent(editedContent);
             definitionEditor.setVisible(false);
             definitionWebView.setVisible(true);
             iv.setImage(editIcon);
+            DictionaryManagement.readUpdatedWord();
         } else {
             definitionWebView.setVisible(false);
             definitionEditor.setVisible(true);
