@@ -516,7 +516,7 @@ public class Game {
         String user = "USER\n" + rank[0] + "\n" + rank[1] + "\n" + rank[2];
         gc.setFill(Color.PINK);
         gc.setFont(new Font("Comic sans MS", 17));
-        gc.fillText(user, 10, 35);
-        gc.fillText(score, 160, 35);
+        gc.fillText(user, 10, 25);
+        gc.fillText(score, 160, 25);
     }
 }
