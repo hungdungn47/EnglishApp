@@ -24,8 +24,6 @@ public class StudyPage implements Initializable {
     private ListView<String> dailyWordListView;
     @FXML
     private WebView definitionWebView;
-    @FXML
-    private VBox container;
     private String selectedWord;
     @FXML
     private ContextMenu delete = new ContextMenu();
@@ -38,8 +36,7 @@ public class StudyPage implements Initializable {
         definitionWebView.getEngine().loadContent(res, "text/html");
         dailyWordListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = dailyWordListView.getSelectionModel().getSelectedItem();
-            if (selectedWord != null) {
-                container.setVisible(true);
+            if(selectedWord != null) {
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, 2);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
@@ -132,5 +129,8 @@ public class StudyPage implements Initializable {
         } else {
             definitionWebView.getEngine().loadContent("");
         }
+    }
+    public void pronounce() {
+        TextToSpeech.pronounce(selectedWord, "en");
     }
 }

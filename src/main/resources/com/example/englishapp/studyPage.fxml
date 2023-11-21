@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
@@ -18,14 +19,6 @@
             <Font name="Georgia" size="30.0" />
          </font>
       </Label>
-      <VBox fx:id="container" layoutX="320.0" layoutY="129.0" prefHeight="268.0" prefWidth="378.0" style="-fx-padding: 20; -fx-background-radius: 12; -fx-background-color: white;">
-         <children>
-            <WebView fx:id="definitionWebView" prefHeight="378.0" prefWidth="315.0">
-               <cursor>
-                  <Cursor fx:constant="NONE" />
-               </cursor></WebView>
-         </children>
-      </VBox>
       <StackPane layoutX="22.0" layoutY="129.0" prefHeight="268.0" prefWidth="261.0">
          <children>
             <ListView fx:id="dailyWordListView" maxHeight="3000.0" prefHeight="268.0" prefWidth="200.0" />
@@ -33,11 +26,28 @@
       </StackPane>
       <HBox alignment="CENTER" layoutY="449.0" prefHeight="73.0" prefWidth="723.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#vocabGame" prefWidth="150.0" text="Game" />
-            <Button mnemonicParsing="false" onAction="#changeToDailyWords" text="Daily words" />
-            <Button mnemonicParsing="false" onAction="#changeToRecentWords" prefWidth="150.0" text="Recent words" />
-            <Button mnemonicParsing="false" onAction="#changeToFavoriteWords" prefWidth="150.0" text="Favorite words" />
+            <Button mnemonicParsing="false" onAction="#vocabGame" prefWidth="150.0" styleClass="big-button" text="Game" />
+            <Button mnemonicParsing="false" onAction="#changeToDailyWords" styleClass="big-button" text="Daily words" />
+            <Button mnemonicParsing="false" onAction="#changeToRecentWords" prefWidth="150.0" styleClass="big-button" text="Recent words" />
+            <Button mnemonicParsing="false" onAction="#changeToFavoriteWords" prefWidth="150.0" styleClass="big-button" text="Favorite words" />
          </children>
       </HBox>
+      <AnchorPane layoutX="319.0" layoutY="129.0" prefHeight="268.0" prefWidth="364.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+         <children>
+            <WebView fx:id="definitionWebView" layoutX="24.0" layoutY="53.0" prefHeight="192.0" prefWidth="320.0">
+               <cursor>
+                  <Cursor fx:constant="NONE" />
+               </cursor></WebView>
+            <Button layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#pronounce" prefHeight="23.0" prefWidth="29.0" styleClass="transparent-button">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/speaker.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

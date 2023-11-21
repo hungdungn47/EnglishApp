@@ -472,6 +472,19 @@ amazedness
 amazedly
 -tude
 1 to many relationship
+<<<<<<< HEAD
+-th
+-way
+-tude
+-trophin
+-ty
+-way
+-th
+-ty
+-mancy
+AC-cut quartz
+ASCII (American Standard Code for Information Interchange) text
+=======
 -mancy
 -tude
 -ty
@@ -489,3 +502,4 @@ A shares
 Accesion rate
 Access
 Action lag
+>>>>>>> bb4259ecad113417b9b1318efe484931587238aa
