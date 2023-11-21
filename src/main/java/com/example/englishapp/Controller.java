@@ -92,21 +92,7 @@ public class Controller implements Initializable {
     private final Image editIcon = new Image(new File("src/main/resources/images/editing.png").toURI().toString());
     private String selectedWord;
     private int languageOptions;
-    private final List<String> favoriteWords = new ArrayList<>();
-
-    private void getFavoriteWords() {
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
-        try {
-            Scanner sc = new Scanner(new File(filePath));
-            while (sc.hasNextLine()) {
-                String tmp = sc.nextLine();
-                favoriteWords.add(tmp);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static List<String> favoriteWords = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -120,6 +106,7 @@ public class Controller implements Initializable {
         pronounceButton.setVisible(false);
         favoriteButton.setVisible(false);
         languageOptions = EN_TO_VI;
+        favoriteWords = Utils.getFavoriteWords(Login.getUsername());
         loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
@@ -130,7 +117,6 @@ public class Controller implements Initializable {
         DictionaryManagement.readUpdatedWord();
         word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
 
-        getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             updateButton.setVisible(true);
             pronounceButton.setVisible(true);
@@ -143,6 +129,7 @@ public class Controller implements Initializable {
                     favoriteButton.setImage(redHeart);
                 }
                 DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+                Utils.insertRecentWord(Login.getUsername(), selectedWord);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
@@ -200,12 +187,17 @@ public class Controller implements Initializable {
         selectedWord = search_box.getText();
         if(!selectedWord.isEmpty()) {
             DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+            Utils.insertRecentWord(Login.getUsername(), selectedWord);
             String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
             WebEngine webEngine = definitionWebView.getEngine();
             webEngine.loadContent(result, "text/html");
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
         }
+    }
+    public static void removeFavoriteWord(String word) {
+        favoriteWords.remove(word);
+        Utils.removeFavoriteWord(Login.getUsername(), word);
     }
 
     public void translateParagraph() {
@@ -289,20 +281,30 @@ public class Controller implements Initializable {
     }
 
     public void addToFavorite() {
-        if (favoriteButton.getImage() == redHeart) {
-            String fileName = Login.getUsername() + "FavoriteWord.txt";
-            if (selectedWord != null && favoriteWords.contains(selectedWord)) {
-                favoriteWords.remove(selectedWord);
-                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
-                favoriteButton.setImage(blankHeart);
-            }
+//        if (favoriteButton.getImage() == redHeart) {
+//            String fileName = Login.getUsername() + "FavoriteWord.txt";
+//            if (selectedWord != null && favoriteWords.contains(selectedWord)) {
+//                favoriteWords.remove(selectedWord);
+//                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
+//                favoriteButton.setImage(blankHeart);
+//            }
+//        } else {
+//            String fileName = Login.getUsername() + "FavoriteWord.txt";
+//            if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
+//                favoriteWords.add(selectedWord);
+//                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
+//                favoriteButton.setImage(redHeart);
+//            }
+//            Utils.insertFavoriteWord(Login.getUsername(), selectedWord);
+//        }
+        if(selectedWord == null) return;
+        if (!favoriteWords.contains(selectedWord)) {
+            favoriteWords.add(selectedWord);
+            Utils.insertFavoriteWord(Login.getUsername(), selectedWord);
+            favoriteButton.setImage(redHeart);
         } else {
-            String fileName = Login.getUsername() + "FavoriteWord.txt";
-            if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
-                favoriteWords.add(selectedWord);
-                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
-                favoriteButton.setImage(redHeart);
-            }
+            removeFavoriteWord(selectedWord);
+            favoriteButton.setImage(blankHeart);
         }
     }
 

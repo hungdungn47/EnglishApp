@@ -77,17 +77,19 @@ public class StudyPage implements Initializable {
 
     public void changeToRecentWords() {
         delete.getItems().clear();
-        String filePath = "src/main/resources/data/RecentWords/" + Login.getUsername() + "RecentWords.txt";
-        todayWords = Utils.readWordListFromFile(filePath);
-        Collections.reverse(todayWords);
+//        String filePath = "src/main/resources/data/RecentWords/" + Login.getUsername() + "RecentWords.txt";
+//        todayWords = Utils.readWordListFromFile(filePath);
+        todayWords = Utils.getRecentWords(Login.getUsername());
+//        Collections.reverse(todayWords);
         changeWordList();
         label.setText("Recent words");
     }
 
     public void changeToFavoriteWords() {
         delete.getItems().clear();
-        String filePath = "src/main/resources/data/favoriteWords/" + Login.getUsername() + "FavoriteWord.txt";
-        todayWords = Utils.readWordListFromFile(filePath);
+//        String filePath = "src/main/resources/data/favoriteWords/" + Login.getUsername() + "FavoriteWord.txt";
+//        todayWords = Utils.readWordListFromFile(filePath);
+        todayWords = Utils.getFavoriteWords(Login.getUsername());
         Collections.reverse(todayWords);
         changeWordList();
         label.setText("Favorite words");
@@ -116,8 +118,9 @@ public class StudyPage implements Initializable {
     }
     public void delete_favoriteWord(String word){
         todayWords.remove(word);
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        DictionaryCommandLine.changeFavoriteWords(fileName, todayWords);
+//        String fileName = Login.getUsername() + "FavoriteWord.txt";
+//        DictionaryCommandLine.changeFavoriteWords(fileName, todayWords);
+        Controller.removeFavoriteWord(word);
     }
     private void changeWordList() {
         dailyWordListView.getItems().clear();
