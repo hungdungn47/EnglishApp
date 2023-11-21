@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
@@ -19,17 +21,17 @@
 
          <children>
             <TextField fx:id="search_box" layoutX="17.0" layoutY="17.0" onAction="#translate" prefHeight="45.0" prefWidth="256.0" promptText="Search" />
-            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="515.0" layoutY="27.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="530.0" layoutY="14.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/add.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="563.0" layoutY="27.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="626.0" layoutY="14.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/minus.png" />
+                  <Image url="@../../../images/remove.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER" layoutX="288.0" layoutY="26.0" prefHeight="23.0" prefWidth="132.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="297.0" layoutY="24.0" prefHeight="23.0" prefWidth="132.0" spacing="10.0">
                <children>
                   <ImageView fx:id="translateFromIcon" fitHeight="33.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -59,19 +61,19 @@
             </StackPane>
             <AnchorPane layoutX="297.0" layoutY="79.0" prefHeight="487.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 12;">
                <children>
-                  <WebView fx:id="definitionWebView" layoutX="21.0" layoutY="61.0" prefHeight="360.0" prefWidth="360.0" />
+                  <WebView fx:id="definitionWebView" layoutX="34.0" layoutY="77.0" prefHeight="343.0" prefWidth="332.0" />
                   <HTMLEditor fx:id="definitionEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="21.0" layoutY="61.0" prefHeight="360.0" prefWidth="360.0" />
-                  <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" layoutX="21.0" layoutY="23.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="pronounceButton" fitHeight="39.0" fitWidth="27.0" layoutX="34.0" layoutY="24.0" onMouseClicked="#pronounce" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/speaker.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="favoriteButton" fitHeight="30.0" fitWidth="33.0" layoutX="351.0" layoutY="21.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="favoriteButton" fitHeight="30.0" fitWidth="33.0" layoutX="336.0" layoutY="22.0" onMouseClicked="#addToFavorite" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/love.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="updateButton" layoutX="281.0" layoutY="20.0" mnemonicParsing="false" onAction="#updateDefinition">
+                  <Button fx:id="updateButton" layoutX="280.0" layoutY="20.0" mnemonicParsing="false" onAction="#updateDefinition">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -82,6 +84,16 @@
                   </Button>
                </children>
             </AnchorPane>
+            <Label layoutX="514.0" layoutY="51.0" text="Add a word">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="604.0" layoutY="51.0" text="Delete a word">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>
@@ -133,7 +145,7 @@
             <HBox fx:id="gameButtonContainer" alignment="CENTER" layoutX="-2.0" layoutY="386.0" prefHeight="62.0" prefWidth="82.0">
                <children>
                   <Rectangle fx:id="gameButtonSign" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="8.0" />
-                  <Button fx:id="gameButton" mnemonicParsing="false" onAction="#snakeGame" prefHeight="41.0" prefWidth="43.0">
+                  <Button fx:id="gameButton" mnemonicParsing="false" onAction="#snakeGame" prefHeight="50.0" prefWidth="56.0">
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                            <image>

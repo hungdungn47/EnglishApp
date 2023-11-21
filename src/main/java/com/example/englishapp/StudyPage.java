@@ -24,8 +24,6 @@ public class StudyPage implements Initializable {
     private ListView<String> dailyWordListView;
     @FXML
     private WebView definitionWebView;
-    @FXML
-    private VBox container;
     private String selectedWord;
 
     @Override
@@ -37,7 +35,6 @@ public class StudyPage implements Initializable {
         dailyWordListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = dailyWordListView.getSelectionModel().getSelectedItem();
             if(selectedWord != null) {
-                container.setVisible(true);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, 2);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
@@ -96,5 +93,8 @@ public class StudyPage implements Initializable {
         } else {
             definitionWebView.getEngine().loadContent("");
         }
+    }
+    public void pronounce() {
+        TextToSpeech.pronounce(selectedWord, "en");
     }
 }
