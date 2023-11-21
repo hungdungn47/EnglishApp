@@ -1,0 +1,3 @@
+VBox: hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0.5, 0.0, 0.0);
+}
