@@ -15,20 +15,17 @@ import java.net.URL;
 import java.util.*;
 
 public class Login {
-    private Map<String, String> passwordsMap = new HashMap<>();
     @FXML
     private TextField usernameTextField;
     @FXML
     private PasswordField passwordTextField;
     @FXML
-    private Button loginButton;
-    @FXML
     private Label wrongPasswordLabel;
     private static String username;
     private static String password;
-    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
-    static final String USER = "sql12662519"; // Thay thế bằng tên người dùng MySQL
-    static final String PASS = "EmA6Z8XLRD"; // Thay thế bằng mật khẩu người dùng MySQL
+    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519";
+    static final String USER = "sql12662519";
+    static final String PASS = "EmA6Z8XLRD";
     public void login(ActionEvent event) throws IOException {
         Application app = new Application();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {

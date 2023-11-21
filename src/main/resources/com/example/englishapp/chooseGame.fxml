@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="586.0" prefWidth="723.0" stylesheets="@chooseGame.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.ChooseGame">
+   <children>
+      <VBox fx:id="snakeGameButton" alignment="CENTER" layoutX="47.0" layoutY="157.0" prefHeight="243.0" prefWidth="251.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="184.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/snakeDemo.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" prefHeight="61.0" prefWidth="200.0" text="Vocabulary snake" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox fx:id="multipleChoiceGameButton" alignment="CENTER" layoutX="423.0" layoutY="157.0" prefHeight="243.0" prefWidth="229.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="187.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/game2Demo.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" prefHeight="61.0" prefWidth="200.0" text="Catch the word" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

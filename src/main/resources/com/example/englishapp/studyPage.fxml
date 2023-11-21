@@ -24,9 +24,8 @@
             <ListView fx:id="dailyWordListView" maxHeight="3000.0" prefHeight="268.0" prefWidth="200.0" />
          </children>
       </StackPane>
-      <HBox alignment="CENTER" layoutY="449.0" prefHeight="73.0" prefWidth="723.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutY="449.0" prefHeight="73.0" prefWidth="723.0" spacing="80.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#vocabGame" prefWidth="150.0" styleClass="big-button" text="Game" />
             <Button mnemonicParsing="false" onAction="#changeToDailyWords" styleClass="big-button" text="Daily words" />
             <Button mnemonicParsing="false" onAction="#changeToRecentWords" prefWidth="150.0" styleClass="big-button" text="Recent words" />
             <Button mnemonicParsing="false" onAction="#changeToFavoriteWords" prefWidth="150.0" styleClass="big-button" text="Favorite words" />
@@ -38,11 +37,20 @@
                <cursor>
                   <Cursor fx:constant="NONE" />
                </cursor></WebView>
-            <Button layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#pronounce" prefHeight="23.0" prefWidth="29.0" styleClass="transparent-button">
+            <Button fx:id="pronounceButton" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#pronounce" prefHeight="23.0" prefWidth="29.0" styleClass="transparent-button">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/speaker.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="deleteButton" layoutX="299.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="21.0" styleClass="transparent-button">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/bin.png" />
                      </image>
                   </ImageView>
                </graphic>

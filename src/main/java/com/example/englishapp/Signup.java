@@ -25,58 +25,10 @@ public class Signup {
     @FXML
     private Label wrongUsername;
     private Map<String, String> passwordsMap = new HashMap<>();
-    // Các thông tin kết nối cơ sở dữ liệu
-    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519"; // Thay thế bằng URL của cơ sở dữ liệu MySQL
-    static final String USER = "sql12662519"; // Thay thế bằng tên người dùng MySQL
-    static final String PASS = "EmA6Z8XLRD"; // Thay thế bằng mật khẩu người dùng MySQL
+    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519";
+    static final String USER = "sql12662519";
+    static final String PASS = "EmA6Z8XLRD";
     public void signup(ActionEvent event) throws IOException {
-//        readData();
-//        String username = usernameField.getText();
-//        String password = passwordField.getText();
-//        String passwordConfirm = confirmPasswordField.getText();
-//        if(passwordsMap.containsKey(username)) {
-//            wrongConfirm.setText("");
-//            wrongUsername.setText("Username already exists!");
-//        } else if(password.isEmpty()) {
-//            wrongUsername.setText("");
-//            wrongConfirm.setText("Please enter your passwords!");
-//        }else if (!passwordConfirm.equals(password)) {
-//            wrongUsername.setText("");
-//            wrongConfirm.setText("Password and confirm password doesn't match!");
-//        } else {
-//            FileWriter fw = null;
-//            FileWriter fw2 = null;
-//            String filePath = "src/main/resources/data/passwords.txt";
-//            String filePathGame = "src/main/resources/data/snake_game/score.txt";
-//            try {
-//                fw = new FileWriter(filePath, true);
-//                fw2 = new FileWriter(filePathGame, true);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            try {
-//                fw.write(username + "," + password + "\n");
-//                fw2.write(username + ":0");
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            try {
-//                fw.close();
-//                fw2.close();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            File favoriteWord = new File("src/main/resources/data/favoriteWords/" + username + "FavoriteWord.txt");
-//            File wordAdded = new File("src/main/resources/data/WordAdded/" + username + "wordsAdded.txt");
-//            File wordDeleted = new File("src/main/resources/data/WordDeleted/" + username + "wordsDeleted.txt");
-//            File recentWord = new File("src/main/resources/data/RecentWords/" + username + "RecentWords.txt");
-//            favoriteWord.createNewFile();
-//            wordAdded.createNewFile();
-//            wordDeleted.createNewFile();
-//            recentWord.createNewFile();
-//            Application app = new Application();
-//            app.changeScene("login.fxml");
-//        }
         String username = usernameField.getText();
         String password = passwordField.getText();
         String passwordConfirm = confirmPasswordField.getText();
@@ -102,7 +54,6 @@ public class Signup {
 
                 int rowsInserted = insertStatement.executeUpdate();
                 if (rowsInserted > 0) {
-                    createNewUserFiles(username);
                     System.out.println("Tài khoản đã được đăng ký thành công!");
                 }
                 Application app = new Application();
@@ -134,17 +85,5 @@ public class Signup {
             String[] row = line.split(",");
             passwordsMap.put(row[0], row[1]);
         }
-    }
-    private void createNewUserFiles(String username) throws IOException {
-            File favoriteWord = new File("src/main/resources/data/favoriteWords/" + username + "FavoriteWord.txt");
-            File wordAdded = new File("src/main/resources/data/WordAdded/" + username + "wordsAdded.txt");
-            File wordDeleted = new File("src/main/resources/data/WordDeleted/" + username + "wordsDeleted.txt");
-            File recentWord = new File("src/main/resources/data/RecentWords/" + username + "RecentWords.txt");
-            File updatedWord = new File("src/main/resources/data/UpdatedWord/" + username + "UpdatedWords.txt");
-            favoriteWord.createNewFile();
-            wordAdded.createNewFile();
-            wordDeleted.createNewFile();
-            recentWord.createNewFile();
-            updatedWord.createNewFile();
     }
 }
