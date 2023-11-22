@@ -273,17 +273,7 @@ public class Game {
 
     private void build_list_word() {
         listfavoriteWords = Utils.getFavoriteWords(Login.getUsername());
-//        String fileName = Login.getUsername() + "FavoriteWord.txt";
-//        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
-//        try {
-//            Scanner sc = new Scanner(new File(filePath));
-//            while (sc.hasNextLine()) {
-//                String tmp = sc.nextLine();
-//                listfavoriteWords.add(tmp);
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
+        listfavoriteWords.removeIf(s -> !DictionaryManagement.isEnglish(s));
     }
 
     public void draw_words_to_complete(GraphicsContext gc) {
