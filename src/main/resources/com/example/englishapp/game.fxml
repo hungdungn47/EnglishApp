@@ -10,11 +10,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Game">
    <children>
-      <VBox alignment="CENTER" layoutX="166.0" layoutY="89.0" prefHeight="421.0" prefWidth="468.0" stylesheets="@game.css">
+      <VBox alignment="CENTER" layoutX="166.0" layoutY="89.0" prefHeight="421.0" prefWidth="468.0" style="-fx-background-color: rgba(255, 255, 255, 0.6); -fx-background-radius: 20; -fx-padding: 30;" stylesheets="@game.css">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="500.0" prefHeight="69.0" prefWidth="246.0" text="Vocabulary snake" textAlignment="CENTER">
                <font>
-                  <Font name="Gadugi" size="45.0" />
+                  <Font name="System Bold" size="45.0" />
                </font>
                <VBox.margin>
                   <Insets />
@@ -22,7 +22,7 @@
             </Label>
             <Label alignment="CENTER" prefHeight="54.0" prefWidth="194.0" text="Hướng dẫn chơi">
                <font>
-                  <Font name="Calibri" size="25.0" />
+                  <Font name="System Bold" size="25.0" />
                </font>
                <VBox.margin>
                   <Insets />
@@ -75,7 +75,7 @@
             </Label>
             <Label alignment="CENTER" prefHeight="55.0" prefWidth="175.0" text="Relax and joy">
                <font>
-                  <Font name="Cooper Black" size="25.0" />
+                  <Font name="System Bold" size="25.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="26.0" prefWidth="562.0">

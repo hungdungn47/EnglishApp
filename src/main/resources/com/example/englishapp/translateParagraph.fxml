@@ -11,32 +11,52 @@
 
 <AnchorPane accessibleRole="BUTTON" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="700.0" stylesheets="@TranslateParagraph.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.TranslateParagraph">
    <children>
-      <TextArea fx:id="toBeTranslatedTextArea" layoutX="47.0" layoutY="75.0" prefHeight="186.0" prefWidth="593.0">
+      <MenuButton fx:id="Menu_detectLanguage" layoutX="46.0" layoutY="35.0" mnemonicParsing="true" style="-fx-background-radius: 10; -fx-background-color: WHITE; -fx-padding: 5;" text="English" textOverrun="WORD_ELLIPSIS">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
          <font>
-            <Font size="14.0" />
-         </font></TextArea>
-      <TextArea fx:id="resultTextArea" layoutX="47.0" layoutY="330.0" prefHeight="204.0" prefWidth="593.0" promptText="Translation">
+            <Font name="System Bold" size="15.0" />
+         </font></MenuButton>
+      <AnchorPane layoutX="46.0" layoutY="95.0" prefHeight="170.0" prefWidth="591.0" style="-fx-background-color: WHITE; -fx-background-radius: 20; -fx-padding: 3;">
+         <children>
+            <TextArea fx:id="toBeTranslatedTextArea" layoutX="7.0" layoutY="5.0" prefHeight="159.0" prefWidth="578.0" style="-fx-border-color: WHITE; -fx-background-color: transparent;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextArea>
+            <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="7.0" layoutY="132.0" onMouseClicked="#paragraph_speech1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/speaker.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="46.0" layoutY="360.0" prefHeight="170.0" prefWidth="591.0" style="-fx-background-color: WHITE; -fx-background-radius: 20; -fx-padding: 3;">
+         <children>
+            <TextArea fx:id="resultTextArea" layoutX="7.0" layoutY="6.0" prefHeight="159.0" prefWidth="578.0" promptText="Translation" style="-fx-border-color: WHITE; -fx-background-color: transparent;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextArea>
+            <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="6.0" layoutY="131.0" onMouseClicked="#paragraph_speech2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/speaker.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <MenuButton fx:id="Menu_OutputLanguage" layoutX="46.0" layoutY="300.0" mnemonicParsing="true" style="-fx-background-radius: 10; -fx-background-color: WHITE; -fx-padding: 5;" text="Vietnamese" textOverrun="WORD_ELLIPSIS">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></TextArea>
-      <MenuButton fx:id="Menu_detectLanguage" layoutX="47.0" layoutY="35.0" mnemonicParsing="true" style="-fx-background-radius: 15;" text="English" textOverrun="WORD_ELLIPSIS">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></MenuButton>
-      <MenuButton fx:id="Menu_OutputLanguage" layoutX="47.0" layoutY="288.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-radius: 15;" text="Vietnamese" />
-      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="496.0" onMouseClicked="#paragraph_speech2" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/speaker.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="56.0" layoutY="220.0" onMouseClicked="#paragraph_speech1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/speaker.png" />
-         </image>
-      </ImageView>
+      </MenuButton>
    </children>
    <effect>
       <Blend />
