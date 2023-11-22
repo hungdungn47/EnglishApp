@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/EnglishApp/src</OriginalElement>
+  <nodes>
+    <node x="474.5" y="1528.0">com.example.englishapp.Game2</node>
+    <node x="1972.5" y="1157.0">com.example.englishapp.Utils</node>
+    <node x="816.5" y="1205.0">com.example.englishapp.Application</node>
+    <node x="891.0" y="2059.0">com.example.englishapp.GoogleTranslatorAPI</node>
+    <node x="1219.0" y="2059.0">com.example.englishapp.TextToSpeech</node>
+    <node x="-96.50000000000006" y="175.5">com.example.englishapp.Trie</node>
+    <node x="572.0" y="2059.0">com.example.englishapp.TranslateParagraph</node>
+    <node x="1045.5" y="1672.0">com.example.englishapp.add_or_delete</node>
+    <node x="1305.5" y="1660.0">com.example.englishapp.Signup</node>
+    <node x="-135.0" y="1157.0">com.example.englishapp.DailyRandomWordGenerator</node>
+    <node x="5.875" y="399.0">com.example.englishapp.Dictionary</node>
+    <node x="176.0" y="2059.0">com.example.englishapp.DictionaryCommandLine</node>
+    <node x="-18.125" y="734.0">com.example.englishapp.DictionaryManagement</node>
+    <node x="-135.0" y="-14.0">com.example.englishapp.Trie.TrieNode</node>
+    <node x="-135.0" y="2059.0">com.example.englishapp.GameData</node>
+    <node x="-113.5" y="1612.0">com.example.englishapp.StudyPage</node>
+    <node x="205.49999999999994" y="174.0">com.example.englishapp.Word</node>
+    <node x="818.5" y="1657.0">com.example.englishapp.Login</node>
+    <node x="1576.5" y="1468.0">com.example.englishapp.Game</node>
+    <node x="180.5" y="1516.0">com.example.englishapp.Controller</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.englishapp.Trie.TrieNode" target="com.example.englishapp.Trie" relationship="INNER_CLASS">
+      <point x="-119.66666666666669" y="69.0" />
+      <point x="-75.16666666666669" y="149.0" />
+      <point x="-49.50000000000006" y="149.0" />
+      <point x="-94.0" y="-81.0" />
+    </edge>
+    <edge source="com.example.englishapp.Dictionary" target="com.example.englishapp.Trie" relationship="CREATE">
+      <point x="0.0" y="-142.5" />
+      <point x="112.37500000000006" y="81.0" />
+    </edge>
+    <edge source="com.example.englishapp.Login" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="-15.0" y="-84.0" />
+      <point x="907.0" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Dictionary" target="com.example.englishapp.Trie" relationship="TO_ONE">
+      <point x="-112.37500000000006" y="-142.5" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="com.example.englishapp.Game" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-273.0" />
+      <point x="1752.0" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Game2" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-213.0" />
+      <point x="636.5" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Trie" target="com.example.englishapp.Trie.TrieNode" relationship="CREATE">
+      <point x="5.6843418860808015E-14" y="-81.0" />
+      <point x="0.0" y="69.0" />
+    </edge>
+    <edge source="com.example.englishapp.StudyPage" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-129.0" />
+      <point x="23.5" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Trie" target="com.example.englishapp.Trie.TrieNode" relationship="TO_ONE">
+      <point x="15.000000000000057" y="-81.0" />
+      <point x="15.0" y="69.0" />
+    </edge>
+    <edge source="com.example.englishapp.DictionaryManagement" target="com.example.englishapp.Dictionary" relationship="TO_ONE">
+      <point x="0.0" y="-189.0" />
+      <point x="0.0" y="142.5" />
+    </edge>
+    <edge source="com.example.englishapp.Signup" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-81.0" />
+      <point x="1431.0" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Controller" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-225.0" />
+      <point x="317.5" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.Dictionary" target="com.example.englishapp.Word" relationship="CREATE">
+      <point x="138.12499999999994" y="-142.5" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.add_or_delete" target="com.example.englishapp.Application" relationship="CREATE">
+      <point x="0.0" y="-69.0" />
+      <point x="1165.5" y="1477.0" />
+      <point x="708.5" y="1477.0" />
+      <point x="708.5" y="1443.0" />
+      <point x="922.0" y="1443.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.example.englishapp.StudyPage" target="com.example.englishapp.DailyRandomWordGenerator" relationship="CREATE">
+      <point x="-15.0" y="-129.0" />
+      <point x="-15.0" y="130.5" />
+    </edge>
+    <edge source="com.example.englishapp.DictionaryManagement" target="com.example.englishapp.Dictionary" relationship="CREATE">
+      <point x="15.0" y="-189.0" />
+      <point x="15.0" y="142.5" />
+    </edge>
+    <edge source="com.example.englishapp.Dictionary" target="com.example.englishapp.Word" relationship="TO_MANY">
+      <point x="123.12499999999994" y="-142.5" />
+      <point x="-15.0" y="82.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.8736147901019313" showDependencies="true" x="417.76894368815596" y="2191.815760119941" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
