@@ -25,6 +25,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+//nothing
 class GameData {
     private static GameData instance;
     private Map<String, Integer> history_score;
