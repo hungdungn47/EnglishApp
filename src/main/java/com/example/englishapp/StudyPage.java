@@ -178,6 +178,11 @@ public class StudyPage implements Initializable {
         }
     }
     public void pronounce() {
-        TextToSpeech.pronounce(selectedWord, "en");
+        if (DictionaryManagement.isEnglish(selectedWord)) {
+            TextToSpeech.pronounce(selectedWord, "en");
+        } else {
+            System.out.println(selectedWord);
+            TextToSpeech.pronounce(selectedWord, "vi");
+        }
     }
 }
