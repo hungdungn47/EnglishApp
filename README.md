@@ -23,6 +23,7 @@ This application can either be used as an English - Vietnamese dictionary or be 
 - Use a database to store username, password, recent words, favorite words, added words, deleted words, and updated words. 
 - API: Custom Translator API, Google Translate TTS API 
 ## UML Diagram
+<img src = "anh_diagram.png">
 ## Installation
 1. Clone this repository.
 2. Open the project in your IDE.
@@ -53,6 +54,7 @@ This application can either be used as an English - Vietnamese dictionary or be 
     - You can log out from your account.
 
 ## Demo
+[![Video demo](https://img.youtube.com/vi/kJU2Mo3BS7s/0.jpg)](https://www.youtube.com/watch?v=kJU2Mo3BS7s)
 ## Future improvements
 1. Add more dictionaries
 2. Improve UI and UX
