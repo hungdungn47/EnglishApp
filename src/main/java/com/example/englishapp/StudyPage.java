@@ -25,21 +25,23 @@ public class StudyPage implements Initializable {
     @FXML
     private WebView definitionWebView;
     @FXML
-    private VBox container;
+    private Button deleteButton;
+    @FXML
+    private Button pronounceButton;
     private String selectedWord;
     @FXML
     private ContextMenu delete = new ContextMenu();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        deleteButton.setVisible(false);
         changeToDailyWords();
         selectedWord = todayWords.get(0);
         String res = DictionaryManagement.dictionaryLookup(selectedWord, 2);
         definitionWebView.getEngine().loadContent(res, "text/html");
         dailyWordListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedWord = dailyWordListView.getSelectionModel().getSelectedItem();
-            if (selectedWord != null) {
-                container.setVisible(true);
+            if(selectedWord != null) {
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, 2);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
@@ -65,12 +67,9 @@ public class StudyPage implements Initializable {
         dailyWordListView.setFixedCellSize(50);
     }
 
-    public void vocabGame() throws IOException {
-        Application app = new Application();
-        app.changeScene("start_game2.fxml");
-    }
-
     public void changeToDailyWords() {
+        pronounceButton.setVisible(true);
+        deleteButton.setVisible(false);
         delete.getItems().clear();
         DailyRandomWordGenerator gen = new DailyRandomWordGenerator(DictionaryManagement.enViDic.getWordList());
         todayWords = gen.getDailyWords();
@@ -79,21 +78,19 @@ public class StudyPage implements Initializable {
     }
 
     public void changeToRecentWords() {
+        deleteButton.setVisible(true);
         delete.getItems().clear();
-        String filePath = "src/main/resources/data/RecentWords/" + Login.getUsername() + "RecentWords.txt";
-        todayWords = Utils.readWordListFromFile(filePath);
-        Collections.reverse(todayWords);
+        todayWords = Utils.getRecentWords(Login.getUsername());
         changeWordList();
-        label.setText("Recent words");
-    }
-
-    public void changeToFavoriteWords() {
-        delete.getItems().clear();
-        String filePath = "src/main/resources/data/favoriteWords/" + Login.getUsername() + "FavoriteWord.txt";
-        todayWords = Utils.readWordListFromFile(filePath);
-        Collections.reverse(todayWords);
-        changeWordList();
-        label.setText("Favorite words");
+        if(todayWords.isEmpty()) {
+            label.setText("You haven't looked up any word recently!");
+            pronounceButton.setVisible(false);
+            deleteButton.setVisible(false);
+        } else {
+            label.setText("Recent words");
+            pronounceButton.setVisible(true);
+            deleteButton.setVisible(true);
+        }
 
         MenuItem menuItem = new MenuItem("Delete");
         delete.getItems().add(menuItem);
@@ -108,19 +105,66 @@ public class StudyPage implements Initializable {
                 }
             });
             menuItem.setOnAction(event -> {
-                String word = dailyWordListView.getSelectionModel().getSelectedItem();
-                delete_favoriteWord(word);
+                todayWords.remove(selectedWord);
+                Utils.removeRecentWord(Login.getUsername(), selectedWord);
+                if(todayWords.isEmpty()) {
+                    label.setText("You haven't looked up any word recently!");
+                    pronounceButton.setVisible(false);
+                    deleteButton.setVisible(false);
+                }
                 changeWordList();
             });
             cell.textProperty().bind(cell.itemProperty());
             return cell;
         });
-
+        deleteButton.setOnAction(event -> {
+            todayWords.remove(selectedWord);
+            Utils.removeRecentWord(Login.getUsername(), selectedWord);
+            changeWordList();
+        });
     }
-    public void delete_favoriteWord(String word){
-        todayWords.remove(word);
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        DictionaryCommandLine.changeFavoriteWords(fileName, todayWords);
+
+    public void changeToFavoriteWords() {
+        deleteButton.setVisible(true);
+        delete.getItems().clear();
+        todayWords = Utils.getFavoriteWords(Login.getUsername());
+        Collections.reverse(todayWords);
+        changeWordList();
+        if(todayWords.isEmpty()) {
+            label.setText("There's no favorite word!");
+            pronounceButton.setVisible(false);
+            deleteButton.setVisible(false);
+        } else {
+            label.setText("Favorite words");
+            pronounceButton.setVisible(true);
+            deleteButton.setVisible(true);
+        }
+
+        MenuItem menuItem = new MenuItem("Delete");
+        delete.getItems().add(menuItem);
+        dailyWordListView.setCellFactory(lv -> {
+            ListCell<String> cell = new ListCell<>();
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(delete);
+                }
+            });
+            menuItem.setOnAction(event -> {
+                todayWords.remove(selectedWord);
+                Controller.removeFavoriteWord(selectedWord);
+                changeWordList();
+            });
+            cell.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        deleteButton.setOnAction(event -> {
+            todayWords.remove(selectedWord);
+            Controller.removeFavoriteWord(selectedWord);
+            changeWordList();
+        });
     }
     private void changeWordList() {
         dailyWordListView.getItems().clear();
@@ -132,5 +176,8 @@ public class StudyPage implements Initializable {
         } else {
             definitionWebView.getEngine().loadContent("");
         }
+    }
+    public void pronounce() {
+        TextToSpeech.pronounce(selectedWord, "en");
     }
 }

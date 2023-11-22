@@ -84,6 +84,8 @@ public class Controller implements Initializable {
     private Button logOutButton;
     @FXML
     private ImageView pronounceButton;
+    @FXML
+    private Button deleteButton;
     private final Image vietnamese = new Image(new File("src/main/resources/images/vietnam.png").toURI().toString());
     private final Image english = new Image(new File("src/main/resources/images/england.png").toURI().toString());
     private final Image blankHeart = new Image(new File("src/main/resources/images/love.png").toURI().toString());
@@ -92,21 +94,7 @@ public class Controller implements Initializable {
     private final Image editIcon = new Image(new File("src/main/resources/images/editing.png").toURI().toString());
     private String selectedWord;
     private int languageOptions;
-    private final List<String> favoriteWords = new ArrayList<>();
-
-    private void getFavoriteWords() {
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
-        try {
-            Scanner sc = new Scanner(new File(filePath));
-            while (sc.hasNextLine()) {
-                String tmp = sc.nextLine();
-                favoriteWords.add(tmp);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static List<String> favoriteWords = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -119,7 +107,9 @@ public class Controller implements Initializable {
         definitionEditor.setVisible(false);
         pronounceButton.setVisible(false);
         favoriteButton.setVisible(false);
+        deleteButton.setVisible(false);
         languageOptions = EN_TO_VI;
+        favoriteWords = Utils.getFavoriteWords(Login.getUsername());
         loadPage("studyPage");
         try {
             DictionaryManagement.readAddedAndDeletedWord();
@@ -130,11 +120,11 @@ public class Controller implements Initializable {
         DictionaryManagement.readUpdatedWord();
         word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
 
-        getFavoriteWords();
         word_list_listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             updateButton.setVisible(true);
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
+            deleteButton.setVisible(true);
             selectedWord = word_list_listView.getSelectionModel().getSelectedItem();
             if (selectedWord != null) {
                 if (!favoriteWords.contains(selectedWord)) {
@@ -142,12 +132,23 @@ public class Controller implements Initializable {
                 } else {
                     favoriteButton.setImage(redHeart);
                 }
-                DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+                Utils.insertRecentWord(Login.getUsername(), selectedWord);
                 String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
                 WebEngine webEngine = definitionWebView.getEngine();
                 webEngine.loadContent(result, "text/html");
                 definitionEditor.setHtmlText(result);
             }
+        });
+
+        deleteButton.setOnAction(event -> {
+            DictionaryManagement.delete_word(selectedWord);
+            word_list_listView.getItems().clear();
+            word_list_listView.getItems().addAll(DictionaryManagement.searchHint("", languageOptions));
+            updateButton.setVisible(false);
+            pronounceButton.setVisible(false);
+            favoriteButton.setVisible(false);
+            deleteButton.setVisible(false);
+            definitionWebView.getEngine().loadContent("", "text/html");
         });
 
         search_box.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -159,18 +160,21 @@ public class Controller implements Initializable {
         Tooltip study = new Tooltip("Study");
         Tooltip game = new Tooltip("Game");
         Tooltip translatePara = new Tooltip("Translate paragraph");
+        Tooltip logOut = new Tooltip("Log out");
 
         dictionary.setShowDelay(javafx.util.Duration.millis(10));
         swap.setShowDelay(javafx.util.Duration.millis(10));
         study.setShowDelay(javafx.util.Duration.millis(10));
         game.setShowDelay(javafx.util.Duration.millis(10));
         translatePara.setShowDelay(javafx.util.Duration.millis(10));
+        logOut.setShowDelay(javafx.util.Duration.millis(10));
 
         Tooltip.install(dictionaryButton, dictionary);
         Tooltip.install(changeLanguageButton, swap);
         Tooltip.install(transParaButton, translatePara);
         Tooltip.install(studyButton, study);
         Tooltip.install(gameButton, game);
+        Tooltip.install(logOutButton, logOut);
 
         addScaleTransition(dictionaryButton);
         addScaleTransition(transParaButton);
@@ -199,13 +203,17 @@ public class Controller implements Initializable {
     public void translate() {
         selectedWord = search_box.getText();
         if(!selectedWord.isEmpty()) {
-            DictionaryCommandLine.addToRecentList(Login.getUsername(), selectedWord);
+            Utils.insertRecentWord(Login.getUsername(), selectedWord);
             String result = DictionaryManagement.dictionaryLookup(selectedWord, languageOptions);
             WebEngine webEngine = definitionWebView.getEngine();
             webEngine.loadContent(result, "text/html");
             pronounceButton.setVisible(true);
             favoriteButton.setVisible(true);
         }
+    }
+    public static void removeFavoriteWord(String word) {
+        favoriteWords.remove(word);
+        Utils.removeFavoriteWord(Login.getUsername(), word);
     }
 
     public void translateParagraph() {
@@ -245,22 +253,8 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-    public void snakeGame() throws IOException {
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
-        Scanner sc = new Scanner(new File(filePath));
-        boolean check = !sc.hasNext();
-        Application app = new Application();
-        if (!check) {
-            app.changeScene("game.fxml");
-        } else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning_game_snake.fxml"));
-            Parent root1 = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Warning!");
-            stage.setScene(new Scene(root1));
-            stage.show();
-        }
+    public void game() throws IOException {
+        loadPage("chooseGame");
     }
 
     public void changeLanguage() {
@@ -289,20 +283,14 @@ public class Controller implements Initializable {
     }
 
     public void addToFavorite() {
-        if (favoriteButton.getImage() == redHeart) {
-            String fileName = Login.getUsername() + "FavoriteWord.txt";
-            if (selectedWord != null && favoriteWords.contains(selectedWord)) {
-                favoriteWords.remove(selectedWord);
-                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
-                favoriteButton.setImage(blankHeart);
-            }
+        if(selectedWord == null) return;
+        if (!favoriteWords.contains(selectedWord)) {
+            favoriteWords.add(selectedWord);
+            Utils.insertFavoriteWord(Login.getUsername(), selectedWord);
+            favoriteButton.setImage(redHeart);
         } else {
-            String fileName = Login.getUsername() + "FavoriteWord.txt";
-            if (selectedWord != null && !favoriteWords.contains(selectedWord)) {
-                favoriteWords.add(selectedWord);
-                DictionaryCommandLine.changeFavoriteWords(fileName, favoriteWords);
-                favoriteButton.setImage(redHeart);
-            }
+            removeFavoriteWord(selectedWord);
+            favoriteButton.setImage(blankHeart);
         }
     }
 
@@ -312,13 +300,12 @@ public class Controller implements Initializable {
             String editedContent = definitionEditor.getHtmlText();
             editedContent = editedContent.replaceAll(" contenteditable=\"true\"", "")
                                             .replaceAll(" dir=\"ltr\"", "");
-
-            String filePath = "src/main/resources/data/UpdatedWord/" + Login.getUsername() + "UpdatedWords.txt";
-            Utils.exportToFile(filePath, true, selectedWord, editedContent, "");
+            Utils.updateWord(Login.getUsername(), selectedWord, editedContent);
             definitionWebView.getEngine().loadContent(editedContent);
             definitionEditor.setVisible(false);
             definitionWebView.setVisible(true);
             iv.setImage(editIcon);
+            DictionaryManagement.readUpdatedWord();
         } else {
             definitionWebView.setVisible(false);
             definitionEditor.setVisible(true);

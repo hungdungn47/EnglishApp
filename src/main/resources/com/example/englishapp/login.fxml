@@ -15,14 +15,17 @@
    <children>
       <VBox layoutX="200.0" layoutY="80.0" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: white; -fx-alignment: Center; -fx-background-radius: 30; -fx-padding: 10;">
          <children>
-            <Label text="WELCOME" textFill="#272154">
+            <Label prefHeight="109.0" prefWidth="302.0" text="Ninja learning English" textAlignment="CENTER" textFill="#272154" wrapText="true">
                <font>
-                  <Font name="Franklin Gothic Medium Cond" size="50.0" />
+                  <Font name="Franklin Gothic Medium Cond" size="40.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="237.0">
+            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="380.0">
                <children>
-                  <Label fx:id="wrongPasswordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="221.0" style="-fx-wrap-text: true;" textFill="#ff5c5c" />
+                  <Label fx:id="wrongPasswordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="221.0" style="-fx-wrap-text: true;" textFill="#ff5c5c">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="378.0">

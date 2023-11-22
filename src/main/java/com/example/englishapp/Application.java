@@ -32,7 +32,7 @@ public class Application extends javafx.application.Application {
         }
         Parent fxmlLoader = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Scene scene = new Scene(fxmlLoader);
-        stage.setTitle("Dictionary application");
+        stage.setTitle("Ninja learning English");
         stage.setResizable(false);
         stage.setScene(scene);
         scene.setCursor(new ImageCursor(new Image(new File("src/main/resources/images/cursor.png").toURI().toString())));

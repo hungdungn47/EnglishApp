@@ -65,7 +65,7 @@ public class Game {
     String word_hidden = "";
     String word_origin = "";
     int temp = 0;
-    private final List<String> listfavoriteWords = new ArrayList<>();
+    private List<String> listfavoriteWords = new ArrayList<>();
     private final Map<String, Integer> History_score = new HashMap<>();
     private final MediaPlayer sound_game = new MediaPlayer(new Media(new File("src/main/resources/data/snake_game/music.mp3").toURI().toString()));
     private final AudioClip eat_sound = new AudioClip(new File("src/main/resources/data/snake_game/eat_sound.mp3").toURI().toString());
@@ -272,17 +272,18 @@ public class Game {
     }
 
     private void build_list_word() {
-        String fileName = Login.getUsername() + "FavoriteWord.txt";
-        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
-        try {
-            Scanner sc = new Scanner(new File(filePath));
-            while (sc.hasNextLine()) {
-                String tmp = sc.nextLine();
-                listfavoriteWords.add(tmp);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        listfavoriteWords = Utils.getFavoriteWords(Login.getUsername());
+//        String fileName = Login.getUsername() + "FavoriteWord.txt";
+//        String filePath = "src/main/resources/data/favoriteWords/" + fileName;
+//        try {
+//            Scanner sc = new Scanner(new File(filePath));
+//            while (sc.hasNextLine()) {
+//                String tmp = sc.nextLine();
+//                listfavoriteWords.add(tmp);
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void draw_words_to_complete(GraphicsContext gc) {

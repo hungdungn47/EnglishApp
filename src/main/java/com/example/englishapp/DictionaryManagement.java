@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 
 public class DictionaryManagement {
-    // store each language's word into a set in order to easily detect language
     public static Dictionary enViDic = new Dictionary();
     public static Dictionary viEnDic = new Dictionary();
 
@@ -35,42 +34,21 @@ public class DictionaryManagement {
         }
     }
     public static void readUpdatedWord() {
-        FileReader file = null;
-        try {
-            file = new FileReader("src/main/resources/data/UpdatedWord/" + Login.getUsername() + "UpdatedWords.txt");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        List<String[]> updatedWords = Utils.getUpdatedWords(Login.getUsername());
+        for(String[] word : updatedWords) {
+            enViDic.updateWord(word[0], word[1]);
+            viEnDic.updateWord(word[0], word[1]);
         }
-        BufferedReader br = new BufferedReader(file);
-        String line;
-        while (true) {
-            try {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String[] parts = line.split("<html>");
-            String word = parts[0];
-            String newDefinition = "<html>" + parts[1];
-            enViDic.updateWord(word, newDefinition);
-            viEnDic.updateWord(word, newDefinition);
-        }
+        System.out.println("read updated words");
     }
     public static void readAddedAndDeletedWord() throws IOException {
-        FileReader file2 = new FileReader("src/main/resources/data/WordDeleted/" + Login.getUsername() + "wordsDeleted.txt");
-        BufferedReader br = new BufferedReader(file2);
-        String line;
-        while ((line = br.readLine()) != null) {
-            enViDic.deleteWord(line);
+        List<String> deletedWords = Utils.getDeletedWords(Login.getUsername());
+        for(String s : deletedWords) {
+            enViDic.deleteWord(s);
         }
-        FileReader file = new FileReader("src/main/resources/data/WordAdded/" + Login.getUsername() + "wordsAdded.txt");
-        br = new BufferedReader(file);
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split(":");
-            String word = parts[0];
-            String definition = parts[1];
-
-            enViDic.addWord(word, definition);
+        List<String[]> addedWords = Utils.getAddedWords(Login.getUsername());
+        for(String[] parts : addedWords) {
+            enViDic.addWord(parts[0], parts[1]);
         }
     }
 
@@ -109,22 +87,12 @@ public class DictionaryManagement {
 
     public static void delete_word(String target) {
         enViDic.deleteWord(target);
-        update_worddeleted_file(Login.getUsername(), target);
+        Utils.deleteWord(Login.getUsername(), target);
     }
 
     public static void addWord(String target, String explain) {
         enViDic.addWord(target, explain);
-        update_wordadd_file(Login.getUsername(), target, explain);
-    }
-
-    public static void update_worddeleted_file(String user, String target) {
-        String filePath = "src/main/resources/data/WordDeleted/" + user + "wordsDeleted.txt";
-        Utils.exportToFile(filePath, true, target);
-    }
-
-    public static void update_wordadd_file(String user, String target, String explain) {
-        String filePath = "src/main/resources/data/WordAdded/" + user + "wordsAdded.txt";
-        Utils.exportToFile(filePath, true, target, explain, ":");
+        Utils.addWord(Login.getUsername(), target, explain);
     }
     public static String TranslateParagraph(String target, String lang_from, String lang_to){
         try {
