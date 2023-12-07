@@ -29,7 +29,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Game {
+public class Game implements IGame{
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -75,7 +75,6 @@ public class Game {
         Application app = new Application();
         app.changeScene("main-screen.fxml");
     }
-
     public void button_to_gameplay(ActionEvent event) throws IOException {
         Stage primaryStage = Application.myStage;
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
@@ -427,7 +426,7 @@ public class Game {
         gc.setFill(Color.valueOf("#9beafa"));
     }
 
-    private void insertScoreFromTxt() throws IOException {
+    public void insertScoreFromTxt() throws IOException {
         Scanner sc = new Scanner(new File("src/main/resources/data/snake_game/score.txt"));
         while (sc.hasNext()) {
             String line = sc.next();
@@ -444,7 +443,7 @@ public class Game {
         }
     }
 
-    private void ExportScoreToTxt() {
+    public void ExportScoreToTxt() {
         FileWriter fw = null;
         try {
             fw = new FileWriter("src/main/resources/data/snake_game/score.txt");
@@ -465,7 +464,7 @@ public class Game {
         }
     }
 
-    private void UpdateScore() {
+    public void UpdateScore() {
         String username = Login.getUsername();
         if (History_score.get(username) != null) {
             int temp = History_score.get(username);
