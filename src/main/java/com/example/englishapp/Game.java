@@ -354,12 +354,12 @@ public class Game {
             String gameoverImage = new File("src/main/resources/data/snake_game/gameover.png").toURI().toString();
             Image gameover = new Image(gameoverImage);
             gc.drawImage(gameover, WIDTH / 4, HEIGHT / 4, WIDTH / 2, HEIGHT / 2);
-            gc.setFill(Color.RED);
-            gc.setFont(new Font("Verdana", 20));
-            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3 - 25, 560);
-            gc.setFont(new Font("100px Tahoma", 35));
-            gc.setFill(Color.PINK);
-            gc.fillText("Điểm của bạn: " + score, WIDTH / 3 + 5, 500);
+            gc.setFill(Color.DARKBLUE);
+            gc.setFont(new Font("Times New Roman", 25));
+            gc.fillText("Ấn R để trở lại màn hình chính", WIDTH / 3 - 20, 560);
+            gc.setFont(new Font("Times New Roman", 35));
+            gc.setFill(Color.DARKBLUE);
+            gc.fillText("Điểm của bạn: " + score, WIDTH / 3 + 15, 500);
             PrintRanking();
         }
     }
@@ -424,7 +424,7 @@ public class Game {
     }
 
     private void setfilltaskbar(GraphicsContext gc) {
-        gc.setFill(Color.valueOf("EA91E2"));
+        gc.setFill(Color.valueOf("#9beafa"));
     }
 
     private void insertScoreFromTxt() throws IOException {
@@ -504,9 +504,9 @@ public class Game {
         }
         String score = "SCORE\n" + History_score.get(rank[0]) + "\n" + History_score.get(rank[1]) + "\n" + History_score.get(rank[2]);
         String user = "USER\n" + rank[0] + "\n" + rank[1] + "\n" + rank[2];
-        gc.setFill(Color.PINK);
-        gc.setFont(new Font("Comic sans MS", 17));
-        gc.fillText(user, 10, 25);
-        gc.fillText(score, 160, 25);
+        gc.setFill(Color.DARKBLUE);
+        gc.setFont(new Font("Times New Roman", 25));
+        gc.fillText(user, 20, 35);
+        gc.fillText(score, 200, 35);
     }
 }
