@@ -63,7 +63,7 @@ class GameData {
     }
 }
 
-public class Game2 {
+public class Game2 implements IGame {
     @FXML
     private Button next_button;
     @FXML
@@ -134,7 +134,7 @@ public class Game2 {
 
     public void gameOver() {
         clock.stop();
-        updateScore();
+        UpdateScore();
         try {
             insertScoreFromTxt();
         } catch (IOException e) {
@@ -290,7 +290,6 @@ public class Game2 {
         Application app = new Application();
         app.changeScene("main-screen.fxml");
     }
-
     private static List<String> getImageNames(String directoryPath, String subdirectoryName) {
         List<String> imageNames = new ArrayList<>();
         File subdirectory = new File(directoryPath, subdirectoryName);
@@ -414,7 +413,7 @@ public class Game2 {
         }
     }
 
-    private void insertScoreFromTxt() throws IOException {
+    public void insertScoreFromTxt() throws IOException {
         String filePath = "src/main/resources/data/learnWord/score.txt";
         Path path = Paths.get(filePath);
         List<String> lines = Files.readAllLines(path);
@@ -430,7 +429,7 @@ public class Game2 {
         }
     }
 
-    private void exportScoreToTxt() {
+    public void ExportScoreToTxt() {
         GameData gameData = GameData.getInstance();
         Map<String, Integer> historyScore = gameData.getHistoryScore();
         FileWriter fw = null;
@@ -455,23 +454,23 @@ public class Game2 {
         }
     }
 
-    private void updateScore() {
+    public void UpdateScore() {
         GameData gameData = GameData.getInstance();
         Map<String, Integer> historyScore = gameData.getHistoryScore();
         String username = Login.getUsername();
         if (historyScore.containsKey(username)) {
             int temp = historyScore.get(username);
             if (temp > current_score) {
-                exportScoreToTxt();
+                ExportScoreToTxt();
                 return;
             } else {
                 historyScore.put(username, current_score);
-                exportScoreToTxt();
+                ExportScoreToTxt();
                 return;
             }
         } else {
             historyScore.put(username, current_score);
-            exportScoreToTxt();
+            ExportScoreToTxt();
         }
     }
 }
