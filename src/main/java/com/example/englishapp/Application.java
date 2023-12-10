@@ -1,5 +1,6 @@
 package com.example.englishapp;
 
+import com.example.englishapp.dictionary.DictionaryManagement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
 import javafx.scene.Parent;

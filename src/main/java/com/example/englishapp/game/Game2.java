@@ -1,11 +1,12 @@
-package com.example.englishapp;
+package com.example.englishapp.game;
 
+import com.example.englishapp.Application;
+import com.example.englishapp.util.Login;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -23,7 +24,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 class GameData {
     private static GameData instance;

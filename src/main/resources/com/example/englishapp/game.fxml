@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.Game">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right bottom, #61d8de, #e839f6);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.englishapp.game.Game">
    <children>
       <VBox alignment="CENTER" layoutX="166.0" layoutY="89.0" prefHeight="421.0" prefWidth="468.0" style="-fx-background-color: rgba(255, 255, 255, 0.6); -fx-background-radius: 20; -fx-padding: 30;" stylesheets="@game.css">
          <children>

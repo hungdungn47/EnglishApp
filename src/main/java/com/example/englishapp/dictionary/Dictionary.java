@@ -1,9 +1,11 @@
-package com.example.englishapp;
+package com.example.englishapp.dictionary;
 
-import javax.print.DocFlavor;
+import com.example.englishapp.util.Trie;
+
+import java.io.IOException;
 import java.util.*;
 
-public class Dictionary {
+public abstract class Dictionary {
     private Trie searcher = new Trie();
     public Vector<Word> data = new Vector<Word>(1000);
     private final Map<String, Word> mp = new TreeMap<>();
@@ -69,4 +71,6 @@ public class Dictionary {
             mp.put(word, new Word(word, newDefinition));
         }
     }
+
+    public abstract void readDataFromHtml() throws IOException;
 }

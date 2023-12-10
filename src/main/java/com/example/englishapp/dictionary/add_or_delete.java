@@ -1,10 +1,10 @@
-package com.example.englishapp;
+package com.example.englishapp.dictionary;
 
+import com.example.englishapp.dictionary.DictionaryManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class add_or_delete {
@@ -22,9 +22,5 @@ public class add_or_delete {
     public void delete_word(ActionEvent event) {
         String word_delete = word_delete_textField.getText();
         DictionaryManagement.delete_word(word_delete);
-    }
-    public void return_back(ActionEvent event) throws IOException {
-        Application app = new Application();
-        app.changeScene("main-screen.fxml");
     }
 }

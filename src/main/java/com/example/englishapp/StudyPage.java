@@ -1,18 +1,16 @@
 package com.example.englishapp;
 
+import com.example.englishapp.dictionary.DictionaryManagement;
+import com.example.englishapp.util.DailyRandomWordGenerator;
+import com.example.englishapp.util.Login;
+import com.example.englishapp.util.TextToSpeech;
+import com.example.englishapp.util.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
