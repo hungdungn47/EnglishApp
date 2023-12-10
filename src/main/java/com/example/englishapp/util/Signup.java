@@ -1,4 +1,4 @@
-package com.example.englishapp;
+package com.example.englishapp.util;
 
 import com.example.englishapp.Application;
 import javafx.event.ActionEvent;
@@ -6,12 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import javax.swing.*;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Signup {
     @FXML
@@ -25,14 +23,11 @@ public class Signup {
     @FXML
     private Label wrongUsername;
     private Map<String, String> passwordsMap = new HashMap<>();
-    static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519";
-    static final String USER = "sql12662519";
-    static final String PASS = "EmA6Z8XLRD";
     public void signup(ActionEvent event) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String passwordConfirm = confirmPasswordField.getText();
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+        try (Connection conn = DatabaseConnector.connection) {
 
             // Kiểm tra xem tên người dùng mới đã tồn tại hay chưa
             String checkUserQuery = "SELECT * FROM userAccounts WHERE username = ?";

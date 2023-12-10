@@ -1,18 +1,16 @@
 package com.example.englishapp;
 
-import javafx.event.ActionEvent;
+import com.example.englishapp.dictionary.DictionaryManagement;
+import com.example.englishapp.util.TextToSpeech;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 

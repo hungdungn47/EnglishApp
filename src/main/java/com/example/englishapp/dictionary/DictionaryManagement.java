@@ -1,11 +1,16 @@
-package com.example.englishapp;
+package com.example.englishapp.dictionary;
+
+import com.example.englishapp.Controller;
+import com.example.englishapp.util.GoogleTranslatorAPI;
+import com.example.englishapp.util.Login;
+import com.example.englishapp.util.Utils;
 
 import java.io.*;
 import java.util.*;
 
 public class DictionaryManagement {
-    public static Dictionary enViDic = new Dictionary();
-    public static Dictionary viEnDic = new Dictionary();
+    public static com.example.englishapp.dictionary.Dictionary enViDic = new EnglishVietnameseDictionary();
+    public static Dictionary viEnDic = new VietnameseEnglishDictionary();
 
     /**
      * import data from text file.
@@ -13,26 +18,26 @@ public class DictionaryManagement {
      * @throws FileNotFoundException when cannot find the file
      */
     public static void insertFromFile() throws IOException {
-        readDataFromHtml("E_V.txt");
-        readDataFromHtml("V_E.txt");
+        enViDic.readDataFromHtml();
+        viEnDic.readDataFromHtml();
     }
 
-    public static void readDataFromHtml(String fileName) throws IOException {
-        FileReader file = new FileReader("src/main/resources/data/" + fileName);
-        BufferedReader br = new BufferedReader(file);
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split("<html>");
-            String word = parts[0];
-            String definition = "<html>" + parts[1];
-
-            if (Objects.equals(fileName, "E_V.txt")) {
-                enViDic.addWord(word, definition);
-            } else {
-                viEnDic.addWord(word, definition);
-            }
-        }
-    }
+//    public static void readDataFromHtml(String fileName) throws IOException {
+//        FileReader file = new FileReader("src/main/resources/data/" + fileName);
+//        BufferedReader br = new BufferedReader(file);
+//        String line;
+//        while ((line = br.readLine()) != null) {
+//            String[] parts = line.split("<html>");
+//            String word = parts[0];
+//            String definition = "<html>" + parts[1];
+//
+//            if (Objects.equals(fileName, "E_V.txt")) {
+//                enViDic.addWord(word, definition);
+//            } else {
+//                viEnDic.addWord(word, definition);
+//            }
+//        }
+//    }
     public static void readUpdatedWord() {
         List<String[]> updatedWords = Utils.getUpdatedWords(Login.getUsername());
         for(String[] word : updatedWords) {
