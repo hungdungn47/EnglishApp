@@ -1,5 +1,9 @@
-package com.example.englishapp;
+package com.example.englishapp.game;
 
+import com.example.englishapp.Application;
+import com.example.englishapp.dictionary.DictionaryManagement;
+import com.example.englishapp.util.Login;
+import com.example.englishapp.util.Utils;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,14 +26,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Game implements IGame{
+public class Game implements IGame {
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;

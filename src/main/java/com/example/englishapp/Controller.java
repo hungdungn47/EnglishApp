@@ -1,7 +1,10 @@
 package com.example.englishapp;
 
+import com.example.englishapp.dictionary.DictionaryManagement;
+import com.example.englishapp.util.Login;
+import com.example.englishapp.util.TextToSpeech;
+import com.example.englishapp.util.Utils;
 import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,12 +17,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -28,14 +29,10 @@ import java.util.logging.Level;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.scene.effect.ColorAdjust;
 
 import java.util.logging.Logger;
 
 import javafx.util.Duration;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Whitelist;
 
 public class Controller implements Initializable {
     public static final int EN_TO_VI = 0;
