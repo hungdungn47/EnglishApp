@@ -8,13 +8,27 @@ public class DatabaseConnector {
     static final String DB_URL = "jdbc:mysql://sql12.freesqldatabase.com/sql12662519";
     static final String USER = "sql12662519";
     static final String PASS = "EmA6Z8XLRD";
-    static final Connection connection;
+    private static Connection connection = null;
 
-    static {
+    protected static Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    protected static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

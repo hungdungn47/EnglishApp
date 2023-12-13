@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Signup {
+public class Signup extends DatabaseConnector {
     @FXML
     private TextField usernameField;
     @FXML
@@ -27,7 +27,7 @@ public class Signup {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String passwordConfirm = confirmPasswordField.getText();
-        try (Connection conn = DatabaseConnector.connection) {
+        try (Connection conn = getConnection()) {
 
             // Kiểm tra xem tên người dùng mới đã tồn tại hay chưa
             String checkUserQuery = "SELECT * FROM userAccounts WHERE username = ?";

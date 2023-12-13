@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 
-public class Login {
+public class Login extends DatabaseConnector {
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -21,7 +21,7 @@ public class Login {
     private static String password;
     public void login(ActionEvent event) throws IOException {
         Application app = new Application();
-        try (Connection conn = DatabaseConnector.connection) {
+        try (Connection conn = getConnection()) {
             username = usernameTextField.getText();
             password = passwordTextField.getText();
 
