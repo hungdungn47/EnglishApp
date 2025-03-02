@@ -24,10 +24,12 @@ This application can either be used as an English - Vietnamese dictionary or be 
 - API: Custom Translator API, Google Translate TTS API 
 ## UML Diagram
 <img src = "anh_diagram.png">
+
 ## Installation
 1. Clone this repository.
 2. Open the project in your IDE.
 3. Run the project.
+   
 ## How to use
 1. Study page
     - Daily words: 5 new words a day
